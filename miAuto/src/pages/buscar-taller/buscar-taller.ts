@@ -47,7 +47,12 @@ placedetails: any;
 }
 
 private initMap() {
-  var point = {lat: 19.316407, lng: -99.163486}; 
+  this.geolocation.getCurrentPosition().then((position) => {
+  console.log('Esta inicializando el mapa ');
+  console.log(position.coords.latitude);
+  console.log(position.coords.longitude);
+
+  var point = {lat: position.coords.latitude, lng: position.coords.longitude }; 
   let divMap = (<HTMLInputElement>document.getElementById('map'));
   this.mapa = new google.maps.Map(divMap, {
       center: point,
@@ -55,7 +60,32 @@ private initMap() {
       disableDefaultUI: true,
       draggable: false,
       zoomControl: true
-  });
+  },(error)=>{
+    console.log(error);
+    let alert = this.alertCtrl.create({
+      title: 'Error',
+      subTitle: error,
+      buttons: ['OK']
+    });
+    alert.present();
+});
+// position: {
+//   lat: place.geometry.location.lat(),
+//   lng: place.geometry.location.lng()
+// }
+
+var marker = new google.maps.Marker({
+  map:this.mapa,
+  position: {
+    lat: position.coords.latitude,
+    lng: position.coords.longitude
+  }
+});    
+//marker.setMap(this.mapa);
+this.markers.push(marker);
+
+})
+
 }
 
 private initPlacedetails() {
@@ -225,16 +255,39 @@ private getPlaceDetail(place_id:string):void {
             buttons: ['OK']
           });
           alert.present();
-      })
+      });
     }
 
     private createMapMarker(place:any):void {
+
       var placeLoc = place.geometry.location;
-      // var marker = new google.maps.Marker({
-      //   map: this.mapa,
-      //   position: placeLoc
-      // });    
-      // this.markers.push(marker);
+
+      console.log('marker');
+      console.log(marker);
+
+      if(this.markers && this.markers.length > 0){
+        console.log('si hay uno');
+
+        
+        this.markers[0].setMap(null);
+        var marker = new google.maps.Marker({
+          map: this.mapa,
+          position: placeLoc
+        });    
+        this.markers.push(marker);
+
+
+        this.markers.forEach((value,idx)=>{
+          this.markers.splice(idx,1);
+        });
+      }else{
+        console.log('no hay nada');
+        var marker = new google.maps.Marker({
+          map: this.mapa,
+          position: placeLoc
+        });    
+        this.markers.push(marker);
+      }
   }
 
       public buscarDireccion(){

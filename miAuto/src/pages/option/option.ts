@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { CallNumber } from '@ionic-native/call-number';
 import { NavController, NavParams } from 'ionic-angular';
 import { MantenimientoPage } from '../mantenimiento/mantenimiento';
+import { AccidenteRoboPage } from '../accidente-robo/accidente-robo';
+import { ControlDocumentalPage } from '../control-documental/control-documental';
 
 @Component({
   selector: 'page-option',
@@ -12,6 +14,14 @@ export class OptionPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private callNumber: CallNumber) {
     this.unidadSeleccionada = navParams.get('unidad');
+  }
+
+  showAccidenteRobo(){
+    this.navCtrl.push(AccidenteRoboPage,{unidadSeleccionada: this.unidadSeleccionada});
+  }
+
+  showControlDocumental(){
+    this.navCtrl.push(ControlDocumentalPage,{unidadSeleccionada: this.unidadSeleccionada});
   }
 
   showMantenimiento(){

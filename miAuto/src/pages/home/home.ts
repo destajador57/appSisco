@@ -25,7 +25,7 @@ export class HomePage {
     this.unidades = [];
     this.unidades.push({nombre:'Chevrolet AVEO 2017',descripcion:'Este automovil esta casi nuevo',revision:1});
 	
-	this.userService.getUserId('super.cadereyta','PW1ZngDb')
+	this.userService.Loguea('super.cadereyta','PW1ZngDb')
     .subscribe(
       (data) => { // Success
         this.users = data.idUsuario;

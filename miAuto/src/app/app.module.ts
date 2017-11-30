@@ -12,12 +12,16 @@ import { MantenimientoPage } from '../pages/mantenimiento/mantenimiento';
 import { ServicioPage } from '../pages/servicio/servicio';
 import { BuscarTallerPage } from '../pages/buscar-taller/buscar-taller';
 import { AutoCompletadoPage } from '../pages/auto-completado/auto-completado';
+import { AccidenteRoboPage } from '../pages/accidente-robo/accidente-robo';
+import { ControlDocumentalPage } from '../pages/control-documental/control-documental';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { CallNumber } from '@ionic-native/call-number';
 import { GoogleMaps } from '@ionic-native/google-maps';
 import { Geolocation } from '@ionic-native/geolocation';
+import { FileTransfer } from '@ionic-native/file-transfer';
+import { File } from '@ionic-native/file';
 
 import { AmChartsModule } from "@amcharts/amcharts3-angular";
 import { UserServiceProvider } from '../providers/user-service/user-service';
@@ -32,7 +36,9 @@ import { UserServiceProvider } from '../providers/user-service/user-service';
     MantenimientoPage,
     ServicioPage,
     BuscarTallerPage,
-    AutoCompletadoPage
+    AutoCompletadoPage,
+    AccidenteRoboPage,
+    ControlDocumentalPage
   ],
   imports: [
     BrowserModule,
@@ -50,7 +56,9 @@ import { UserServiceProvider } from '../providers/user-service/user-service';
     MantenimientoPage,
     ServicioPage,
     BuscarTallerPage,
-    AutoCompletadoPage
+    AutoCompletadoPage,
+    AccidenteRoboPage,
+    ControlDocumentalPage
   ],
   providers: [
     StatusBar,
@@ -58,8 +66,10 @@ import { UserServiceProvider } from '../providers/user-service/user-service';
     CallNumber,
     GoogleMaps,
     Geolocation,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
-    UserServiceProvider
+    UserServiceProvider,
+    File,
+    FileTransfer,
+    {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
 export class AppModule {}
