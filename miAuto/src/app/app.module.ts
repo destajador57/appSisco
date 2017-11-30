@@ -11,6 +11,8 @@ import { MantenimientoPage } from '../pages/mantenimiento/mantenimiento';
 import { ServicioPage } from '../pages/servicio/servicio';
 import { BuscarTallerPage } from '../pages/buscar-taller/buscar-taller';
 import { AutoCompletadoPage } from '../pages/auto-completado/auto-completado';
+import { AccidenteRoboPage } from '../pages/accidente-robo/accidente-robo';
+import { ControlDocumentalPage } from '../pages/control-documental/control-documental';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -30,7 +32,9 @@ import { AmChartsModule } from "@amcharts/amcharts3-angular";
     MantenimientoPage,
     ServicioPage,
     BuscarTallerPage,
-    AutoCompletadoPage
+    AutoCompletadoPage,
+    AccidenteRoboPage,
+    ControlDocumentalPage
   ],
   imports: [
     BrowserModule,
@@ -47,7 +51,9 @@ import { AmChartsModule } from "@amcharts/amcharts3-angular";
     MantenimientoPage,
     ServicioPage,
     BuscarTallerPage,
-    AutoCompletadoPage
+    AutoCompletadoPage,
+    AccidenteRoboPage,
+    ControlDocumentalPage
   ],
   providers: [
     StatusBar,

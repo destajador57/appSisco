@@ -1,0 +1,53 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Control documental</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+    <ion-row>
+        <ion-col>
+            <ion-card text-center>
+                <ion-icon color="secondary" class="archivo" (click)="descargar(documento.placas)" name="image"></ion-icon>
+                <div class="card-title">Placas</div>
+              </ion-card>
+      </ion-col>
+      <ion-col>
+          <ion-card text-center>
+              <ion-icon color="secondary" class="archivo" (click)="descargar(documento.tenencia)" name="image"></ion-icon>
+              <div class="card-title">Tenencia o refrendo</div>
+            </ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col>
+            <ion-card text-center>
+                <ion-icon color="danger" class="archivo" (click)="descargar(documento.verificacion)" name="image"></ion-icon>
+                <div class="card-title">Verificación</div>
+              </ion-card>
+      </ion-col>
+      <ion-col>
+          <ion-card text-center>
+              <ion-icon color="secondary" class="archivo" (click)="descargar(documento.poliza)" name="image"></ion-icon>
+              <div class="card-title">Poliza de seguro</div>
+            </ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col>
+            <ion-card text-center>
+                <ion-icon color="secondary" class="archivo" (click)="descargar(documento.circulacion)" name="image"></ion-icon>
+                <div class="card-title">Tarjeta de circulación</div>
+              </ion-card>
+      </ion-col>
+      <ion-col>
+          <ion-card text-center>
+              <ion-icon color="danger" class="archivo" (click)="descargar(documento.multas)" name="image"></ion-icon>
+              <div class="card-title">Multas</div>
+            </ion-card>
+      </ion-col>
+    </ion-row>
+</ion-content>
