@@ -19,6 +19,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { CallNumber } from '@ionic-native/call-number';
 import { GoogleMaps } from '@ionic-native/google-maps';
 import { Geolocation } from '@ionic-native/geolocation';
+import { FileTransfer } from '@ionic-native/file-transfer';
+import { File } from '@ionic-native/file';
 
 import { AmChartsModule } from "@amcharts/amcharts3-angular";
 
@@ -61,6 +63,8 @@ import { AmChartsModule } from "@amcharts/amcharts3-angular";
     CallNumber,
     GoogleMaps,
     Geolocation,
+    File,
+    FileTransfer,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
