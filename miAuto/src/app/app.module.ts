@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { HttpClientModule } from '@angular/common/http';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -19,6 +20,7 @@ import { GoogleMaps } from '@ionic-native/google-maps';
 import { Geolocation } from '@ionic-native/geolocation';
 
 import { AmChartsModule } from "@amcharts/amcharts3-angular";
+import { UserServiceProvider } from '../providers/user-service/user-service';
 
 @NgModule({
   declarations: [
@@ -34,6 +36,7 @@ import { AmChartsModule } from "@amcharts/amcharts3-angular";
   ],
   imports: [
     BrowserModule,
+	HttpClientModule,
     AmChartsModule,
     IonicModule.forRoot(MyApp),
   ],
@@ -55,7 +58,8 @@ import { AmChartsModule } from "@amcharts/amcharts3-angular";
     CallNumber,
     GoogleMaps,
     Geolocation,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    UserServiceProvider
   ]
 })
 export class AppModule {}
