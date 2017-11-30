@@ -12,7 +12,7 @@
             <button ion-button class="register-btn" (click)="buscarDireccion()" full type="button" *ngIf="direccion != null">Buscar</button>
         </ion-col>
       </ion-row> -->
-      <div id="map"></div>
+      
     
     <ion-list>
         <ion-item margin>
@@ -21,11 +21,11 @@
                 [(ngModel)]="address.place">
             </ion-input>
         </ion-item>
-        <ion-item *ngIf="address.set==true">
+        <!-- <ion-item *ngIf="address.set==true">
             <ion-icon name="pin" item-left></ion-icon>
             <h3>Direccion</h3>
             <p>{{ placedetails.address }}</p>
-            <!-- <h3>Street name</h3>
+            <h3>Street name</h3>
             <p>{{ placedetails.components.route.long }}</p>
             <h3>Street number</h3>
             <p>{{ placedetails.components.street_number.long }}</p>
@@ -36,9 +36,10 @@
             <h3>City</h3>
             <p>{{ placedetails.components.locality.long }}</p>     
             <h3>Location geometry</h3>
-            <p>{{ placedetails.lat }}, {{ placedetails.lng }}</p>                                            -->
-        </ion-item>
+            <p>{{ placedetails.lat }}, {{ placedetails.lng }}</p>                                           
+        </ion-item> -->
     </ion-list>
+    <div id="map"></div>
     <div id="map_canvas"></div>
     <!-- <ion-row>
         <ion-col>

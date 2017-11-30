@@ -48,10 +48,12 @@ updateSearch() {
   }
   this.acService.getPlacePredictions(config, function (predictions, status) {
       console.log('modal > getPlacePredictions > status > ', status);
-      self.direccionesAutoCompletadas = [];            
-      predictions.forEach(function (prediction) {              
+      self.direccionesAutoCompletadas = [];  
+      if(predictions && predictions.length> 0){
+        predictions.forEach(function (prediction) {              
           self.direccionesAutoCompletadas.push(prediction);
       });
+      }          
   });
 }
 
