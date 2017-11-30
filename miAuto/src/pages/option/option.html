@@ -1,0 +1,40 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{ unidadSeleccionada.nombre }}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding class="lista-opciones">
+  <ion-list>
+    <button ion-item class="lista-opcion">
+      Accidente/Robo
+      <div class="item-note hide" item-end>
+        {{unidadSeleccionada.descripcion}}
+      </div>
+      <ion-icon name="car" item-end></ion-icon>
+    </button>
+    <button ion-item class="lista-opcion">
+      Control documental
+      <div class="item-note hide" item-end>
+        {{unidadSeleccionada.descripcion}}
+      </div>
+      <ion-icon name="document" item-end></ion-icon>
+    </button>
+    <button ion-item class="lista-opcion" (click)="showMantenimiento()">
+      Mantenimiento
+      <div class="item-note hide" item-end>
+        {{unidadSeleccionada.descripcion}}
+      </div>
+      <ion-icon name="build" item-end></ion-icon>
+    </button>
+  </ion-list>
+</ion-content>
+<ion-footer text-center class="pie">
+    <ion-icon name="call" class="color-icono"></ion-icon>
+    <button ion-button (click)="llamarCallCenter()" class="register-btn" type="button" block clear>
+      Llamar al call center.
+    </button>
+  </ion-footer>

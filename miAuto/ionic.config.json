@@ -1,0 +1,8 @@
+{
+  "name": "miAuto",
+  "app_id": "16896273",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
+}

@@ -1,0 +1,19 @@
+page-buscar-taller {
+    #map_canvas{
+        display: block;
+        height: 45%;
+        width: 100%;
+      }
+      #map{
+        display: none;
+        height: 0%;
+        width: 0%;
+      }
+    .pie{
+        background-color: #2952a3;
+        color: white;
+    }
+    .pie button{
+        color: white;
+    }
+}
