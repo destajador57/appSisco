@@ -9,33 +9,46 @@ import { UserServiceProvider } from '../../providers/user-service/user-service';
   templateUrl: 'home.html'
 })
 export class HomePage {
-
+ 
   users: any; //
   
   elementoSeleccionado: any;
-  unidades: Array<{nombre: string, descripcion: string, revision: number}>;
+  unidades: Array<{nombre: string}>;
+  placas: any;
+  vin: any;
+  modelo: any;
+  nombreMarca: any;
+  //unidades: Array<{nombre: string, descripcion: string, revision: number}>;
 
   constructor(public navCtrl: NavController, 
 			  public navParams: NavParams, 
 			  private callNumber:CallNumber,
 			  public userService: UserServiceProvider) {
-
+	this.unidades = [];
     this.elementoSeleccionado = navParams.get('unidad');
-
-    this.unidades = [];
-    this.unidades.push({nombre:'Chevrolet AVEO 2017',descripcion:'Este automovil esta casi nuevo',revision:1});
+	this.users = navParams.get('idUsuario');
+    
 	
-	this.userService.Loguea('super.cadereyta','PW1ZngDb')
+	this.userService.GetUnidades(this.users)
     .subscribe(
-      (data) => { // Success
-        this.users = data.idUsuario;
-		console.log( this.users);
-      },
-      (error) =>{
-        console.error(error);
-      }
-    )
+		(data) => { // Success
+		
+			this.unidades.push({
+				nombre: data[0].nombreSubMarca
+			});
+			
+			this.placas= data[0].placas; 
+			this.vin= data[0].vin;
+			this.modelo= data[0].modelo;
+			this.nombreMarca= data[0].nombreMarca;
+			
+		},
+		(error) =>{
+			console.error(error);
+		}
+	);
 	
+    
   }
 
   public showOptions(unidad){

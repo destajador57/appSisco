@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { CallNumber } from '@ionic-native/call-number';
 import { NavController, NavParams, AlertController, LoadingController, Loading } from 'ionic-angular';
 import { HomePage } from '../home/home';
+import { Registra } from '../registra/registra';
+import { UserServiceProvider } from '../../providers/user-service/user-service';
 
 @Component({
   selector: 'page-login',
@@ -12,20 +14,34 @@ export class LoginPage {
   loading: Loading;
   usuario = {email: '', password: ''};
 
-  constructor(public navCtrl: NavController, private callNumber: CallNumber, private alertCtrl: AlertController, private loadingCtrl: LoadingController) {
+  constructor(public navCtrl: NavController, private callNumber: CallNumber, private alertCtrl: AlertController, private loadingCtrl: LoadingController,public userService: UserServiceProvider) {
   }
 
   public recuperarContrasena(){
     this.mostrarError("Aun no funciona.");
   }
 
+  public registrarse(){
+	
+  }
+  
   public login(){
     this.mostrarCarga();
-    if(this.usuario.email == 'usuario'){
-      this.navCtrl.setRoot(HomePage);
-    } else {
-      this.mostrarError("El usuario o contraseña es incorrecto.");
-    }
+	
+	this.userService.Loguea(this.usuario.email,this.usuario.password)
+    .subscribe(
+		(data) => { // Success
+			if(data.idUsuario !='' && data.idUsuario != '0'){
+				this.navCtrl.setRoot(HomePage,{ idUsuario: data.idUsuario});
+			}else{
+				this.mostrarError(data.Msj);
+			}
+		},
+		(error) =>{
+			this.mostrarError("El usuario o contraseña es incorrecto.");
+		}
+	);
+    
     this.loading.dismiss();
   }
 

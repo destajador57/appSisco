@@ -11,9 +11,6 @@
     <ion-list>
       <button ion-item *ngFor="let unidad of unidades" (click)="showOptions(unidad)">
         {{unidad.nombre}}
-        <div class="item-note hide" item-end>
-          {{unidad.descripcion}}
-        </div>
         <ion-icon name="arrow-forward" item-end></ion-icon>
         <!-- <ion-icon [name]="item.icon" item-start></ion-icon> -->
       </button>
@@ -21,7 +18,29 @@
     <div *ngIf="elementoSeleccionado" padding>
       You navigated here from <b>{{elementoSeleccionado.nombre}}</b>
     </div>
-	<p>{{ users }}</p>
+	<ion-list >
+	  <ion-item class="item-icon-left">
+		<i class="icon ion-email"></i>
+		<b>Placas:</b> {{placas}}
+	  </ion-item>
+
+	  <ion-item class="item-icon-left item-icon-right">
+		<i class="icon ion-chatbubble-working"></i>
+		<b>Vin:</b> {{vin}}
+		<i class="icon ion-ios-telephone-outline"></i>
+	  </ion-item>
+
+	  <ion-item class="item-icon-left">
+		<i class="icon ion-mic-a"></i>
+		<b>Modelo:</b> {{modelo}}
+	  </ion-item>
+
+	  <ion-item class="item-icon-left">
+		<i class="icon ion-person-stalker"></i>
+		<b>Marca:</b> {{nombreMarca}}
+	  </ion-item>
+	  
+	</ion-list>
 	
   </ion-content>
   <ion-footer text-center class="pie">

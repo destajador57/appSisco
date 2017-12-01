@@ -12,7 +12,10 @@ import { ControlDocumentalPage } from '../control-documental/control-documental'
 export class OptionPage {
   unidadSeleccionada: {nombre: string, descripcion: string, revision: number};
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private callNumber: CallNumber) {
+  constructor(
+		public navCtrl: NavController, 
+		public navParams: NavParams, 
+		private callNumber: CallNumber) {
     this.unidadSeleccionada = navParams.get('unidad');
   }
 
