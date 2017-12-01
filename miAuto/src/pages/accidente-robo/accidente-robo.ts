@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CallNumber } from '@ionic-native/call-number';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { LoginPage } from '../login/login';
 
 @IonicPage()
 @Component({
@@ -22,4 +23,9 @@ export class AccidenteRoboPage {
     .catch(()=> console.log('fallo la llamada'));
   }
 
+  salir(){
+    //this.rootPage = LoginPage;
+    this.navCtrl.setRoot(LoginPage);
+    console.log('deberia funcioan');
+  };
 }

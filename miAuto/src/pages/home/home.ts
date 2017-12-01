@@ -3,6 +3,7 @@ import { CallNumber } from '@ionic-native/call-number';
 import { NavController, NavParams } from 'ionic-angular';
 import { OptionPage } from '../option/option';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
+import { LoginPage } from '../login/login';
 
 @Component({
   selector: 'page-home',
@@ -58,5 +59,11 @@ export class HomePage {
     this.callNumber.callNumber('5575839991', true)
     .then(()=> console.log('Esta llamando a call center'))
     .catch(()=> console.log('fallo la llamada'));
+  };
+
+  salir(){
+    //this.rootPage = LoginPage;
+    this.navCtrl.setRoot(LoginPage);
+    console.log('deberia funcioan');
   };
 }

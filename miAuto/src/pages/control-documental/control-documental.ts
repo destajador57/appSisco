@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, Platform, NavParams, AlertController } from 'ionic-angular';
 import { DocumentoPage } from '../documento/documento';
+import { LoginPage } from '../login/login';
 
 declare var cordova: any;
 
@@ -32,4 +33,10 @@ export class ControlDocumentalPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad ControlDocumentalPage');
   }
+
+  salir(){
+    //this.rootPage = LoginPage;
+    this.navCtrl.setRoot(LoginPage);
+    console.log('deberia funcioan');
+  };
 }

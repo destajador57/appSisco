@@ -4,6 +4,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AmChartsService, AmChart } from "@amcharts/amcharts3-angular";
 import { ServicioPage } from '../servicio/servicio';
 import { BuscarTallerPage } from '../buscar-taller/buscar-taller';
+import { LoginPage } from '../login/login';
 
 @IonicPage()
 @Component({
@@ -92,4 +93,10 @@ export class MantenimientoPage {
     .then(()=> console.log('Esta llamando a call center'))
     .catch(()=> console.log('fallo la llamada'));
   }
+
+  salir(){
+    //this.rootPage = LoginPage;
+    this.navCtrl.setRoot(LoginPage);
+    console.log('deberia funcioan');
+  };
 }

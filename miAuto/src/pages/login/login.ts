@@ -17,7 +17,7 @@ export class LoginPage {
   }
 
   public recuperarContrasena(){
-    this.mostrarError("Aun no funciona.");
+    this.mostrarError("Aun no funciona");
   }
 
   public registrarse(){
@@ -29,12 +29,14 @@ export class LoginPage {
 	
 	this.userService.Loguea(this.usuario.email,this.usuario.password)
     .subscribe(
-		(data) => { // Success
-			if(data.idUsuario !='' && data.idUsuario != '0'){
-				this.navCtrl.setRoot(HomePage,{ idUsuario: data.idUsuario});
-			}else{
-				this.mostrarError(data.Msj);
-			}
+    (data) => { // Success
+      if(data){
+        if(data.idUsuario !='' && data.idUsuario != '0'){
+          this.navCtrl.setRoot(HomePage,{ idUsuario: data.idUsuario});
+        }else{
+          this.mostrarError(data.Msj);
+        }
+      }
 		},
 		(error) =>{
 			this.mostrarError("El usuario o contraseña es incorrecto.");

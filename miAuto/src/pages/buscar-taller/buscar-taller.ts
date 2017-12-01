@@ -12,6 +12,7 @@ import {
   Marker
 } from '@ionic-native/google-maps';
 import { AutoCompletadoPage } from '../auto-completado/auto-completado';
+import { LoginPage } from '../login/login';
 
 declare var google:any;
 
@@ -307,4 +308,9 @@ private getPlaceDetail(place_id:string):void {
     .catch(()=> console.log('fallo la llamada'));
   }
 
+salir(){
+    //this.rootPage = LoginPage;
+    this.navCtrl.setRoot(LoginPage);
+    console.log('deberia funcioan');
+  };
 }
