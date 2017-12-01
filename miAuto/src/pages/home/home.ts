@@ -47,8 +47,6 @@ export class HomePage {
 			console.error(error);
 		}
 	);
-	
-    
   }
 
   public showOptions(unidad){

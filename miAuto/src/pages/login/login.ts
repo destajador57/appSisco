@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { CallNumber } from '@ionic-native/call-number';
 import { NavController, NavParams, AlertController, LoadingController, Loading } from 'ionic-angular';
 import { HomePage } from '../home/home';
-import { Registra } from '../registra/registra';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 
 @Component({

@@ -14,6 +14,7 @@ import { BuscarTallerPage } from '../pages/buscar-taller/buscar-taller';
 import { AutoCompletadoPage } from '../pages/auto-completado/auto-completado';
 import { AccidenteRoboPage } from '../pages/accidente-robo/accidente-robo';
 import { ControlDocumentalPage } from '../pages/control-documental/control-documental';
+import { DocumentoPage } from '../pages/documento/documento';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -22,6 +23,8 @@ import { GoogleMaps } from '@ionic-native/google-maps';
 import { Geolocation } from '@ionic-native/geolocation';
 import { FileTransfer } from '@ionic-native/file-transfer';
 import { File } from '@ionic-native/file';
+
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 import { AmChartsModule } from "@amcharts/amcharts3-angular";
 import { UserServiceProvider } from '../providers/user-service/user-service';
@@ -38,12 +41,14 @@ import { UserServiceProvider } from '../providers/user-service/user-service';
     BuscarTallerPage,
     AutoCompletadoPage,
     AccidenteRoboPage,
-    ControlDocumentalPage
+    ControlDocumentalPage,
+    DocumentoPage
   ],
   imports: [
     BrowserModule,
 	HttpClientModule,
     AmChartsModule,
+    PdfViewerModule,
     IonicModule.forRoot(MyApp),
   ],
   bootstrap: [IonicApp],
@@ -58,7 +63,8 @@ import { UserServiceProvider } from '../providers/user-service/user-service';
     BuscarTallerPage,
     AutoCompletadoPage,
     AccidenteRoboPage,
-    ControlDocumentalPage
+    ControlDocumentalPage,
+    DocumentoPage
   ],
   providers: [
     StatusBar,
