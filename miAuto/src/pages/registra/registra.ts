@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { CallNumber } from '@ionic-native/call-number';
-import { NavController, NavParams } from 'ionic-angular';
 import { NavController, NavParams, AlertController, LoadingController, Loading } from 'ionic-angular';
 import { HomePage } from '../home/home';
 
