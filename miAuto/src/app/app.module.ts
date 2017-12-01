@@ -13,6 +13,7 @@ import { BuscarTallerPage } from '../pages/buscar-taller/buscar-taller';
 import { AutoCompletadoPage } from '../pages/auto-completado/auto-completado';
 import { AccidenteRoboPage } from '../pages/accidente-robo/accidente-robo';
 import { ControlDocumentalPage } from '../pages/control-documental/control-documental';
+import { DocumentoPage } from '../pages/documento/documento';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -36,7 +37,8 @@ import { AmChartsModule } from "@amcharts/amcharts3-angular";
     BuscarTallerPage,
     AutoCompletadoPage,
     AccidenteRoboPage,
-    ControlDocumentalPage
+    ControlDocumentalPage,
+    DocumentoPage
   ],
   imports: [
     BrowserModule,
@@ -55,7 +57,8 @@ import { AmChartsModule } from "@amcharts/amcharts3-angular";
     BuscarTallerPage,
     AutoCompletadoPage,
     AccidenteRoboPage,
-    ControlDocumentalPage
+    ControlDocumentalPage,
+    DocumentoPage
   ],
   providers: [
     StatusBar,
