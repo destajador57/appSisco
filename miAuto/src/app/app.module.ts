@@ -15,6 +15,7 @@ import { AutoCompletadoPage } from '../pages/auto-completado/auto-completado';
 import { AccidenteRoboPage } from '../pages/accidente-robo/accidente-robo';
 import { ControlDocumentalPage } from '../pages/control-documental/control-documental';
 import { DocumentoPage } from '../pages/documento/documento';
+import { RegistroPage } from '../pages/registro/registro';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -42,7 +43,8 @@ import { UserServiceProvider } from '../providers/user-service/user-service';
     AutoCompletadoPage,
     AccidenteRoboPage,
     ControlDocumentalPage,
-    DocumentoPage
+    DocumentoPage,
+    RegistroPage
   ],
   imports: [
     BrowserModule,
@@ -64,7 +66,8 @@ import { UserServiceProvider } from '../providers/user-service/user-service';
     AutoCompletadoPage,
     AccidenteRoboPage,
     ControlDocumentalPage,
-    DocumentoPage
+    DocumentoPage,
+    RegistroPage
   ],
   providers: [
     StatusBar,

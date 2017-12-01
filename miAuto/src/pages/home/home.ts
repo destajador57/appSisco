@@ -14,7 +14,7 @@ export class HomePage {
   users: any; //
   
   elementoSeleccionado: any;
-  unidades: Array<{nombre: string}>;
+  unidades: Array<{nombre: string, idUnidad:number}>;
   placas: any;
   vin: any;
   modelo: any;
@@ -32,12 +32,14 @@ export class HomePage {
 	
 	this.userService.GetUnidades(this.users)
     .subscribe(
-		(data) => { // Success
-		
+    (data) => { // Success
+      console.log('unidad seleccionadas');
+		console.log(data[0]);
 			this.unidades.push({
-				nombre: data[0].nombreSubMarca
+        nombre: data[0].nombreSubMarca,
+        idUnidad: data[0].idUnidad
 			});
-			
+      
 			this.placas= data[0].placas; 
 			this.vin= data[0].vin;
 			this.modelo= data[0].modelo;

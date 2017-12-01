@@ -3,6 +3,7 @@ import { CallNumber } from '@ionic-native/call-number';
 import { NavController, NavParams, AlertController, LoadingController, Loading } from 'ionic-angular';
 import { HomePage } from '../home/home';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
+import { RegistroPage } from '../registro/registro';
 
 @Component({
   selector: 'page-login',
@@ -17,11 +18,7 @@ export class LoginPage {
   }
 
   public recuperarContrasena(){
-    this.mostrarError("Aun no funciona");
-  }
-
-  public registrarse(){
-	
+    this.mostrarError("Aun no funciona!");
   }
   
   public login(){
@@ -31,7 +28,7 @@ export class LoginPage {
     .subscribe(
     (data) => { // Success
       if(data){
-        if(data.idUsuario !='' && data.idUsuario != '0'){
+        if(data.idUsuario != null && data.idUsuario !='' && data.idUsuario != '0'){
           this.navCtrl.setRoot(HomePage,{ idUsuario: data.idUsuario});
         }else{
           this.mostrarError(data.Msj);
@@ -69,4 +66,8 @@ export class LoginPage {
     .then(()=> console.log('Esta llamando a call center'))
     .catch(()=> console.log('fallo la llamada'));
   }
+
+  public registrarse(){
+    this.navCtrl.setRoot(RegistroPage);
+    }
 }

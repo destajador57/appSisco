@@ -11,13 +11,16 @@ import { LoginPage } from '../login/login';
   templateUrl: 'option.html',
 })
 export class OptionPage {
-  unidadSeleccionada: {nombre: string, descripcion: string, revision: number};
+
+  unidadSeleccionada: {nombre: string, idUnidad: number};
 
   constructor(
 		public navCtrl: NavController, 
 		public navParams: NavParams, 
 		private callNumber: CallNumber) {
+
     this.unidadSeleccionada = navParams.get('unidad');
+    
   }
 
   showAccidenteRobo(){
