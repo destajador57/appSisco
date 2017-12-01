@@ -28,7 +28,7 @@ export class HomePage {
 	this.userService.Loguea('super.cadereyta','PW1ZngDb')
     .subscribe(
       (data) => { // Success
-        this.users = data.idUsuario;
+        //this.users = data.idUsuario;
 		console.log( this.users);
       },
       (error) =>{

@@ -16,8 +16,8 @@ export class ControlDocumentalPage {
   constructor(public navCtrl: NavController, public platform: Platform, public navParams: NavParams, private alertCtrl: AlertController,) {
 
     this.documento = {
-      placas:'https://oficinavirtual.ugr.es/apli/solicitudPAU/test.pdf',
-      tenencia:'https://oficinavirtual.ugr.es/apli/solicitudPAU/test.pdf',
+      placas: 'https://vadimdez.github.io/ng2-pdf-viewer/pdf-test.pdf' ,
+      tenencia:'https://vadimdez.github.io/ng2-pdf-viewer/pdf-test.pdf',
       verificacion:'https://oficinavirtual.ugr.es/apli/solicitudPAU/test.pdf',
       poliza:'https://oficinavirtual.ugr.es/apli/solicitudPAU/test.pdf',
       circulacion:'https://oficinavirtual.ugr.es/apli/solicitudPAU/test.pdf',

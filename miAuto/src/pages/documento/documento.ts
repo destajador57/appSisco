@@ -15,6 +15,7 @@ export class DocumentoPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, private sanitizer: DomSanitizer) {
 
     this.url = navParams.get('url');
+    //this.url = 'https://vadimdez.github.io/ng2-pdf-viewer/pdf-test.pdf';
     console.log(this.url);
   }
 

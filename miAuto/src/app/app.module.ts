@@ -24,6 +24,8 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { FileTransfer } from '@ionic-native/file-transfer';
 import { File } from '@ionic-native/file';
 
+import { PdfViewerModule } from 'ng2-pdf-viewer';
+
 import { AmChartsModule } from "@amcharts/amcharts3-angular";
 import { UserServiceProvider } from '../providers/user-service/user-service';
 
@@ -46,6 +48,7 @@ import { UserServiceProvider } from '../providers/user-service/user-service';
     BrowserModule,
 	HttpClientModule,
     AmChartsModule,
+    PdfViewerModule,
     IonicModule.forRoot(MyApp),
   ],
   bootstrap: [IonicApp],

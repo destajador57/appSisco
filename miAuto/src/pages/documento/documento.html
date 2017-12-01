@@ -8,9 +8,21 @@
 
 
 <ion-content padding>
-    <ion-row>
+    <pdf-viewer [src]="url" [page]="1" [autoresize]="true" [zoom]="0.7" [show-all]="false" [render-text]="true"
+    style="display: block;width:100%; height: 100%;"
+    ></pdf-viewer>
+
+    <!-- <ion-row>
         <ion-col>
-            <iframe [src]='photoURL()' style="width:100%; height: 1100px;"></iframe>
+            <iframe [src]='photoURL()' style="width:100%; height: 50%;"></iframe>
           </ion-col>
-    </ion-row>
+          [render-text]="true" [autoresize]="true"
+
+          style="display: block;width:80%; height: 50%;"
+    </ion-row> -->
+    <ion-row>
+      <ion-col>
+
+        </ion-col>
+  </ion-row>
 </ion-content>
