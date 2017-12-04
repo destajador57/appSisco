@@ -12,28 +12,28 @@ import { LoginPage } from '../login/login';
 })
 export class OptionPage {
 
-  unidadSeleccionada: {nombre: string, idUnidad: number};
+  cita: any;
 
   constructor(
 		public navCtrl: NavController, 
 		public navParams: NavParams, 
 		private callNumber: CallNumber) {
 
-    this.unidadSeleccionada = navParams.get('unidad');
+    this.cita = navParams.get('cita');
     
   }
 
   showAccidenteRobo(){
-    this.navCtrl.push(AccidenteRoboPage,{unidadSeleccionada: this.unidadSeleccionada});
+    this.navCtrl.push(AccidenteRoboPage);
   }
 
   showControlDocumental(){
-    this.navCtrl.push(ControlDocumentalPage,{unidadSeleccionada: this.unidadSeleccionada});
+    this.navCtrl.push(ControlDocumentalPage,{cita: this.cita});
   }
 
   showMantenimiento(){
-    console.log(this.unidadSeleccionada);
-    this.navCtrl.push(MantenimientoPage,{unidadSeleccionada: this.unidadSeleccionada});
+    console.log(this.cita);
+    this.navCtrl.push(MantenimientoPage,{cita: this.cita});
   }
 
   public llamarCallCenter(){

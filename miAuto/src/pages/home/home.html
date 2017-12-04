@@ -18,8 +18,7 @@
     <ion-list>
       <button ion-item *ngFor="let unidad of unidades" (click)="showOptions(unidad)">
         {{unidad.nombre}}
-        <ion-icon name="arrow-forward" item-end></ion-icon>
-        <!-- <ion-icon [name]="item.icon" item-start></ion-icon> -->
+        <ion-icon name="car" item-end></ion-icon>
       </button>
     </ion-list>
     <div *ngIf="elementoSeleccionado" padding>
@@ -48,7 +47,48 @@
 	  </ion-item>
 	  
 	</ion-list>
-	
+  
+  <ion-list *ngIf="idEstatus != null">
+
+        <ion-item>
+          <ion-label color="primary"> 
+              {{ numeroOrden }}
+          </ion-label>
+          <ion-label color="primary" item-end> 
+              {{ fechaCita | date }}
+          </ion-label>
+        </ion-item>
+       
+        <button [disabled]="idEstatus != 1" ion-item>
+            Nueva Sin Taller
+            <ion-icon *ngIf="idEstatus > 1" name="checkmark" item-end></ion-icon>
+            <ion-icon *ngIf="idEstatus == 1" name="arrow-dropleft-circle" item-end></ion-icon>
+        </button>
+        <button [disabled]="idEstatus != 2" ion-item>
+            Nueva Con Taller
+            <ion-icon *ngIf="idEstatus > 2" name="checkmark" item-end></ion-icon>
+            <ion-icon *ngIf="idEstatus == 2" name="arrow-dropleft-circle" item-end></ion-icon>
+          </button>
+          <button [disabled]="idEstatus != 3" ion-item>
+              En Taller
+              <ion-icon *ngIf="idEstatus > 3" name="checkmark" item-end></ion-icon>
+              <ion-icon *ngIf="idEstatus == 3" name="arrow-dropleft-circle" item-end></ion-icon>
+            </button>
+            <button [disabled]="idEstatus != 4" ion-item>
+                Término Trabajo
+                <ion-icon *ngIf="idEstatus > 4" name="checkmark" item-end></ion-icon>
+                <ion-icon *ngIf="idEstatus == 4" name="arrow-dropleft-circle" item-end></ion-icon>
+              </button>
+              <button [disabled]="idEstatus != 5" ion-item (click)="calificar()">
+                  Entrega
+                  <ion-icon *ngIf="idEstatus == 5" color="primary" name="star" item-end></ion-icon>
+                  <ion-icon *ngIf="idEstatus == 5" color="primary" name="star" item-end></ion-icon>
+                  <ion-icon *ngIf="idEstatus == 5" color="primary" name="star" item-end></ion-icon>
+                  <ion-icon *ngIf="idEstatus == 5" color="primary" name="star" item-end></ion-icon>
+                  <ion-icon *ngIf="idEstatus == 5" color="primary" name="star" item-end></ion-icon>
+                </button>
+      </ion-list>
+
   </ion-content>
   <ion-footer text-center class="pie">
       <ion-icon name="call" class="color-icono"></ion-icon>

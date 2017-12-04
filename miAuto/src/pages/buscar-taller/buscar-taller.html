@@ -46,18 +46,18 @@
     </ion-list>
     <div id="map"></div>
     <div id="map_canvas"></div>
-    <!-- <ion-row>
+    <ion-row>
         <ion-col>
             <ion-list>
-                <button ion-item *ngFor="let taller of talleres" (click)="showTallerDetalle()">
-                    {{taller.nombre}}
+                <button ion-item *ngFor="let taller of talleres" (click)="showTallerDetalle(taller)">
+                    {{taller.nombreComercial}}
                     <div>
-                      {{taller.distancia}} km
+                      {{taller.km}}
                     </div>
                   </button>
               </ion-list>
         </ion-col>
-      </ion-row> -->
+      </ion-row>
 </ion-content>
 
 <ion-footer text-center class="pie">

@@ -12,4 +12,18 @@ page-mantenimiento {
         color: white;
     }
     .amcharts-chart-div a {display:none !important;}
+
+    ion-input{
+        //width: 20px;
+        font-size: 21px;
+    }
+    
+    ion-select {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        overflow: hidden;
+        max-width: 85%;
+    }
 }

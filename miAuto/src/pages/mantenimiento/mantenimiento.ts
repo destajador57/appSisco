@@ -5,6 +5,7 @@ import { AmChartsService, AmChart } from "@amcharts/amcharts3-angular";
 import { ServicioPage } from '../servicio/servicio';
 import { BuscarTallerPage } from '../buscar-taller/buscar-taller';
 import { LoginPage } from '../login/login';
+import { UserServiceProvider } from '../../providers/user-service/user-service';
 
 @IonicPage()
 @Component({
@@ -12,15 +13,30 @@ import { LoginPage } from '../login/login';
   templateUrl: 'mantenimiento.html',
 })
 export class MantenimientoPage {
-  private chart: AmChart;
-  servicios: Array<{km: number, id: number, aplicado: boolean}>;
+//Servicio de numero kilometros
+cita: any;
+  servicioSeleccionado: any;
+  kilometraje:{cienMil:number,mil:number,cien:number,diez:number,uno:number};
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private callNumber: CallNumber, private AmCharts: AmChartsService) {
+  private chart: AmChart;
+  servicios: Array<{idServicio: number, Servicio: number}>;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private callNumber: CallNumber, private AmCharts: AmChartsService, public userService: UserServiceProvider) {
+
+    this.cita = navParams.get('cita');
+    console.log(this.cita);
+
+    this.servicioSeleccionado = 0;
+
+    this.kilometraje = {
+      cienMil:0,
+      mil:0,
+      cien:0,
+      diez:0,
+      uno:0
+    };
+
     this.servicios = [];
-    this.servicios.push({km:25,id:1,aplicado:true});
-    this.servicios.push({km:50,id:2,aplicado:true});
-    this.servicios.push({km:75,id:3,aplicado:true});
-    this.servicios.push({km:100,id:4,aplicado:false});
   }
 
   public showDetalleServicio(servicio){
@@ -34,7 +50,7 @@ export class MantenimientoPage {
 
   ngAfterViewInit() {
 
-    var kilometraje = 80000;
+    var kilometraje = 15000;
 
     this.chart = this.AmCharts.makeChart("chartdiv", {
       "theme": "light",
@@ -80,6 +96,45 @@ export class MantenimientoPage {
         "value": kilometraje
       }]
     });
+
+    
+    this.userService.CitaServicios()
+    .subscribe(
+    (data) => { // Success
+        console.log(data);
+        if(data && data != null && data.length > 0){
+          //var doc = data[0];
+          //this.servicios = {idServicio: number, Servicio: number}
+          this.servicios = data;
+          // this.documento ={
+          //   placas: doc.placas ? doc.placas : '', 
+          //   Tenencia: doc.Tenencia ? doc.Tenencia : '', 
+          //   Verificacion: doc.Verificacion ? doc.Verificacion : '', 
+          //   PolizaDeSeguros: doc.PolizaDeSeguros ? doc.PolizaDeSeguros : '', 
+          //   tarjetaDeCirculacion: doc.tarjetaDeCirculacion ? doc.tarjetaDeCirculacion : '', 
+          //   fechaVigenciaPolizaSeguro: doc.fechaVigenciaPolizaSeguro ? doc.fechaVigenciaPolizaSeguro : '', 
+          //   fechaVerificacion: doc.fechaVerificacion ? doc.fechaVerificacion : ''
+          // };
+
+        }else{
+          this.mostrarError("No es posible ver los documentos por el momento");
+        }
+      
+		},
+		(error) =>{
+			this.mostrarError("No es posible registrarse por el momento.");
+		}
+	);
+  }
+
+  mostrarError(mensaje){
+    
+       let alert = this.alertCtrl.create({
+         title: 'Error',
+         subTitle: mensaje,
+         buttons: ['OK']
+       });
+       alert.present();
   }
 
   ngOnDestroy() {
@@ -92,6 +147,21 @@ export class MantenimientoPage {
     this.callNumber.callNumber('5575839991', true)
     .then(()=> console.log('Esta llamando a call center'))
     .catch(()=> console.log('fallo la llamada'));
+  }
+
+  confirmarServicio(){
+    console.log(this.servicioSeleccionado);
+    this.navCtrl.push(BuscarTallerPage,{cita:{
+      idServicio: this.servicioSeleccionado.idServicio,
+      idUsuario: this.cita.idUsuario,
+      idContratoOperacion: this.cita.idContratoOperacion,
+      idUnidad: this.cita.idUnidad,
+
+      Servicio:this.servicioSeleccionado.Servicio,
+      nombre:this.cita.nombre,
+      modelo: this.cita.modelo,
+      nombreMarca: this.cita.nombreMarca
+    }});
   }
 
   salir(){

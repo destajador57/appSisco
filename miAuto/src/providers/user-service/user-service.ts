@@ -37,10 +37,23 @@ export class UserServiceProvider {
 	return this.http.get('http://192.168.20.9:4800/ServicioNuevaCita?idUnidad=' + idUnidad + 
 							'&idContratoOperacion=' + idContratoOperacion +
 							'&idUsuario=' + idUsuario +
-							'&Taller=' + Taller +
-							'&servicio=' + servicio +
+							'&idTaller=' + Taller +
+							'&idServicio=' + servicio +
 							'&fechaCita=' + fechaCita 
 						);
   }
+
+  CitaServicios(){
+    return this.http.get('http://192.168.20.9:4800/CitaServicios');
+    }
   
+    CalificaTaller(idOrden,calificacion){
+      return this.http.get('http://192.168.20.9:4800/CalificaTaller?idOrden=' + idOrden + 
+                  '&calificacion1=' + calificacion.primera +
+                  '&calificacion2=' + calificacion.segunda +
+                  '&calificacion3=' + calificacion.tercera +
+                  '&calificacion4=' + calificacion.cuarta +
+                  '&calificacion5=' + calificacion.quinta 
+                );
+      }
 }

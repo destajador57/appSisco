@@ -13,7 +13,7 @@ declare var cordova: any;
 })
 export class ControlDocumentalPage {
 
-  unidadSeleccionada: {nombre: string, idUnidad: number};
+  cita:any;
 
   documento: {
     placas: string, 
@@ -27,7 +27,7 @@ export class ControlDocumentalPage {
 
   constructor(public navCtrl: NavController, public platform: Platform, public navParams: NavParams, private alertCtrl: AlertController, public userService: UserServiceProvider) {
 
-    this.unidadSeleccionada = navParams.get('unidadSeleccionada');
+    this.cita = navParams.get('cita');
 
     this.documento = {
       placas: '',
@@ -49,7 +49,7 @@ export class ControlDocumentalPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad ControlDocumentalPage');
 
-    this.userService.GetDocsXUni(this.unidadSeleccionada.idUnidad)
+    this.userService.GetDocsXUni(this.cita.idUnidad)
     .subscribe(
     (data) => { // Success
         console.log(data);

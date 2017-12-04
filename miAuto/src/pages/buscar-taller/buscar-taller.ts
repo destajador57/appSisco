@@ -13,6 +13,8 @@ import {
 } from '@ionic-native/google-maps';
 import { AutoCompletadoPage } from '../auto-completado/auto-completado';
 import { LoginPage } from '../login/login';
+import { UserServiceProvider } from '../../providers/user-service/user-service';
+import { ConfirmacionPage } from '../confirmacion/confirmacion';
 
 declare var google:any;
 
@@ -33,18 +35,61 @@ markers = [];
 placedetails: any;
 
   map: GoogleMap;
-  talleres: Array<{nombre: string, distancia: number}>;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private callNumber: CallNumber, public geolocation: Geolocation, private alertCtrl: AlertController, public modalCtrl: ModalController) {
+
+  talleres: Array<{
+    RFC:string,
+    direccion:string,
+    idProveedor:number,
+    idTaller: number,
+    km : string,
+    latitud:string,
+    longitud:string,
+    nombre:string,
+    nombreComercial:string,
+    order:number,
+    razonSocial:string}>;
+
+  cita: any;
+
+    // citaConTaller:{
+    //   cita: { servicioSeleccionado: {idServicio: number, Servicio: number},
+    //   unidadSeleccionada: {nombre: string, idUnidad: number}
+    //     },
+    //     taller:{
+    //       RFC:string,
+    //       direccion:string,
+    //       idProveedor:number,
+    //       idTaller: number,
+    //       km : string,
+    //       latitud:string,
+    //       longitud:string,
+    //       nombre:string,
+    //       nombreComercial:string,
+    //       order:number,
+    //       razonSocial:string}
+    // }
+
+ubicacion:{lat:number,lng:number};
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private callNumber: CallNumber, public geolocation: Geolocation, private alertCtrl: AlertController, public modalCtrl: ModalController, public userService: UserServiceProvider) {
+
+    this.cita = navParams.get('cita');
+    console.log('datos completos de la cita');
+    console.log(this.cita);
+
+    this.ubicacion = {lat:0,lng:0};
+
     this.talleres = [];
-    this.talleres.push({nombre: 'Taller el Brandom', distancia: 1});
-    this.talleres.push({nombre: 'Taller el Frank', distancia: 23});
-    this.talleres.push({nombre: 'Taller el kevin', distancia: 27});
+    // this.talleres.push({nombre: 'Taller el Brandom', distancia: 1});
+    // this.talleres.push({nombre: 'Taller el Frank', distancia: 23});
+    // this.talleres.push({nombre: 'Taller el kevin', distancia: 27});
   }
 
   ngOnInit() {
     this.initMap();
     this.initPlacedetails();
+console.log('invoca el init');
 }
 
 private initMap() {
@@ -52,6 +97,27 @@ private initMap() {
   console.log('Esta inicializando el mapa ');
   console.log(position.coords.latitude);
   console.log(position.coords.longitude);
+
+  this.ubicacion.lat = position.coords.latitude;
+  this.ubicacion.lng = position.coords.longitude;
+
+  this.userService.GetTalleres(this.cita.idUnidad, this.ubicacion.lat ,this.ubicacion.lng)
+  .subscribe(
+  (data) => { // Success
+    console.log('invocacion del servico de tallers JOSE esta chingando');
+    console.log(this.cita.idUnidad);
+    console.log(this.ubicacion.lat);
+    console.log(this.ubicacion.lng);
+      console.log(data);
+      if(data && data != null && data.length > 0){
+        this.talleres = data;
+      }
+  },
+  (error) =>{
+    console.log(error);
+    //this.mostrarError("No es posible registrarse por el momento.");
+  }
+);
 
   var point = {lat: position.coords.latitude, lng: position.coords.longitude }; 
   let divMap = (<HTMLInputElement>document.getElementById('map'));
@@ -146,6 +212,10 @@ private getPlaceDetail(place_id:string):void {
           self.placedetails.address = place.formatted_address;
           self.placedetails.lat = place.geometry.location.lat();
           self.placedetails.lng = place.geometry.location.lng();
+
+          // this.localidad.lat = place.geometry.location.lat();
+          // this.localidad.lng = place.geometry.location.lng();
+
           for (var i = 0; i < place.address_components.length; i++) {
               let addressType = place.address_components[i].types[0];
               let values = {
@@ -161,6 +231,30 @@ private getPlaceDetail(place_id:string):void {
           // set place in map
           self.mapa.setCenter(place.geometry.location);
           self.createMapMarker(place);
+
+
+
+
+          
+          self.ubicacion.lat = place.geometry.location.lat();
+          self.ubicacion.lng = place.geometry.location.lng();
+          self.userService.GetTalleres(self.cita.idUnidad, self.ubicacion.lat ,self.ubicacion.lng)
+
+          .subscribe(
+          (data) => { // Success
+              console.log(data);
+              if(data && data != null && data.length > 0){
+                self.talleres = data;
+              }
+          },
+          (error) =>{
+            console.log(error);
+            //this.mostrarError("No es posible registrarse por el momento.");
+          }
+        );
+
+
+
 
 
           if(self.map != null){
@@ -291,15 +385,23 @@ private getPlaceDetail(place_id:string):void {
       }
   }
 
-      public buscarDireccion(){
-        this.talleres = [];
-        this.talleres.push({nombre: 'Taller el Brian', distancia: 1});
-        this.talleres.push({nombre: 'Taller el Chanfle', distancia: 23});
-        this.talleres.push({nombre: 'Taller el Mofles', distancia: 27});
-      }
+      public showTallerDetalle(taller){
+        console.log(taller);
+        this.navCtrl.push(ConfirmacionPage,{cita:{
+          idServicio: this.cita.idServicio,
+          idUsuario: this.cita.idUsuario,
+          idContratoOperacion: this.cita.idContratoOperacion,
+          idUnidad: this.cita.idUnidad,
+    
+          Servicio:this.cita.Servicio,
+          nombre:this.cita.nombre,
+          modelo: this.cita.modelo,
+          nombreMarca: this.cita.nombreMarca,
 
-      public showTallerDetalle(){
-
+          direccion: taller.direccion,
+          idTaller: taller.idTaller,
+          nombreComercial: taller.nombreComercial
+        }});
       }
 
   public llamarCallCenter(){

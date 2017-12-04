@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { ErrorHandler, NgModule } from '@angular/core';
+import { ErrorHandler, NgModule, LOCALE_ID } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -16,6 +16,9 @@ import { AccidenteRoboPage } from '../pages/accidente-robo/accidente-robo';
 import { ControlDocumentalPage } from '../pages/control-documental/control-documental';
 import { DocumentoPage } from '../pages/documento/documento';
 import { RegistroPage } from '../pages/registro/registro';
+import { CalendarioPage } from '../pages/calendario/calendario';
+import { ConfirmacionPage } from '../pages/confirmacion/confirmacion';
+import { CalificaPage } from '../pages/califica/califica';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -24,11 +27,15 @@ import { GoogleMaps } from '@ionic-native/google-maps';
 import { Geolocation } from '@ionic-native/geolocation';
 import { FileTransfer } from '@ionic-native/file-transfer';
 import { File } from '@ionic-native/file';
+import { DatePicker } from '@ionic-native/date-picker';
 
 import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { NgCalendarModule } from 'ionic2-calendar';
+//import { NgCalendarModule } from 'ionic2-calendar';
 
 import { AmChartsModule } from "@amcharts/amcharts3-angular";
 import { UserServiceProvider } from '../providers/user-service/user-service';
+import { Camera } from '@ionic-native/camera';
 
 @NgModule({
   declarations: [
@@ -44,13 +51,17 @@ import { UserServiceProvider } from '../providers/user-service/user-service';
     AccidenteRoboPage,
     ControlDocumentalPage,
     DocumentoPage,
-    RegistroPage
+    RegistroPage,
+    CalendarioPage,
+    ConfirmacionPage,
+    CalificaPage
   ],
   imports: [
     BrowserModule,
 	HttpClientModule,
     AmChartsModule,
     PdfViewerModule,
+    NgCalendarModule,
     IonicModule.forRoot(MyApp),
   ],
   bootstrap: [IonicApp],
@@ -67,7 +78,10 @@ import { UserServiceProvider } from '../providers/user-service/user-service';
     AccidenteRoboPage,
     ControlDocumentalPage,
     DocumentoPage,
-    RegistroPage
+    RegistroPage,
+    CalendarioPage,
+    ConfirmacionPage,
+    CalificaPage
   ],
   providers: [
     StatusBar,
@@ -78,6 +92,9 @@ import { UserServiceProvider } from '../providers/user-service/user-service';
     UserServiceProvider,
     File,
     FileTransfer,
+    DatePicker,
+    Camera,
+    // { provide: LOCALE_ID, useValue: 'es-MX' },
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

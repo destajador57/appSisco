@@ -18,7 +18,7 @@ export class LoginPage {
   }
 
   public recuperarContrasena(){
-    this.mostrarError("Aun no funciona!");
+    this.mostrarError("Aun no funciona");
   }
   
   public login(){
@@ -28,8 +28,9 @@ export class LoginPage {
     .subscribe(
     (data) => { // Success
       if(data){
+        console.log(data);
         if(data.idUsuario != null && data.idUsuario !='' && data.idUsuario != '0'){
-          this.navCtrl.setRoot(HomePage,{ idUsuario: data.idUsuario});
+          this.navCtrl.setRoot(HomePage,{ cita: { idUsuario: data.idUsuario, idContratoOperacion: data.idContratoOperacion}});
         }else{
           this.mostrarError(data.Msj);
         }

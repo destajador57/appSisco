@@ -1,0 +1,79 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Confirmar la cita</ion-title>
+    <ion-buttons end>
+        <button ion-button icon-only (click)="salir()">
+            <ion-icon name="close-circle" ></ion-icon>
+        </button>
+      </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+    <ion-grid>
+  <ion-row>
+    <ion-col col-4>
+      <b>Unidad:</b>
+    </ion-col>
+    <ion-col col-8>
+      {{cita.nombre}}
+    </ion-col>
+  </ion-row>
+  <ion-row>
+      <ion-col col-4>
+          <b>Modelo:</b>
+      </ion-col>
+      <ion-col col-8>
+        {{cita.modelo}}
+      </ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col col-4>
+            <b>Marca:</b>
+        </ion-col>
+        <ion-col col-8>
+          {{cita.nombreMarca}}
+        </ion-col>
+      </ion-row>
+      <ion-row>
+          <ion-col col-4>
+              <b>Servicio (km):</b>
+          </ion-col>
+          <ion-col col-8>
+            {{cita.Servicio}}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col col-4>
+                <b>Taller:</b>
+            </ion-col>
+            <ion-col col-8>
+              {{cita.nombreComercial}}
+            </ion-col>
+          </ion-row>
+          <ion-row>
+              <ion-col col-4>
+                  <b>Direccion del taller:</b>
+              </ion-col>
+              <ion-col col-8>
+                {{cita.direccion}}
+              </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col col-4>
+                    <b>Fecha:</b>
+                </ion-col>
+                <ion-col col-8>
+                  {{fecha | date }}
+                </ion-col>
+              </ion-row>
+            <ion-row>
+                <ion-col col-12 text-center>
+                    <button ion-button (click)="confirmarServicio()">Confirmar</button>
+                </ion-col>
+              </ion-row>
+        </ion-grid>
+</ion-content>
