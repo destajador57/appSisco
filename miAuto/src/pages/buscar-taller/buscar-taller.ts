@@ -51,7 +51,7 @@ placedetails: any;
     razonSocial:string}>;
 
   cita: any;
-
+ 
     // citaConTaller:{
     //   cita: { servicioSeleccionado: {idServicio: number, Servicio: number},
     //   unidadSeleccionada: {nombre: string, idUnidad: number}
@@ -403,7 +403,7 @@ private getPlaceDetail(place_id:string):void {
           nombreComercial: taller.nombreComercial
         }});
       }
-
+ 
   public llamarCallCenter(){
     this.callNumber.callNumber('5575839991', true)
     .then(()=> console.log('Esta llamando a call center'))

@@ -21,6 +21,8 @@ export class OptionPage {
 
     this.cita = navParams.get('cita');
     
+    this.cita.idUnidad
+    
   }
 
   showAccidenteRobo(){

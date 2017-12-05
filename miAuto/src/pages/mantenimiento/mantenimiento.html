@@ -13,7 +13,7 @@
 
 <ion-content text-center>
     <div id="chartdiv"></div>
-    <ion-grid>
+    <!-- <ion-grid>
         <ion-row>
           <ion-col col-5>
             <b>Servicios realizados:</b>
@@ -23,15 +23,30 @@
           </ion-col>
         </ion-row>
         </ion-grid>
-        <br>
-    <ion-item>
-        <ion-label>Servicios</ion-label>
+        <br> -->
+        <ion-item  no-lines>
+            <ion-label>Servicios realizados:</ion-label>  
+        </ion-item>
+        <ion-item  no-lines *ngIf="serviciosHechos == null || serviciosHechos.length <= 0">
+            <ion-label>Ninguno</ion-label>  
+        </ion-item>
+    <ion-item  no-lines *ngIf="serviciosHechos && serviciosHechos.length > 0">
+        <ion-label></ion-label>
+        <ion-select>
+          <ion-option *ngFor="let servicio of serviciosHechos">Servicio {{ servicio.numeroOrden }} (km)</ion-option>
+        </ion-select>
+    </ion-item>
+    <ion-item  no-lines>
+        <ion-label>Servicios disponibles:</ion-label>  
+    </ion-item>
+    <ion-item  no-lines>
+        <ion-label></ion-label>
         <ion-select [disabled]="cita.idEstatus != null" [(ngModel)]="servicioSeleccionado">
           <ion-option *ngFor="let servicio of servicios" [value]="servicio">Servicio {{ servicio.Servicio }} (km)</ion-option>
         </ion-select>
     </ion-item>
 <br>
-      <button [disabled]="servicioSeleccionado == null || servicioSeleccionado == 0" ion-button (click)="confirmarServicio()">Confirmar</button>
+      <button [disabled]="servicioSeleccionado == null || servicioSeleccionado == 0" ion-button (click)="confirmarServicio()">Seleccionar</button>
 
     <!-- <ion-list>
         <button ion-item *ngFor="let servicio of servicios" (click)="showDetalleServicio(servicio)"> 

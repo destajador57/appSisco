@@ -21,6 +21,8 @@ cita: any;
   private chart: AmChart;
   servicios: Array<{idServicio: number, Servicio: number}>;
 
+  serviciosHechos: any;
+
   constructor(public navCtrl: NavController, public navParams: NavParams, private callNumber: CallNumber, private AmCharts: AmChartsService, public userService: UserServiceProvider) {
 
     this.cita = navParams.get('cita');
@@ -37,6 +39,23 @@ cita: any;
     };
 
     this.servicios = [];
+
+    this.userService.GetOrdXUni(this.cita.idUnidad)
+    .subscribe(
+    (data) => { // Success
+      console.log(data);
+      //console.log(data[0]);
+      this.serviciosHechos = data;
+      // if(data && data.length > 0 && data[0].ok == 1){
+      //   this.navCtrl.setRoot(HomePage,{cita: this.cita});
+      // }else{
+      //   this.mostrarError('Por el momento no es posible calificar');
+      // }
+		},
+		(error) =>{
+			this.mostrarError('Por el momento no es posible calificar');
+		}
+	);
   }
 
   public showDetalleServicio(servicio){
@@ -50,7 +69,7 @@ cita: any;
 
   ngAfterViewInit() {
 
-    var kilometraje = 15000;
+    var kilometraje = 15;
 
     this.chart = this.AmCharts.makeChart("chartdiv", {
       "theme": "light",
@@ -59,13 +78,13 @@ cita: any;
         "topTextFontSize": 20,
         "topTextYOffset": 70,
         "axisColor": "#31d6ea",
-        "topText": 'Tienes ' + kilometraje + ' kilometros',
+        "topText": 'La unidad tiene: ' + kilometraje + ',000 km',
         "axisThickness": 1,
-        "endValue": 100000,
+        "endValue": 100,
         "gridInside": false,
         "inside": false,
         "radius": "50%",
-        "valueInterval": 25000,
+        "valueInterval": 25,
         "tickColor": "#67b7dc",
         "startAngle": -90,
         "endAngle": 90,
@@ -74,7 +93,7 @@ cita: any;
         "bandOutlineAlpha": 0,
         "bands": [{
           "color": "#0080ff",
-          "endValue": 100000,
+          "endValue": 100,
           "innerRadius": "105%",
           "radius": "170%",
           "gradientRatio": [0.5, 0, -0.5],
