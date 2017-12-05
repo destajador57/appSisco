@@ -18,7 +18,7 @@
 			<ion-card text-center>
 				<div class="card-title" class="tituloArchivo">Placas</div>
 				<ion-row><ion-col>
-					<ion-icon color="secondary" class="archivo" (click)="descargar(documento.Tenencia)" name="image"></ion-icon>
+					<ion-icon color="secondary" class="archivo" (click)="descargar(documento.placas)" name="image"></ion-icon>
 				</ion-col><ion-col><ion-icon color="secondary" class="vencimientoH" name="calendar"></ion-icon><div class="card-title" class="pieArchivo"></div></ion-col></ion-row>
 			</ion-card>
 		</ion-col>		
@@ -30,8 +30,9 @@
 						<ion-icon color="secondary" class="archivo" (click)="descargar(documento.Tenencia)" name="image"></ion-icon>
 					</ion-col>	
 					<ion-col>  		
-						<ion-icon color="secondary" class="vencimiento" name="calendar"></ion-icon>
-						<div class="card-title" class="pieArchivo">Vigencia: 
+						<ion-icon *ngIf="documento.fechaVigenciaTenenciaVencida == 0"  color="danger" class="vencimiento" name="calendar"></ion-icon>
+						<ion-icon *ngIf="documento.fechaVigenciaTenenciaVencida == 1"  color="secondary" class="vencimiento" name="calendar"></ion-icon>
+					<div class="card-title" class="pieArchivo">Vigencia: 
 							{{documento.fechaVigenciaTenencia}}
 						</div>
 					</ion-col>
@@ -45,10 +46,12 @@
 				<div class="card-title">Verificación</div>
 				<ion-row>
 					<ion-col>
-						<ion-icon color="danger" class="archivo" (click)="descargar(documento.Verificacion)" name="image"></ion-icon>
+						<ion-icon *ngIf="documento.fechaVerificacionVencida == 0" color="danger"  class="archivo" (click)="descargar(documento.Verificacion)" name="image"></ion-icon>
+						<ion-icon *ngIf="documento.fechaVerificacionVencida == 1" color="secondary"  class="archivo" (click)="descargar(documento.Verificacion)" name="image"></ion-icon>
 					</ion-col>	
 					<ion-col>  		
-						<ion-icon color="danger" class="vencimiento" name="calendar"></ion-icon>
+						<ion-icon *ngIf="documento.fechaVerificacionVencida == 0" color="danger" class="vencimiento" name="calendar"></ion-icon>
+						<ion-icon *ngIf="documento.fechaVerificacionVencida == 1" color="secondary" class="vencimiento" name="calendar"></ion-icon>
 						<div class="card-title" class="pieArchivo">Vigencia: 
 							{{documento.fechaVerificacion}}
 						</div>
@@ -61,7 +64,8 @@
 				<div class="card-title">Poliza de seguro</div>
 				<ion-row>
 					<ion-col>
-						<ion-icon color="secondary" class="archivo" (click)="descargar(documento.PolizaDeSeguros)" name="image"></ion-icon>
+						<ion-icon *ngIf="documento.fechaVigenciaPolizaSeguroVencida == 0" color="danger" class="archivo" (click)="descargar(documento.PolizaDeSeguros)" name="image"></ion-icon>
+						<ion-icon *ngIf="documento.fechaVigenciaPolizaSeguroVencida == 1" color="secondary" class="archivo" (click)="descargar(documento.PolizaDeSeguros)" name="image"></ion-icon>
 					</ion-col>	
 					<ion-col>  		
 						<ion-icon color="secondary" class="vencimiento" name="calendar"></ion-icon>

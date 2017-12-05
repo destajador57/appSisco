@@ -22,8 +22,11 @@ export class ControlDocumentalPage {
     PolizaDeSeguros: string, 
     tarjetaDeCirculacion: string,
     fechaVigenciaPolizaSeguro: string,
-	fechaVigenciaTenencia: string,
-    fechaVerificacion: string
+    fechaVigenciaPolizaSeguroVencida: string,
+    fechaVigenciaTenencia: string,
+    fechaVigenciaTenenciaVencida: string,
+    fechaVerificacion: string,
+    fechaVerificacionVencida : string
   };
 
   constructor(public navCtrl: NavController, public platform: Platform, public navParams: NavParams, private alertCtrl: AlertController, public userService: UserServiceProvider) {
@@ -31,13 +34,17 @@ export class ControlDocumentalPage {
     this.cita = navParams.get('cita');
 
     this.documento = {
-      placas: '',
-      Tenencia:'',
-      Verificacion:'',
+      placas: '', 
+      Tenencia: '', 
+      Verificacion: '', 
       PolizaDeSeguros: '', 
       tarjetaDeCirculacion: '',
       fechaVigenciaPolizaSeguro: '',
-      fechaVerificacion: ''
+      fechaVigenciaPolizaSeguroVencida: '',
+      fechaVigenciaTenencia: '',
+      fechaVigenciaTenenciaVencida: '',
+      fechaVerificacion: '',
+      fechaVerificacionVencida : ''
     };
   }
 
@@ -57,14 +64,17 @@ export class ControlDocumentalPage {
         if(data && data != null && data.length > 0){
           var doc = data[0];
           this.documento ={
-            placas: doc.placas ? doc.placas : '', 
-            Tenencia: doc.Tenencia ? doc.Tenencia : '', 
-            Verificacion: doc.Verificacion ? doc.Verificacion : '', 
-            PolizaDeSeguros: doc.PolizaDeSeguros ? doc.PolizaDeSeguros : '', 
-            tarjetaDeCirculacion: doc.tarjetaDeCirculacion ? doc.tarjetaDeCirculacion : '', 
-            fechaVigenciaPolizaSeguro: doc.fechaVigenciaPolizaSeguro ? doc.fechaVigenciaPolizaSeguro : '', 
-			fechaVigenciaTenencia: doc.fechaVigenciaTenencia ? doc.fechaVigenciaTenencia : '',
-            fechaVerificacion: doc.fechaVerificacion ? doc.fechaVerificacion : ''
+            placas: doc.placas ? doc.placas : '',
+            Tenencia: doc.Tenencia ? doc.Tenencia : '',
+            Verificacion: doc.Verificacion ? doc.Verificacion : '',
+            PolizaDeSeguros: doc.PolizaDeSeguros ? doc.PolizaDeSeguros : '',
+            tarjetaDeCirculacion: doc.tarjetaDeCirculacion ? doc.tarjetaDeCirculacion : '',
+            fechaVigenciaPolizaSeguro: doc.fechaVigenciaPolizaSeguro ? doc.fechaVigenciaPolizaSeguro : '',
+            fechaVigenciaPolizaSeguroVencida: doc.fechaVigenciaPolizaSeguroVencida ? doc.fechaVigenciaPolizaSeguroVencida : '',
+            fechaVigenciaTenencia: doc.fechaVigenciaTenencia ? doc.fechaVigenciaTenencia : '',
+            fechaVigenciaTenenciaVencida: doc.fechaVigenciaTenenciaVencida ? doc.fechaVigenciaTenenciaVencida : '',
+            fechaVerificacion: doc.fechaVerificacion ? doc.fechaVerificacion : '',
+            fechaVerificacionVencida : doc.fechaVerificacionVencida ? doc.fechaVerificacionVencida : ''
           };
 
         }else{
