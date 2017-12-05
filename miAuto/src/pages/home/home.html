@@ -17,11 +17,7 @@
 <ion-content>
 
     <ion-grid>
-      <ion-row>
-        <ion-col text-center>
-            <button ion-button full  (click)="showOptions()">Opciones</button>
-        </ion-col>
-      </ion-row>
+     
       <ion-row>
         <ion-col>
             <ion-label> 
@@ -89,6 +85,11 @@
                   </ion-label>
               </ion-col>
             </ion-row>
+			 <ion-row>
+        <ion-col text-center>
+            <button ion-button full  (click)="showOptions()">Opciones</button>
+        </ion-col>
+      </ion-row>
     </ion-grid>
   
   <ion-list *ngIf="idEstatus != null">
@@ -113,11 +114,7 @@
             </ion-label>
           </ion-item>
 
-        <button [disabled]="idEstatus != 1" ion-item  no-lines>
-            Nueva Sin Taller
-            <ion-icon *ngIf="idEstatus > 1" name="checkmark" item-end></ion-icon>
-            <ion-icon *ngIf="idEstatus == 1" name="arrow-dropleft-circle" item-end></ion-icon>
-        </button>
+        
         <button [disabled]="idEstatus != 2" ion-item  no-lines>
             Nueva Con Taller
             <ion-icon *ngIf="idEstatus > 2" name="checkmark" item-end></ion-icon>
