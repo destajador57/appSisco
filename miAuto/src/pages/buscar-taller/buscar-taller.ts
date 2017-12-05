@@ -202,7 +202,7 @@ private getPlaceDetail(place_id:string):void {
   };
   console.log('identificador del lugar');
   console.log(place_id);
-
+ 
   this.placesService = new google.maps.places.PlacesService(this.mapa);
   this.placesService.getDetails(request, callback);
   function callback(place, status) {
