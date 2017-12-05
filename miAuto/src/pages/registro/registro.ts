@@ -28,7 +28,8 @@ console.log(this.usuario);
       if(data){
         if(data.idUsuario != null && data.idUsuario !='' && data.idUsuario != '0'){
           console.log(data.idUsuario);
-          this.navCtrl.setRoot(HomePage,{ idUsuario: data.idUsuario});
+          this.navCtrl.setRoot(HomePage,{ cita: { idUsuario: data.idUsuario, idContratoOperacion: data.idContratoOperacion}});
+          //this.navCtrl.setRoot(HomePage,{ idUsuario: data.idUsuario});
         }else{
           this.mostrarError(data.Msj);
         }

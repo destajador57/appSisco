@@ -37,7 +37,7 @@ export class LoginPage {
       }
 		},
 		(error) =>{
-			this.mostrarError("El usuario o contraseña es incorrecto.");
+			this.mostrarError("El usuario o contraseña es incorrecto o no se encuentra registrado el usuario.");
 		}
 	);
     

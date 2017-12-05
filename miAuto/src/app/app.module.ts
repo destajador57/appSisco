@@ -31,7 +31,6 @@ import { DatePicker } from '@ionic-native/date-picker';
 
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { NgCalendarModule } from 'ionic2-calendar';
-//import { NgCalendarModule } from 'ionic2-calendar';
 
 import { AmChartsModule } from "@amcharts/amcharts3-angular";
 import { UserServiceProvider } from '../providers/user-service/user-service';
@@ -94,7 +93,6 @@ import { Camera } from '@ionic-native/camera';
     FileTransfer,
     DatePicker,
     Camera,
-    // { provide: LOCALE_ID, useValue: 'es-MX' },
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
