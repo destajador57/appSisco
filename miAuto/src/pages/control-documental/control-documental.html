@@ -14,46 +14,82 @@
 
 <ion-content padding>
     <ion-row>
+		<ion-col>
+			<ion-card text-center>
+				<div class="card-title" class="tituloArchivo">Placas</div>
+				<ion-row><ion-col>
+					<ion-icon color="secondary" class="archivo" (click)="descargar(documento.Tenencia)" name="image"></ion-icon>
+				</ion-col><ion-col><ion-icon color="secondary" class="vencimientoH" name="calendar"></ion-icon><div class="card-title" class="pieArchivo"></div></ion-col></ion-row>
+			</ion-card>
+		</ion-col>		
+		<ion-col>
+			<ion-card text-center>
+				<div class="card-title">Tenencia o refrendo</div>
+				<ion-row>
+					<ion-col>
+						<ion-icon color="secondary" class="archivo" (click)="descargar(documento.Tenencia)" name="image"></ion-icon>
+					</ion-col>	
+					<ion-col>  		
+						<ion-icon color="secondary" class="vencimiento" name="calendar"></ion-icon>
+						<div class="card-title" class="pieArchivo">Vigencia: 
+							{{documento.fechaVigenciaTenencia}}
+						</div>
+					</ion-col>
+				</ion-row>
+			</ion-card>
+		</ion-col>
+    </ion-row>
+    <ion-row>
         <ion-col>
-            <ion-card text-center>
-                <ion-icon color="secondary" class="archivo" (click)="descargar(documento.placas)" name="image"></ion-icon>
-                <div class="card-title">Placas</div>
-              </ion-card>
-      </ion-col>
-      <ion-col>
-          <ion-card text-center>
-              <ion-icon color="secondary" class="archivo" (click)="descargar(documento.Tenencia)" name="image"></ion-icon>
-              <div class="card-title">Tenencia o refrendo</div>
-            </ion-card>
-      </ion-col>
+			<ion-card text-center>
+				<div class="card-title">Verificación</div>
+				<ion-row>
+					<ion-col>
+						<ion-icon color="secondary" class="archivo" (click)="descargar(documento.Verificacion)" name="image"></ion-icon>
+					</ion-col>	
+					<ion-col>  		
+						<ion-icon color="secondary" class="vencimiento" name="calendar"></ion-icon>
+						<div class="card-title" class="pieArchivo">Vigencia: 
+							{{documento.fechaVerificacion}}
+						</div>
+					</ion-col>
+				</ion-row>
+			</ion-card>
+		</ion-col>
+		<ion-col>
+			<ion-card text-center>
+				<div class="card-title">Poliza de seguro</div>
+				<ion-row>
+					<ion-col>
+						<ion-icon color="secondary" class="archivo" (click)="descargar(documento.PolizaDeSeguros)" name="image"></ion-icon>
+					</ion-col>	
+					<ion-col>  		
+						<ion-icon color="secondary" class="vencimiento" name="calendar"></ion-icon>
+						<div class="card-title" class="pieArchivo">Vigencia: 
+							{{documento.fechaVigenciaPolizaSeguro}}
+						</div>
+					</ion-col>
+				</ion-row>
+			</ion-card>
+        </ion-col>
     </ion-row>
     <ion-row>
         <ion-col>
             <ion-card text-center>
-                <ion-icon color="danger" class="archivo" (click)="descargar(documento.Verificacion)" name="image"></ion-icon>
-                <div class="card-title">Verificación</div>
-                <div>
-                        {{documento.fechaVerificacion}}
-                </div>
-              </ion-card>
-      </ion-col>
-      <ion-col>
-          <ion-card text-center>
-              <ion-icon color="secondary" class="archivo" (click)="descargar(documento.PolizaDeSeguros)" name="image"></ion-icon>
-              <div class="card-title">Poliza de seguro</div>
-              <div>
-                    {{documento.fechaVigenciaPolizaSeguro | date }}
-            </div>
-            </ion-card>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-        <ion-col>
-            <ion-card text-center>
-                <ion-icon color="secondary" class="archivo" (click)="descargar(documento.tarjetaDeCirculacion)" name="image"></ion-icon>
                 <div class="card-title">Tarjeta de circulación</div>
+				<ion-row><ion-col>
+					<ion-icon color="secondary" class="archivo" (click)="descargar(documento.tarjetaDeCirculacion)" name="image"></ion-icon>
+				</ion-col><ion-col><ion-icon color="secondary" class="vencimientoH" name="calendar"></ion-icon><div class="card-title" class="pieArchivo"></div></ion-col></ion-row>
               </ion-card>
-      </ion-col>
+		</ion-col>
+		<ion-col>
+            <ion-card text-center>
+                <div class="card-title">Multas</div>
+				<ion-row><ion-col>
+					<ion-icon color="secondary" class="archivo" name="image"></ion-icon>
+				</ion-col><ion-col><ion-icon color="secondary" class="vencimientoH" name="calendar"></ion-icon><div class="card-title" class="pieArchivo"></div></ion-col></ion-row>
+              </ion-card>
+		</ion-col>
     </ion-row>
     <!-- <a ion-item href="https://www.ionicframework.com">
         Anchor Item

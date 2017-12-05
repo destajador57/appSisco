@@ -22,6 +22,7 @@ export class ControlDocumentalPage {
     PolizaDeSeguros: string, 
     tarjetaDeCirculacion: string,
     fechaVigenciaPolizaSeguro: string,
+	fechaVigenciaTenencia: string,
     fechaVerificacion: string
   };
 
@@ -62,6 +63,7 @@ export class ControlDocumentalPage {
             PolizaDeSeguros: doc.PolizaDeSeguros ? doc.PolizaDeSeguros : '', 
             tarjetaDeCirculacion: doc.tarjetaDeCirculacion ? doc.tarjetaDeCirculacion : '', 
             fechaVigenciaPolizaSeguro: doc.fechaVigenciaPolizaSeguro ? doc.fechaVigenciaPolizaSeguro : '', 
+			fechaVigenciaTenencia: doc.fechaVigenciaTenencia ? doc.fechaVigenciaTenencia : '',
             fechaVerificacion: doc.fechaVerificacion ? doc.fechaVerificacion : ''
           };
 

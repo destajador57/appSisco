@@ -1,12 +1,25 @@
 page-control-documental {
     .archivo{
-        font-size: 90px;
+        font-size: 70px;
     }
-.pie{
-    background-color: #2952a3;
-    color: white;
-}
-.pie button{
-    color: white;
-}
+	.vencimiento{
+        font-size: 30px;
+    }
+	.vencimientoH{
+        font-size: 30px;
+		color: white;
+    }
+	.pie{
+		background-color: #2952a3;
+		color: white;
+	}
+	.pie button{
+		color: white;
+	}
+	.tituloArchivo{
+		font-size: 16px;
+	}
+	.pieArchivo{
+		font-size: 10px;
+	}
 }
