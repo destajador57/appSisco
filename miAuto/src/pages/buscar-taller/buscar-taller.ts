@@ -101,7 +101,7 @@ private initMap() {
 
   this.ubicacion.lat = position.coords.latitude;
   this.ubicacion.lng = position.coords.longitude;
-
+ 
   this.userService.GetTalleres(this.cita.idUnidad, this.ubicacion.lat ,this.ubicacion.lng)
   .subscribe(
   (data) => { // Success
@@ -112,6 +112,7 @@ private initMap() {
       console.log(data);
       if(data && data != null && data.length > 0){
         this.talleres = data;
+        console.log(this.talleres);
       }
   },
   (error) =>{
