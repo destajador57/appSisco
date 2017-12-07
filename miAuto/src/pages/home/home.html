@@ -26,18 +26,6 @@
         </ion-col>
       </ion-row>
       <ion-row>
-          <ion-col col-4>
-              <ion-label> 
-                  <b>Modelo:</b>
-              </ion-label>
-          </ion-col>
-          <ion-col bol-8>
-              <ion-label> 
-                  {{modelo}}
-              </ion-label>
-          </ion-col>
-      </ion-row>
-      <ion-row>
         <ion-col col-4>
             <ion-label> 
                 <b>Placas:</b>
@@ -104,7 +92,7 @@
               {{ numeroOrden }}
           </ion-label>
           <ion-label item-end> 
-              {{ fechaCita | date }}
+              {{ fechaCita | date: 'dd MMMM yyyy, HH:mm' }}
           </ion-label>
         </ion-item>
        

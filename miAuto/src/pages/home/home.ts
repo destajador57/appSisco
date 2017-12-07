@@ -25,6 +25,7 @@ export class HomePage {
   idOrden: number;
   numeroOrden: string;
   fechaCita: any;
+  telefonoSiniestro: any;
   //unidades: Array<{nombre: string, descripcion: string, revision: number}>;
 
   constructor(public navCtrl: NavController, 
@@ -55,6 +56,7 @@ export class HomePage {
       this.idOrden = data[0].idOrden;
       this.numeroOrden = data[0].numeroOrden;
       this.fechaCita = data[0].fechaCita;
+      this.telefonoSiniestro = data[0].telefonoSiniestro;
       console.log(this.idEstatus != 3);
 		},
 		(error) =>{
@@ -71,6 +73,7 @@ export class HomePage {
       idUnidad: this.unidades[0].idUnidad,
       idEstatus: this.idEstatus,
 
+      telefonoSiniestro: this.telefonoSiniestro,
       nombre:this.unidades[0].nombre,
       modelo: this.modelo,
       nombreMarca: this.nombreMarca

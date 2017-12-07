@@ -27,11 +27,11 @@ export class CalificaPage {
     this.cita = navParams.get('cita');
 
     this.calificacion = { 
-      primera: 0,
-      segunda: 0,
-      tercera: 0,
-      cuarta: 0,
-      quinta: 0
+      primera: 1,
+      segunda: 1,
+      tercera: 1,
+      cuarta: 1,
+      quinta: 1
     };
 
     console.log(this.cita);

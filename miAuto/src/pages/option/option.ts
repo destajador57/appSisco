@@ -26,7 +26,7 @@ export class OptionPage {
   }
 
   showAccidenteRobo(){
-    this.navCtrl.push(AccidenteRoboPage);
+    this.navCtrl.push(AccidenteRoboPage,{cita: this.cita } );
   }
 
   showControlDocumental(){

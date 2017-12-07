@@ -10,7 +10,10 @@ import { LoginPage } from '../login/login';
 })
 export class AccidenteRoboPage {
 
+  cita: any;
+
   constructor(public navCtrl: NavController, public navParams: NavParams, private callNumber: CallNumber) {
+    this.cita = navParams.get('cita');
   }
 
   ionViewDidLoad() {
@@ -18,7 +21,8 @@ export class AccidenteRoboPage {
   }
 
   public llamarCallCenter(){
-    this.callNumber.callNumber('5575839991', true)
+    console.log(this.cita.telefonoSiniestro);
+    this.callNumber.callNumber(this.cita.telefonoSiniestro, true)
     .then(()=> console.log('Esta llamando a call center'))
     .catch(()=> console.log('fallo la llamada'));
   }
