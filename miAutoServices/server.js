@@ -39,14 +39,15 @@ app.get('/Registra', function(req, res){
 		.input ('placas',req.query.placas)
         .execute("APP_CITAS_REGISTRAR_USUARIO").then(function (recordSet) { 
 			var msj =recordSet[0][0].mensaje;
+			// console.log(recordSet);
 			dbConn.close();
 			if(msj === 'Usuario Registrado')
 				 ValidaLog(req,res);
 			else
-				regreso('0',msj,res);
+				regreso('0','sql:'+msj,res);
         }).catch(function (err) {
            dbConn.close();
-		   regreso('0',err.message,res);
+		   regreso('0','err erv:'+err.message,res);
         });
     }).catch(function (err) {
 		dbConn.close();
@@ -157,6 +158,7 @@ app.get('/GetTalleres', function(req, res){
 				taller.direccion = recordSet[0][i].direccion;
 				taller.latitud = recordSet[0][i].latitud;
 				taller.calificacionTaller = recordSet[0][i].calificacionTaller;
+				taller.order = i;
 				var longi = recordSet[0][i].longitud;
 				if(parseFloat(longi)>0){
 					longi = '-'+longi;
@@ -166,7 +168,7 @@ app.get('/GetTalleres', function(req, res){
 				destinations.push(taller.latitud + ',' + taller.longitud);
 			}
 			dbConn.close();
-			computeTotalDistance(origins,destinations,res);
+			computeTotalDistance(origins,destinations,res,0);
         }).catch(function (err) {
            dbConn.close();
 		   regreso('0',err.message,res);
@@ -177,59 +179,68 @@ app.get('/GetTalleres', function(req, res){
     });
 });
 
-function computeTotalDistance(origins,destinations,res) {
+function computeTotalDistance(origins,destinations,res,noInt) {
 	distance.key('AIzaSyBfaZuXKdq-hdz8G7QAWUQ7WvVkmK_Ys3k');
 	distance.mode('driving');
-	console.log(destinations);
+	//console.log(destinations);
 	var Nerr=99999;
+	
 	distance.matrix(origins, destinations, function (err, distances) {
-		if (distances.status == 'OK') {
-			for (var i=0; i < origins.length; i++) {
-				for (var j = 0; j < destinations.length; j++) {
-					if(distances.rows[0].elements.length >0){
-						if (distances.rows[0].elements[j].status == 'OK') {
-							var distance = distances.rows[i].elements[j].distance.text;
-							talleres[j].km = distance;
-							talleres[j].order = parseInt(distance.split(" ")[0]);// guardo los kilometros en entero para ordenar
-						} else { 
-							talleres[i].km  = ' - '; 
-							talleres[j].order = Nerr;
-							Nerr = Nerr +1;
+		if(distances !=null && distances !=undefined){
+			if (distances.status == 'OK') {
+				for (var i=0; i < origins.length; i++) {
+					for (var j = 0; j < destinations.length; j++) {
+						if(distances.rows[0].elements.length >0){
+							if (distances.rows[0].elements[j].status == 'OK') {
+								var distance = distances.rows[i].elements[j].distance.text;
+								talleres[j].km = distance;
+								talleres[j].order = parseInt(distance.split(" ")[0]);// guardo los kilometros en entero para ordenar
+							} else { 
+								talleres[i].km  = ' - '; 
+								talleres[j].order = Nerr;
+								Nerr = Nerr +1;
+							}
 						}
 					}
 				}
 			}
-		}
-		
-		
 		// ordenamos los talleres por distancia
-		talleres.sort(function (a, b) {
-		  if (a.order > b.order) { return 1; }
-		  if (a.order < b.order) { return -1;}
-		  return 0;
-		});
-		var respuesta = [];	
-		for(var i=0; i<talleres.length; i++){
-			if (talleres[i].order < 99999) respuesta.push(talleres[i]);
+			talleres.sort(function (a, b) {
+				if (a.order > b.order) { return 1; }
+				if (a.order < b.order) { return -1;}
+				return 0;
+			});
+			LimpiayRespondeKM(res);
+		}else if(noInt < 2){
+			noInt = noInt + 1;
+			computeTotalDistance(origins,destinations,res,noInt);
+		} else{
+			LimpiayRespondeKM(res);
 		}
-		res.contentType('application/json');
-		res.header("Access-Control-Allow-Origin", "*");
-		res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  
-		res.send(respuesta);
 	});
 }
 
+function LimpiayRespondeKM(res){
+	var respuesta = [];	
+	for(var i=0; i<talleres.length; i++){
+		if (talleres[i].order < 99999) respuesta.push(talleres[i]);
+	}
+	res.contentType('application/json');
+	res.header("Access-Control-Allow-Origin", "*");
+	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+
+	res.send(respuesta);
+}
 //APP_CITAS_GET_ORDENES_POR_UNIDAD
 app.get('/GetOrdXUni', function(req, res){
     var dbConn = new sql.Connection(config); 
     dbConn.connect().then(function () {
         var request = new sql.Request(dbConn);
-		
 		request
 		.input ('idUnidad',req.query.idUnidad)
 		.execute("APP_CITAS_GET_ORDENES_POR_UNIDAD").then(function (recordSet) { 
 			var msj = JSON.stringify(recordSet[0]);
+			
 			dbConn.close();
 			res.contentType('application/json');
 			res.header("Access-Control-Allow-Origin", "*");
