@@ -14,7 +14,8 @@ import {
 import { AutoCompletadoPage } from '../auto-completado/auto-completado';
 import { LoginPage } from '../login/login';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
-import { ConfirmacionPage } from '../confirmacion/confirmacion';
+//import { ConfirmacionPage } from '../confirmacion/confirmacion';
+import { CalendarioPage } from '../calendario/calendario';
 
 declare var google:any;
 
@@ -202,7 +203,7 @@ private getPlaceDetail(place_id:string):void {
   };
   console.log('identificador del lugar');
   console.log(place_id);
- 
+  
   this.placesService = new google.maps.places.PlacesService(this.mapa);
   this.placesService.getDetails(request, callback);
   function callback(place, status) {
@@ -384,10 +385,10 @@ private getPlaceDetail(place_id:string):void {
         this.markers.push(marker);
       }
   }
-
+  
       public showTallerDetalle(taller){
         console.log(taller);
-        this.navCtrl.push(ConfirmacionPage,{cita:{
+        this.navCtrl.push(CalendarioPage,{cita:{
           idServicio: this.cita.idServicio,
           idUsuario: this.cita.idUsuario,
           idContratoOperacion: this.cita.idContratoOperacion,
