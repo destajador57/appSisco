@@ -10,5 +10,5 @@
   }],
   "background_color": "#4e8ef7",
   "theme_color": "#4e8ef7",
-  "server":"http://localhost:4800/"
+  "server":"http://192.168.20.9:4800/"
 }

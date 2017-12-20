@@ -92,13 +92,13 @@ ubicacion:{lat:number,lng:number};
     this.initPlacedetails();
 console.log('invoca el init');
 }
-
+ 
 private initMap() {
   this.geolocation.getCurrentPosition().then((position) => {
   console.log('Esta inicializando el mapa ');
   console.log(position.coords.latitude);
   console.log(position.coords.longitude);
-
+ 
   this.ubicacion.lat = position.coords.latitude;
   this.ubicacion.lng = position.coords.longitude;
  

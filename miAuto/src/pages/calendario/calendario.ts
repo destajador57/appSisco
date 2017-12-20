@@ -82,6 +82,7 @@ return respuesta;
 
     // var tzoffset = (new Date()).getTimezoneOffset() * 60000;
     // var ahora = (new Date(Date.now() - tzoffset)).toISOString().slice(0, -1);
+    console.log(this.fechaActual);
     var fecha = this.fechaActual.substring(0,4) +
     this.fechaActual.substring(5,7)+
     this.fechaActual.substring(8,10)+ ' ' + 
