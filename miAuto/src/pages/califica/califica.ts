@@ -15,7 +15,7 @@ export class CalificaPage {
 
   cita: any;
 
-  calificacion: { 
+  calificacion: {
     primera: number,
     segunda: number,
     tercera: number,
@@ -23,17 +23,16 @@ export class CalificaPage {
     quinta: number
   };
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private callNumber:CallNumber, public userService: UserServiceProvider, private alertCtrl: AlertController, private camera: Camera) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private callNumber: CallNumber, public userService: UserServiceProvider, private alertCtrl: AlertController, private camera: Camera) {
     this.cita = navParams.get('cita');
 
-    this.calificacion = { 
+    this.calificacion = {
       primera: 1,
       segunda: 1,
       tercera: 1,
       cuarta: 1,
       quinta: 1
     };
-
     console.log(this.cita);
   }
 
@@ -41,78 +40,66 @@ export class CalificaPage {
     console.log('ionViewDidLoad CalificaPage');
   }
 
-  calificarPrimera(calificacion){
+  calificarPrimera(calificacion) {
     this.calificacion.primera = calificacion;
   }
-  calificarSegunda(calificacion){
+  calificarSegunda(calificacion) {
     this.calificacion.segunda = calificacion;
   }
-  calificarTercera(calificacion){
+  calificarTercera(calificacion) {
     this.calificacion.tercera = calificacion;
   }
-  calificarCuarta(calificacion){
+  calificarCuarta(calificacion) {
     this.calificacion.cuarta = calificacion;
   }
-  calificarQuinta(calificacion){
+  calificarQuinta(calificacion) {
     this.calificacion.quinta = calificacion;
   }
 
-  calificar(){
-    console.log(this.calificacion);
-    this.userService.CalificaTaller(this.cita.idOrden,this.calificacion)
-    .subscribe(
-    (data) => { // Success
-      console.log('unidad seleccionadas');
-      console.log(data[0]);
-      this.navCtrl.setRoot(HomePage,{cita: this.cita});
-      // if(data && data.length > 0 && data[0].ok == 1){
-      //   this.navCtrl.setRoot(HomePage,{cita: this.cita});
-      // }else{
-      //   this.mostrarError('Por el momento no es posible calificar');
-      // }
-		},
-		(error) =>{
-			this.mostrarError('Por el momento no es posible calificar');
-		}
-	);
+  calificar() {
+    this.userService.CalificaTaller(this.cita.idOrden, this.calificacion)
+      .subscribe(
+      (data) => { // Success
+        this.navCtrl.setRoot(HomePage, { cita: this.cita });
+      },
+      (error) => {
+        this.mostrarError('Por el momento no es posible calificar');
+      }
+      );
   }
 
-  agregarEvidencia(){
+  agregarEvidencia() {
     const options: CameraOptions = {
       quality: 100,
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE
     }
-    
+
     this.camera.getPicture(options).then((imageData) => {
-     // imageData is either a base64 encoded string or a file URI
-     // If it's base64:
-     let base64Image = 'data:image/jpeg;base64,' + imageData;
+      let base64Image = 'data:image/jpeg;base64,' + imageData;
     }, (err) => {
-     // Handle error
+      // Handle error
     });
   }
 
-  mostrarError(mensaje){
-    
-       let alert = this.alertCtrl.create({
-         title: 'Error',
-         subTitle: mensaje,
-         buttons: ['OK']
-       });
-       alert.present();
+  mostrarError(mensaje) {
+
+    let alert = this.alertCtrl.create({
+      title: 'Error',
+      subTitle: mensaje,
+      buttons: ['OK']
+    });
+    alert.present();
   }
 
-  public llamarCallCenter(){
+  public llamarCallCenter() {
     this.callNumber.callNumber('5575839991', true)
-    .then(()=> console.log('Esta llamando a call center'))
-    .catch(()=> console.log('fallo la llamada'));
+      .then(() => console.log('Esta llamando a call center'))
+      .catch(() => console.log('fallo la llamada'));
   };
 
-  salir(){
-    //this.rootPage = LoginPage;
+  salir() {
     this.navCtrl.setRoot(LoginPage);
-    console.log('deberia funcioan');
   };
 }

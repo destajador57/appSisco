@@ -1,8 +1,8 @@
 {
   "name": "miAuto",
   "version": "0.0.1",
-  "author": "Ionic Framework",
-  "homepage": "http://ionicframework.com/",
+  "author": "Miguel Angel Reyes Xinaxtle",
+  "homepage": "http://www.grupoandrade.com.mx/",
   "private": true,
   "scripts": {
     "clean": "ionic-app-scripts clean",
@@ -25,6 +25,7 @@
     "@ionic-native/camera": "^4.4.2",
     "@ionic-native/core": "4.4.0",
     "@ionic-native/date-picker": "^4.4.2",
+    "@ionic-native/deeplinks": "^4.5.2",
     "@ionic-native/file": "^4.4.2",
     "@ionic-native/file-transfer": "^4.4.2",
     "@ionic-native/geolocation": "^4.4.2",
@@ -52,8 +53,8 @@
     "cordova-windows": "5.0.0",
     "intl": "^1.2.5",
     "ion2-calendar": "^2.1.4",
-    "ionic": "^3.19.0",
     "ionic-angular": "3.9.2",
+    "ionic-plugin-deeplinks": "^1.0.15",
     "ionic-plugin-keyboard": "^2.2.1",
     "ionic2-calendar": "^0.4.1",
     "ionic3-calendar": "^1.1.6",
@@ -67,9 +68,10 @@
   },
   "devDependencies": {
     "@ionic/app-scripts": "3.1.2",
+    "ionic": "3.19.1",
     "typescript": "^2.3.4"
   },
-  "description": "An Ionic project",
+  "description": "Administrar las solicitudes hechas al Grupo Andrade",
   "cordova": {
     "plugins": {
       "mx.ferreyra.callnumber": {},
@@ -88,7 +90,13 @@
       "cordova-plugin-document-viewer": {},
       "cordova-plugin-datepicker": {},
       "cordova-plugin-camera": {},
-      "call-number": {}
+      "call-number": {},
+      "ionic-plugin-deeplinks": {
+        "URL_SCHEME": "myauto",
+        "DEEPLINK_SCHEME": "https",
+        "DEEPLINK_HOST": "myauto.com",
+        "ANDROID_PATH_PREFIX": "/"
+      }
     },
     "platforms": [
       "android",

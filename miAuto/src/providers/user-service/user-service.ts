@@ -10,7 +10,6 @@ export class UserServiceProvider {
 
      this.server =  this.http.get('manifest.json').subscribe(
       (data) => { // Success
-          console.log(data);
           this.server = data.server;
       },
       (error) =>{
@@ -21,8 +20,6 @@ export class UserServiceProvider {
   //
   Loguea(user,psw){
     this.stringconn = this.server +'Logea?user='+user+'&password='+psw
-   // console.log(this.stringconn);
-    
 	  return this.http.get(this.stringconn);
   }
   //

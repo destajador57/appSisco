@@ -20,8 +20,6 @@ export class ServicioPage {
   }
 
   salir(){
-    //this.rootPage = LoginPage;
     this.navCtrl.setRoot(LoginPage);
-    console.log('deberia funcioan');
   };
 }

@@ -21,15 +21,12 @@ export class RegistroPage {
   }
 
   public registrar(){
-console.log(this.usuario);
 	this.userService.Registra(this.usuario.email,this.usuario.password, this.usuario.vin, this.usuario.placas)
     .subscribe(
     (data) => { // Success
       if(data){
         if(data.idUsuario != null && data.idUsuario !='' && data.idUsuario != '0'){
-          console.log(data.idUsuario);
           this.navCtrl.setRoot(HomePage,{ cita: { idUsuario: data.idUsuario, idContratoOperacion: data.idContratoOperacion}});
-          //this.navCtrl.setRoot(HomePage,{ idUsuario: data.idUsuario});
         }else{
           this.mostrarError(data.Msj);
         }
@@ -52,8 +49,6 @@ console.log(this.usuario);
   }
   
   salir(){
-    //this.rootPage = LoginPage;
     this.navCtrl.setRoot(LoginPage);
-    console.log('deberia funcioan');
   };
 }

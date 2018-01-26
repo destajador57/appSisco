@@ -49,8 +49,6 @@ export class ControlDocumentalPage {
   }
 
   descargar(url){
-    console.log('lo que va a mandar');
-    console.log(url);
     this.navCtrl.push(DocumentoPage, {url: url});
   }
 
@@ -60,7 +58,6 @@ export class ControlDocumentalPage {
     this.userService.GetDocsXUni(this.cita.idUnidad)
     .subscribe(
     (data) => { // Success
-        console.log(data);
         if(data && data != null && data.length > 0){
           var doc = data[0];
           this.documento ={
@@ -99,8 +96,6 @@ export class ControlDocumentalPage {
   }
 
   salir(){
-    //this.rootPage = LoginPage;
-    this.navCtrl.setRoot(LoginPage);
-    console.log('deberia funcioan');
+    this.navCtrl.setRoot(LoginPage);    
   };
 }

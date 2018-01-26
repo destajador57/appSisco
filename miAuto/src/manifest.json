@@ -1,6 +1,6 @@
 {
-  "name": "Ionic",
-  "short_name": "Ionic",
+  "name": "MiAuto",
+  "short_name": "MiAuto",
   "start_url": "index.html",
   "display": "standalone",
   "icons": [{
@@ -10,5 +10,5 @@
   }],
   "background_color": "#4e8ef7",
   "theme_color": "#4e8ef7",
-  "server":"http://192.168.20.9:4800/"
+  "server":"http://189.204.141.193:4800/"
 }

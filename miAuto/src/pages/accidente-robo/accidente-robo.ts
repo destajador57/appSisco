@@ -28,8 +28,6 @@ export class AccidenteRoboPage {
   }
 
   salir(){
-    //this.rootPage = LoginPage;
     this.navCtrl.setRoot(LoginPage);
-    console.log('deberia funcioan');
   };
 }

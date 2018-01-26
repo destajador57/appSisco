@@ -8,23 +8,13 @@
       </ion-buttons>
   </ion-navbar>
 </ion-header>
-
-
 <ion-content padding text-center>
     <ion-list>
-        
-          <!-- <ion-list-header  no-lines text-center text-wrap>
-            <ion-label>
-                Por favor comentanos como te parecio el servicio
-            </ion-label>
-          </ion-list-header> -->
-          
             <ion-item no-lines text-center text-wrap>
               <ion-label color="primary">
                   ¿Te entregaron tu vehículo en tiempo y forma?
                 </ion-label>
             </ion-item>
-
             <ion-list-header  no-lines text-center text-wrap>
                 <ion-icon *ngIf="calificacion.primera >= 1" (click)="calificarPrimera(1)" color="primary" name="star"></ion-icon>
                 <ion-icon *ngIf="calificacion.primera < 1" (click)="calificarPrimera(1)" name="star"></ion-icon>
@@ -37,7 +27,6 @@
                 <ion-icon *ngIf="calificacion.primera == 5" (click)="calificarPrimera(5)" color="primary" name="star"></ion-icon>
                 <ion-icon *ngIf="calificacion.primera < 5" (click)="calificarPrimera(5)" name="star"></ion-icon>
               </ion-list-header>
-
             <ion-item no-lines text-center text-wrap>
                 <ion-label color="primary">
                     ¿Cómo encuentras la calidad del servicio?

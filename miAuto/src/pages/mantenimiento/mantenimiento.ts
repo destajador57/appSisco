@@ -26,8 +26,6 @@ cita: any;
   constructor(public navCtrl: NavController, public navParams: NavParams, private callNumber: CallNumber, private AmCharts: AmChartsService, public userService: UserServiceProvider) {
 
     this.cita = navParams.get('cita');
-    console.log(this.cita);
-
     this.servicioSeleccionado = 0;
 
     this.kilometraje = {
@@ -43,14 +41,7 @@ cita: any;
     this.userService.GetOrdXUni(this.cita.idUnidad)
     .subscribe(
     (data) => { // Success
-      console.log(data);
-      //console.log(data[0]);
       this.serviciosHechos = data;
-      // if(data && data.length > 0 && data[0].ok == 1){
-      //   this.navCtrl.setRoot(HomePage,{cita: this.cita});
-      // }else{
-      //   this.mostrarError('Por el momento no es posible calificar');
-      // }
 		},
 		(error) =>{
 			this.mostrarError('Por el momento no es posible calificar');
@@ -120,21 +111,8 @@ cita: any;
     this.userService.CitaServicios()
     .subscribe(
     (data) => { // Success
-        console.log(data);
         if(data && data != null && data.length > 0){
-          //var doc = data[0];
-          //this.servicios = {idServicio: number, Servicio: number}
           this.servicios = data;
-          // this.documento ={
-          //   placas: doc.placas ? doc.placas : '', 
-          //   Tenencia: doc.Tenencia ? doc.Tenencia : '', 
-          //   Verificacion: doc.Verificacion ? doc.Verificacion : '', 
-          //   PolizaDeSeguros: doc.PolizaDeSeguros ? doc.PolizaDeSeguros : '', 
-          //   tarjetaDeCirculacion: doc.tarjetaDeCirculacion ? doc.tarjetaDeCirculacion : '', 
-          //   fechaVigenciaPolizaSeguro: doc.fechaVigenciaPolizaSeguro ? doc.fechaVigenciaPolizaSeguro : '', 
-          //   fechaVerificacion: doc.fechaVerificacion ? doc.fechaVerificacion : ''
-          // };
-
         }else{
           this.mostrarError("No es posible ver los documentos por el momento");
         }
@@ -169,7 +147,6 @@ cita: any;
   }
 
   confirmarServicio(){
-    console.log(this.servicioSeleccionado);
     this.navCtrl.push(BuscarTallerPage,{cita:{
       idServicio: this.servicioSeleccionado.idServicio,
       idUsuario: this.cita.idUsuario,
@@ -184,8 +161,6 @@ cita: any;
   }
 
   salir(){
-    //this.rootPage = LoginPage;
     this.navCtrl.setRoot(LoginPage);
-    console.log('deberia funcioan');
   };
 }

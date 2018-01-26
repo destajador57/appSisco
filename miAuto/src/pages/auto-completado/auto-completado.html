@@ -1,24 +1,15 @@
 <ion-header>
-
-  <ion-navbar>
-    <ion-title>Buscar dirección</ion-title>
-  </ion-navbar>
-
+    <ion-navbar>
+        <ion-title>Buscar dirección</ion-title>
+    </ion-navbar>
 </ion-header>
-
-
 <ion-content padding>
-    <ion-searchbar 
-    [(ngModel)]="autocomplete.query" 
-    [showCancelButton]="true" 
-    (ionInput)="updateSearch()" 
-    (ionCancel)="dismiss()"
-    placeholder="Escribe y selecciona">
-</ion-searchbar>
-<ion-list>
-    <ion-item *ngFor="let direccion of direccionesAutoCompletadas" 
-        (click)="eligeDireccion(direccion)">
-        {{ direccion.description }}
-    </ion-item>
-</ion-list>
+    <ion-searchbar [(ngModel)]="autocomplete.query" [showCancelButton]="true" (ionInput)="updateSearch()" (ionCancel)="dismiss()"
+        placeholder="Escribe y selecciona">
+    </ion-searchbar>
+    <ion-list>
+        <ion-item *ngFor="let direccion of direccionesAutoCompletadas" (click)="eligeDireccion(direccion)">
+            {{ direccion.description }}
+        </ion-item>
+    </ion-list>
 </ion-content>

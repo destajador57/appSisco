@@ -21,6 +21,7 @@ import { ConfirmacionPage } from '../pages/confirmacion/confirmacion';
 import { CalificaPage } from '../pages/califica/califica';
 
 import { StatusBar } from '@ionic-native/status-bar';
+import { Deeplinks } from '@ionic-native/deeplinks';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { CallNumber } from '@ionic-native/call-number';
 import { GoogleMaps } from '@ionic-native/google-maps';
@@ -83,6 +84,7 @@ import { Camera } from '@ionic-native/camera';
     CalificaPage
   ],
   providers: [
+    Deeplinks,
     StatusBar,
     SplashScreen,
     CallNumber,
