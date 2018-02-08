@@ -324,6 +324,46 @@ app.get('/GetConfiguracion', function(req, res){
     });
 });
 
+//APP_CITAS_GET_PRMOCION
+app.get('/GetPromocion', function(req, res){
+	var dbConn = new sql.Connection(config); 
+	var uss = '0';
+	dbConn.connect().then(function () {
+		 var request = new sql.Request(dbConn);
+		 
+		 request
+		 .input ('marca',req.query.idConfiguracion)
+		 .input ('submarca',req.query.idConfiguracion)
+		 .execute("APP_CITAS_GET_PRMOCION").then(function (recordSet) { 
+			 var msj =recordSet[0][0].configuracion;
+			 var SendObj = {"configuracion": msj};
+			 var stringData = JSON.stringify(SendObj);
+				   
+			 // Indicamos el tipo de contenido a devolver en las cabeceras de nuestra respuesta
+			 res.contentType('application/json');
+			 res.header("Access-Control-Allow-Origin", "*");
+			 res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+   
+			 res.send(stringData);
+		 }).catch(function (err) {
+			dbConn.close();
+			res.contentType('application/json');
+			res.header("Access-Control-Allow-Origin", "*");
+			res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+   
+			res.send("Error: "+ err.message);
+		 });
+	 }).catch(function (err) {
+		 dbConn.close();
+		 res.contentType('application/json');
+		 res.header("Access-Control-Allow-Origin", "*");
+		 res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+   
+		 res.send("Error: "+ err.message);
+	 });
+ });
+
+
 //APP_CITAS_NUEVA_CITA
 app.get('/ServicioNuevaCita', function(req, res){
     var dbConn = new sql.Connection(config); 
