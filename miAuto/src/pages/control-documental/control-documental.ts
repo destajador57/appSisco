@@ -54,7 +54,7 @@ export class ControlDocumentalPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ControlDocumentalPage');
-
+    console.log(this.cita);
     this.userService.GetDocsXUni(this.cita.idUnidad)
     .subscribe(
     (data) => { // Success

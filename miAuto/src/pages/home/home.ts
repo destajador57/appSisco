@@ -33,11 +33,12 @@ export class HomePage {
 	this.userService.GetUnidades(this.cita.idUsuario)
     .subscribe(
     (data) => { // Success
+      console.log(data);
 			this.unidades.push({
         nombre: data[0].nombreSubMarca,
         idUnidad: data[0].idUnidad
 			});
-      
+    
 			this.placas= data[0].placas; 
 			this.vin= data[0].vin;
 			this.modelo= data[0].modelo;
@@ -53,7 +54,7 @@ export class HomePage {
 		}
 	);
   }
-
+ 
   public showOptions(unidad){
     this.navCtrl.push(OptionPage, {cita: {
       idUsuario: this.cita.idUsuario,

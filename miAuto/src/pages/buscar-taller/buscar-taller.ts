@@ -35,7 +35,7 @@ export class BuscarTallerPage implements OnInit {
     place: '',
     set: false,
   };
-
+  
   placesService: any;
   mapa: any;
   markers = [];
@@ -44,7 +44,7 @@ export class BuscarTallerPage implements OnInit {
   cita: any;
 
   ubicacion: { lat: number, lng: number };
-
+  
   talleres: Array<{
     RFC: string,
     direccion: string,
@@ -58,7 +58,7 @@ export class BuscarTallerPage implements OnInit {
     order: number,
     razonSocial: string
   }>;
-
+ 
   constructor(public navCtrl: NavController, public navParams: NavParams, private callNumber: CallNumber, public geolocation: Geolocation, private alertCtrl: AlertController, public modalCtrl: ModalController, public userService: UserServiceProvider) {
     this.cita = navParams.get('cita');
     this.ubicacion = { lat: 0, lng: 0 };
@@ -71,18 +71,27 @@ export class BuscarTallerPage implements OnInit {
   }
  
   private initMap() {
+    console.log('carga de mapas');
     this.geolocation.getCurrentPosition().then((position) => {
+      console.log('me trajo la posisicion');
+      console.log(position.coords);
       this.ubicacion.lat = position.coords.latitude;
       this.ubicacion.lng = position.coords.longitude;
 
+      console.log('va a invocar el servicio');
       this.userService.GetTalleres(this.cita.idUnidad, this.ubicacion.lat, this.ubicacion.lng)
         .subscribe(
         (data) => { // Success
+          console.log('despues de la ejecucion para obtener los talleres');
+          console.log(data);
           if (data && data != null && data.length > 0) {
+            console.log('carga inicial de los talleres');
+            console.log(data);
             this.talleres = data;
           }
         },
         (error) => {
+          console.log('ocurrio un error');
           console.log(error);
         }
         );
@@ -157,7 +166,7 @@ export class BuscarTallerPage implements OnInit {
     this.address.place = '';
     this.address.set = false;
   }
-
+ 
   private getPlaceDetail(place_id: string): void {
     var self = this;
     var request = {
@@ -195,6 +204,8 @@ export class BuscarTallerPage implements OnInit {
           .subscribe(
           (data) => { // Success
             if (data && data != null && data.length > 0) {
+              console.log('carga inicial de los talleres');
+              console.log(data);
               self.talleres = data;
             }
           },
