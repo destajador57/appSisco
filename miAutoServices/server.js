@@ -6,8 +6,8 @@ var distance = require('google-distance-matrix');
 
 // configura bd 
 var config = {
-    server: '192.168.20.9',
-    database: 'ASEPROTMIAUTO',
+    server: '192.168.20.71',
+    database: 'MIAUTO',
     user: 'sa',
     password: 'S0p0rt3',
     port:1433
@@ -69,12 +69,14 @@ function regreso(id,mensaje,res){
 }
 
 function ValidaLog(req,res){
+	console.log('si entro');
 	var dbConn = new sql.Connection(config); 
 	dbConn.connect().then(function () {
 		var request = new sql.Request(dbConn);
 		request.input ('nombreUsuario',req.query.user)
 		.input ('contrasenia',req.query.password)
         .execute("APP_CITAS_VALIDA_LOGIN").then(function (recordSet) { 
+			console.log('ejecuto el sp');
 			var msj = JSON.stringify(recordSet[0][0]);
 			dbConn.close();
 			res.contentType('application/json');
@@ -144,10 +146,12 @@ app.get('/GetTalleres', function(req, res){
 	var destinations = [];
 	
     dbConn.connect().then(function () {
+		console.log('getTalleres');
         var request = new sql.Request(dbConn);
 		request
 		.input ('idUnidad',req.query.idUnidad)
 		.execute("APP_CITAS_GET_TALLERES").then(function (recordSet) {
+			console.log(recordSet);
 			for(var i=0; i<recordSet[0].length; i++){
 				var taller = new _Taller();
 				taller.idProveedor = recordSet[0][i].idProveedor;
