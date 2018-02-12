@@ -61,6 +61,7 @@ export class HomePage {
       idContratoOperacion: this.cita.idContratoOperacion,
       idUnidad: this.unidades[0].idUnidad,
       idEstatus: this.idEstatus,
+      vin: this.vin,
 
       telefonoSiniestro: this.telefonoSiniestro,
       nombre:this.unidades[0].nombre,

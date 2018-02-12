@@ -31,6 +31,7 @@ declare var google: any;
   templateUrl: 'buscar-taller.html',
 })
 export class BuscarTallerPage implements OnInit {
+ 
   address: any = {
     place: '',
     set: false,
@@ -43,7 +44,10 @@ export class BuscarTallerPage implements OnInit {
   map: GoogleMap;
   cita: any;
 
-  ubicacion: { lat: number, lng: number };
+  ubicacion: { 
+    lat: number, 
+    lng: number 
+  };
   
   talleres: Array<{
     RFC: string,
@@ -59,8 +63,17 @@ export class BuscarTallerPage implements OnInit {
     razonSocial: string
   }>;
  
-  constructor(public navCtrl: NavController, public navParams: NavParams, private callNumber: CallNumber, public geolocation: Geolocation, private alertCtrl: AlertController, public modalCtrl: ModalController, public userService: UserServiceProvider) {
+  constructor(public navCtrl: NavController, 
+    public navParams: NavParams, 
+    private callNumber: CallNumber, 
+    public geolocation: Geolocation, 
+    private alertCtrl: AlertController, 
+    public modalCtrl: ModalController, 
+    public userService: UserServiceProvider) {
+
     this.cita = navParams.get('cita');
+    console.log('-----------------cita parametro');
+    console.log(this.cita);
     this.ubicacion = { lat: 0, lng: 0 };
     this.talleres = [];
   }
@@ -146,13 +159,17 @@ export class BuscarTallerPage implements OnInit {
       }
     };
   }
-
+  
   showModal() {
     this.reset();
     // show modal|
+    console.log('va a invocar el modal');
     let modal = this.modalCtrl.create(AutoCompletadoPage);
     modal.onDidDismiss(data => {
+      console.log('page > modal dismissed > data > ', data);
       if (data) {
+        console.log('Dentro del modal');
+        console.log(data);
         this.address.place = data.description;
         // get details
         this.getPlaceDetail(data.place_id);
@@ -172,11 +189,13 @@ export class BuscarTallerPage implements OnInit {
     var request = {
       placeId: place_id
     };
-  
+   
     this.placesService = new google.maps.places.PlacesService(this.mapa);
     this.placesService.getDetails(request, callback);
     function callback(place, status) {
+      console.log('--getplacedetail');
       if (status == google.maps.places.PlacesServiceStatus.OK) {
+        console.log('--page > getPlaceDetail > place > ', place);
         // set full address
         self.placedetails.address = place.formatted_address;
         self.placedetails.lat = place.geometry.location.lat();
@@ -199,12 +218,16 @@ export class BuscarTallerPage implements OnInit {
         self.createMapMarker(place);
         self.ubicacion.lat = place.geometry.location.lat();
         self.ubicacion.lng = place.geometry.location.lng();
+        console.log('--latitud y longitud');
+        console.log(self);
+        console.log(self.ubicacion.lat);
+        console.log(self.ubicacion.lng);
         self.userService.GetTalleres(self.cita.idUnidad, self.ubicacion.lat, self.ubicacion.lng)
-
+ 
           .subscribe(
           (data) => { // Success
             if (data && data != null && data.length > 0) {
-              console.log('carga inicial de los talleres');
+              console.log('--carga inicial de los talleres');
               console.log(data);
               self.talleres = data;
             }
@@ -213,77 +236,17 @@ export class BuscarTallerPage implements OnInit {
             console.log(error);
           }
           );
-        if (self.map != null) {
-          self.map.addMarker({
-            title: 'Ionic',
-            icon: 'blue',
-            animation: 'DROP',
-            position: {
-              lat: place.geometry.location.lat(),
-              lng: place.geometry.location.lng()
-            }
-          })
-            .then(marker => {
-              marker.on(GoogleMapsEvent.MARKER_CLICK)
-                .subscribe(() => {
-                  alert('clicked');
-                });
-            });
-        } else {
-          console.log(self.map);
-        }
         // populate
         self.address.set = true;
+        console.log('page > getPlaceDetail > details > ', self.placedetails);
+            }else{
+                console.log('page > getPlaceDetail > status > ', status);
       }
     }
   }
-
+ 
   ionViewDidLoad() {
-    this.loadMap();
-  }
 
-  loadMap() {
-    this.geolocation.getCurrentPosition().then((position) => {
-      let mapOptions: GoogleMapOptions = {
-        camera: {
-          target: {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude
-          },
-          zoom: 11,
-          tilt: 30
-        }
-      };
-      GoogleMaps
-      this.map = GoogleMaps.create('map_canvas', mapOptions);
-      this.map.one(GoogleMapsEvent.MAP_READY)
-        .then(() => {
-          this.map.addMarker({
-            title: 'Ionic',
-            icon: 'blue',
-            animation: 'DROP',
-            position: {
-              lat: position.coords.latitude,
-              lng: position.coords.longitude
-            }
-          })
-            .then(marker => {
-              marker.on(GoogleMapsEvent.MARKER_CLICK)
-                .subscribe(() => {
-                  alert('clicked');
-                });
-            });
-
-        });
-    }, (error) => {
-      console.log(error);
-      let alert = this.alertCtrl.create({
-        title: 'Error',
-        subTitle: error,
-        buttons: ['OK']
-      });
-      alert.present();
-    });
   }
 
   private createMapMarker(place: any): void {

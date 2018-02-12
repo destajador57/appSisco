@@ -69,14 +69,12 @@ function regreso(id,mensaje,res){
 }
 
 function ValidaLog(req,res){
-	console.log('si entro');
 	var dbConn = new sql.Connection(config); 
 	dbConn.connect().then(function () {
 		var request = new sql.Request(dbConn);
 		request.input ('nombreUsuario',req.query.user)
 		.input ('contrasenia',req.query.password)
         .execute("APP_CITAS_VALIDA_LOGIN").then(function (recordSet) { 
-			console.log('ejecuto el sp');
 			var msj = JSON.stringify(recordSet[0][0]);
 			dbConn.close();
 			res.contentType('application/json');
@@ -136,6 +134,12 @@ function _Taller(){
 	this.order = 0;
 }
 
+function kilometros() {
+	this.longitud = 0;
+	this.latitud = 0;
+	this.kilometros = 0;
+}
+
 var talleres = []; 
 
 //APP_CITAS_GET_TALLERES
@@ -146,12 +150,10 @@ app.get('/GetTalleres', function(req, res){
 	var destinations = [];
 	
     dbConn.connect().then(function () {
-		console.log('getTalleres');
         var request = new sql.Request(dbConn);
 		request
 		.input ('idUnidad',req.query.idUnidad)
 		.execute("APP_CITAS_GET_TALLERES").then(function (recordSet) {
-			console.log(recordSet);
 			for(var i=0; i<recordSet[0].length; i++){
 				var taller = new _Taller();
 				taller.idProveedor = recordSet[0][i].idProveedor;
@@ -186,7 +188,6 @@ app.get('/GetTalleres', function(req, res){
 function computeTotalDistance(origins,destinations,res,noInt) {
 	distance.key('AIzaSyBfaZuXKdq-hdz8G7QAWUQ7WvVkmK_Ys3k');
 	distance.mode('driving');
-	//console.log(destinations);
 	var Nerr=99999;
 	
 	distance.matrix(origins, destinations, function (err, distances) {
@@ -251,6 +252,39 @@ app.get('/GetOrdXUni', function(req, res){
 			res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   
 			res.send(msj);
+        }).catch(function (err) {
+           dbConn.close();
+		   regreso('0',err.message,res);
+        });
+    }).catch(function (err) {
+		dbConn.close();
+		regreso('0',err.message,res);
+    });
+});
+
+//[GPS].[SEL_KILOMETROS_SP]
+app.get('/GetKilometros', function(req, res){
+    var dbConn = new sql.Connection(config); 
+    dbConn.connect().then(function () {
+        var request = new sql.Request(dbConn);
+		request
+		.input ('vin',req.query.vin)
+		.execute("[GPS].[SEL_KILOMETROS_SP]").then(function (recordSet) { 
+			var kilOtro = JSON.stringify(recordSet[0]);
+
+			var kil = new kilometros();
+			if(recordSet[0] && recordSet[0].length>0){
+				kil.longitud = recordSet[0][0].longitud;
+				kil.latitud = recordSet[0][0].latitud;
+				kil.kilometros = recordSet[0][0].kilometros;
+			}
+
+			dbConn.close();
+			res.contentType('application/json');
+			res.header("Access-Control-Allow-Origin", "*");
+			res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  
+			res.send(kil);
         }).catch(function (err) {
            dbConn.close();
 		   regreso('0',err.message,res);

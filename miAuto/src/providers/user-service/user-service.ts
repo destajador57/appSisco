@@ -66,4 +66,7 @@ export class UserServiceProvider {
                   '&calificacion5=' + calificacion.quinta 
                 );
       }
+      GetKilometros(vin){
+        return this.http.get(this.server +'GetKilometros?vin='+vin);
+        }
 }
