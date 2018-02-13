@@ -137,7 +137,7 @@ function _Taller(){
 function kilometros() {
 	this.longitud = 0;
 	this.latitud = 0;
-	this.kilometros = 0;
+	this.kilometros = -1;
 }
 
 var talleres = []; 

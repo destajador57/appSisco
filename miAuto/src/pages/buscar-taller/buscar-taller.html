@@ -8,17 +8,18 @@
           </ion-buttons>
   </ion-navbar>
 </ion-header>
-<ion-content>
+<ion-content padding>
     <ion-list>
+        <!-- <ion-item>
+        </ion-item> -->
         <ion-item margin>
-            <ion-input type="text" placeholder="Escribe tu dirección"
-                (click)="showModal()" 
-                [(ngModel)]="address.place">
-            </ion-input>
-        </ion-item>
-    </ion-list>
+                <ion-input type="text" disabled placeholder="Escribe tu dirección"
+                    (click)="showModal()" 
+                    [(ngModel)]="address.place">
+                </ion-input>
+            </ion-item>
+        </ion-list>
     <div id="map"></div>
-    <!-- <div id="map_canvas"></div> -->
             <ion-list>
                 <button ion-item *ngFor="let taller of talleres" (click)="showTallerDetalle(taller)">
                     {{taller.nombreComercial}}

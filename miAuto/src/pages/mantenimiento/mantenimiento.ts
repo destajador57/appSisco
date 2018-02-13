@@ -67,6 +67,12 @@ export class MantenimientoPage {
   private createChart() {
     // console.log(this.cita);
     // var kilometraje = 15;
+    let etiqueta = '';
+    let kilometroGrafica = 0;
+    if(this.takometro.kilometros > -1){
+      etiqueta = 'La unidad tiene: ' + this.takometro.kilometros.toLocaleString('en-US') + ' km';
+      kilometroGrafica = this.takometro.kilometros * .001
+    }
 
     this.chart = this.AmCharts.makeChart("chartdiv", {
       "theme": "light",
@@ -75,7 +81,7 @@ export class MantenimientoPage {
         "topTextFontSize": 20,
         "topTextYOffset": 70,
         "axisColor": "#31d6ea",
-        "topText": 'La unidad tiene: ' + this.takometro.kilometros + ' km',
+        "topText": etiqueta,
         "axisThickness": 1,
         "endValue": 100,
         "gridInside": false,
@@ -109,7 +115,7 @@ export class MantenimientoPage {
         "innerRadius": "35%",
         "nailRadius": 0,
         "radius": "170%",
-        "value": this.takometro.kilometros * .001 // para mostrar miles en una grafica configurada en 100%
+        "value": kilometroGrafica // para mostrar miles en una grafica configurada en 100%
       }]
     });
   }

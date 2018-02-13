@@ -134,7 +134,7 @@ export class BuscarTallerPage implements OnInit {
           lng: position.coords.longitude
         }
       });
-      
+       
       this.markers.push(marker);
 
     })
@@ -174,10 +174,10 @@ export class BuscarTallerPage implements OnInit {
         // get details
         this.getPlaceDetail(data.place_id);
       }
-    })
+    });
     modal.present();
   }
-
+  
   private reset() {
     this.initPlacedetails();
     this.address.place = '';
