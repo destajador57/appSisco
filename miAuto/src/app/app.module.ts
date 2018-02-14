@@ -36,6 +36,7 @@ import { NgCalendarModule } from 'ionic2-calendar';
 import { AmChartsModule } from "@amcharts/amcharts3-angular";
 import { UserServiceProvider } from '../providers/user-service/user-service';
 import { Camera } from '@ionic-native/camera';
+import { Toast } from '@ionic-native/toast';
 
 @NgModule({
   declarations: [
@@ -84,6 +85,7 @@ import { Camera } from '@ionic-native/camera';
     CalificaPage
   ],
   providers: [
+    Toast,
     Deeplinks,
     StatusBar,
     SplashScreen,

@@ -81,6 +81,7 @@
     </platform>
     <engine name="android" spec="^6.3.0" />
     <engine name="windows" spec="5.0.0" />
+    <engine name="browser" spec="5.0.3" />
     <plugin name="mx.ferreyra.callnumber" spec="0.0.2" />
     <plugin name="cordova-plugin-googlemaps" spec="^2.1.1">
         <variable name="API_KEY_FOR_ANDROID" value="AIzaSyBfaZuXKdq-hdz8G7QAWUQ7WvVkmK_Ys3k" />
@@ -104,4 +105,5 @@
         <variable name="DEEPLINK_HOST" value="myauto.com" />
         <variable name="ANDROID_PATH_PREFIX" value="/" />
     </plugin>
+    <plugin name="cordova-plugin-x-toast" spec="^2.6.0" />
 </widget>

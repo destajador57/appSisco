@@ -126,7 +126,7 @@ export class BuscarTallerPage implements OnInit {
         });
         alert.present();
       });
-      
+       
       var marker = new google.maps.Marker({
         map: this.mapa,
         position: {
@@ -134,13 +134,13 @@ export class BuscarTallerPage implements OnInit {
           lng: position.coords.longitude
         }
       });
-       
+      
       this.markers.push(marker);
 
     })
 
   }
-
+   
   private initPlacedetails() {
     this.placedetails = {
       address: '',

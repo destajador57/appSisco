@@ -11,12 +11,12 @@
       </ion-item>
       <ion-item no-lines text-center text-wrap>
       <ion-label color="primary">
-          En caso de que la cita sea el dia de hoy, como minimo se requiren 2 horas apartir de la hora actual para poder realizar el proceso.
+          Solo puede hacer citas despues de los siguientes 3 dias habiles.
         </ion-label>
     </ion-item>
   <ion-item>
     <ion-label>Fecha</ion-label>
-    <ion-datetime displayFormat="DD MMMM, YYYY" [min]="fechaMin" [max]="fechaMaxima" [(ngModel)]="fechaActual"
+    <ion-datetime displayFormat="DD MMMM, YYYY" (ionChange)="getData()" [min]="fechaMin" [max]="fechaMaxima" [(ngModel)]="fechaActual"
     monthNames="Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre"></ion-datetime>
   </ion-item>
   <ion-item>

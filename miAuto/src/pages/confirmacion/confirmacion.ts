@@ -22,16 +22,22 @@ export class ConfirmacionPage {
   }
 
   confirmarServicio(){
-    this.fecha = new Date();
-    this.fecha.toString('yyyyMMdd');
-    var nuevaFecha = this.fecha.getFullYear() + (this.fecha.getMonth()+1).toString() + this.fecha.getDate().toString();
+
+    const fecha = this.cita.fecha.substring(0, 4) +
+      this.cita.fecha.substring(5, 7) +
+      this.cita.fecha.substring(8, 10) + ' ' +
+      this.cita.fecha.substring(11, 19);
+
+    // this.fecha = new Date();
+    // this.fecha.toString('yyyyMMdd');
+    // var nuevaFecha = this.fecha.getFullYear() + (this.fecha.getMonth()+1).toString() + this.fecha.getDate().toString();
     this.userService.ServicioNuevaCita(
       this.cita.idUnidad, 
       this.cita.idContratoOperacion ,
       this.cita.idUsuario,
     this.cita.idTaller,
   this.cita.idServicio,
-  this.cita.fecha)
+  fecha)
     .subscribe(
     (data) => { // Success
         console.log(data);
