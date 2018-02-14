@@ -366,12 +366,14 @@ app.get('/GetPromocion', function(req, res){
 		 var request = new sql.Request(dbConn);
 		 
 		 request
-		 .input ('marca',req.query.idConfiguracion)
-		 .input ('submarca',req.query.idConfiguracion)
+		 .input ('marca',req.query.marca)
+		 .input ('submarca',req.query.submarca)
 		 .execute("APP_CITAS_GET_PRMOCION").then(function (recordSet) { 
-			 var msj =recordSet[0][0].configuracion;
-			 var SendObj = {"configuracion": msj};
-			 var stringData = JSON.stringify(SendObj);
+			 console.log('Antes de que truene');
+			 //var msj =''; //recordSet[0][0].configuracion;
+			 console.log('Despues de que truene');
+			 //var SendObj = {"configuracion": msj};
+			 var stringData = JSON.stringify(recordSet[0]);
 				   
 			 // Indicamos el tipo de contenido a devolver en las cabeceras de nuestra respuesta
 			 res.contentType('application/json');
