@@ -1,0 +1,15 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Promociones</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+  <ion-slides *ngIf="promociones && promociones.length > 0" autoplay="3000" loop="true" speed="500" pager="true">
+    <ion-slide *ngFor="let promocion of promociones">
+      <img [src]="promocion.Urul" class="slide-image"/>
+    </ion-slide>
+  </ion-slides>
+</ion-content>

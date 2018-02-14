@@ -35,6 +35,10 @@ export class UserServiceProvider {
 	return this.http.get(this.server +'GetTalleres?idUnidad='+idUnidad+'&lat='+lat+'&lng='+lng);
   }
   //
+  GetPromocion(marca, submarca){
+    return this.http.get(this.server + 'GetPromocion?marca=' + marca + '&submarca=' + submarca);
+    }
+  //
   GetOrdXUni(idUnidad){
 	return this.http.get(this.server +'GetOrdXUni?idUnidad='+idUnidad);
   }

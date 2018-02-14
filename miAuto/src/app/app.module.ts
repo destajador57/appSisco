@@ -19,6 +19,7 @@ import { RegistroPage } from '../pages/registro/registro';
 import { CalendarioPage } from '../pages/calendario/calendario';
 import { ConfirmacionPage } from '../pages/confirmacion/confirmacion';
 import { CalificaPage } from '../pages/califica/califica';
+import { PromocionPage } from '../pages/promocion/promocion';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { Deeplinks } from '@ionic-native/deeplinks';
@@ -55,7 +56,8 @@ import { Toast } from '@ionic-native/toast';
     RegistroPage,
     CalendarioPage,
     ConfirmacionPage,
-    CalificaPage
+    CalificaPage,
+    PromocionPage
   ],
   imports: [
     BrowserModule,
@@ -82,7 +84,8 @@ import { Toast } from '@ionic-native/toast';
     RegistroPage,
     CalendarioPage,
     ConfirmacionPage,
-    CalificaPage
+    CalificaPage,
+    PromocionPage
   ],
   providers: [
     Toast,

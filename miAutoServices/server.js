@@ -368,13 +368,8 @@ app.get('/GetPromocion', function(req, res){
 		 request
 		 .input ('marca',req.query.marca)
 		 .input ('submarca',req.query.submarca)
-		 .execute("APP_CITAS_GET_PRMOCION").then(function (recordSet) { 
-			 console.log('Antes de que truene');
-			 //var msj =''; //recordSet[0][0].configuracion;
-			 console.log('Despues de que truene');
-			 //var SendObj = {"configuracion": msj};
+		 .execute("APP_CITAS_GET_PRMOCION").then(function (recordSet) {
 			 var stringData = JSON.stringify(recordSet[0]);
-				   
 			 // Indicamos el tipo de contenido a devolver en las cabeceras de nuestra respuesta
 			 res.contentType('application/json');
 			 res.header("Access-Control-Allow-Origin", "*");

@@ -5,6 +5,7 @@ import { MantenimientoPage } from '../mantenimiento/mantenimiento';
 import { AccidenteRoboPage } from '../accidente-robo/accidente-robo';
 import { ControlDocumentalPage } from '../control-documental/control-documental';
 import { LoginPage } from '../login/login';
+import { PromocionPage } from '../promocion/promocion';
 
 @Component({
   selector: 'page-option',
@@ -36,6 +37,11 @@ export class OptionPage {
   showMantenimiento(){
     console.log(this.cita);
     this.navCtrl.push(MantenimientoPage,{cita: this.cita});
+  }
+
+  showPromociones(){
+    console.log('muestra las promociones');
+    this.navCtrl.push(PromocionPage, {cita: this.cita});
   }
 
   public llamarCallCenter(){
