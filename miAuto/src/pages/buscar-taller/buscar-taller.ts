@@ -24,7 +24,7 @@ import {
 } from '@ionic-native/google-maps';
 
 declare var google: any;
-  
+
 @IonicPage()
 @Component({
   selector: 'page-buscar-taller',

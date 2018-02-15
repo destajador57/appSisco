@@ -8,16 +8,17 @@ import { UserServiceProvider } from '../../providers/user-service/user-service';
   templateUrl: 'promocion.html',
 })
 export class PromocionPage {
-
+  cita: any;
   promociones: {};
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public userService: UserServiceProvider) {
+    this.cita = navParams.get('cita');
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad PromocionPage');
-
-    this.userService.GetPromocion('a', 123).subscribe((res)=>{
+    console.log(this.cita);
+    this.userService.GetPromocion(this.cita.nombreMarca, this.cita.nombreSubMarca).subscribe((res)=>{
       this.promociones = res;
     });
   }

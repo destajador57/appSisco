@@ -23,6 +23,7 @@ export class HomePage {
   numeroOrden: string;
   fechaCita: any;
   telefonoSiniestro: any;
+  nombreSubMarca: string;
   
   constructor(public navCtrl: NavController, 
 			  public navParams: NavParams, 
@@ -48,6 +49,7 @@ export class HomePage {
       this.numeroOrden = data[0].numeroOrden;
       this.fechaCita = data[0].fechaCita;
       this.telefonoSiniestro = data[0].telefonoSiniestro;
+      this.nombreSubMarca = data[0].nombreSubMarca;
 		},
 		(error) =>{
 			console.error(error);
@@ -66,7 +68,8 @@ export class HomePage {
       telefonoSiniestro: this.telefonoSiniestro,
       nombre:this.unidades[0].nombre,
       modelo: this.modelo,
-      nombreMarca: this.nombreMarca
+      nombreMarca: this.nombreMarca,
+      nombreSubMarca: this.nombreSubMarca
     }});
   };
 
