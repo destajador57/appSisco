@@ -31,7 +31,7 @@ declare var google: any;
   templateUrl: 'buscar-taller.html',
 })
 export class BuscarTallerPage implements OnInit {
- 
+
   address: any = {
     place: '',
     set: false,
@@ -94,7 +94,7 @@ export class BuscarTallerPage implements OnInit {
       console.log('va a invocar el servicio');
       this.userService.GetTalleres(this.cita.idUnidad, this.ubicacion.lat, this.ubicacion.lng)
         .subscribe(
-        (data) => { // Success
+        (data:any) => { // Success
           console.log('despues de la ejecucion para obtener los talleres');
           console.log(data);
           if (data && data != null && data.length > 0) {
@@ -225,7 +225,7 @@ export class BuscarTallerPage implements OnInit {
         self.userService.GetTalleres(self.cita.idUnidad, self.ubicacion.lat, self.ubicacion.lng)
  
           .subscribe(
-          (data) => { // Success
+          (data:any) => { // Success
             if (data && data != null && data.length > 0) {
               console.log('--carga inicial de los talleres');
               console.log(data);
@@ -251,11 +251,11 @@ export class BuscarTallerPage implements OnInit {
 
   private createMapMarker(place: any): void {
 
-    var placeLoc = place.geometry.location;
+    let placeLoc = place.geometry.location;
 
     if (this.markers && this.markers.length > 0) {
       this.markers[0].setMap(null);
-      var marker = new google.maps.Marker({
+      let marker = new google.maps.Marker({
         map: this.mapa,
         position: placeLoc
       });
@@ -264,7 +264,7 @@ export class BuscarTallerPage implements OnInit {
         this.markers.splice(idx, 1);
       });
     } else {
-      var marker = new google.maps.Marker({
+      let marker = new google.maps.Marker({
         map: this.mapa,
         position: placeLoc
       });

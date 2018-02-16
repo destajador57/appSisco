@@ -128,7 +128,7 @@ export class MantenimientoPage {
     //this.userService.GetKilometros('3C4NJCCB7JT148085')
     this.userService.GetKilometros(this.cita.vin)
       .subscribe(
-      (data) => { // Success
+      (data:any) => { // Success
         if (data && data != null) {
           this.takometro = data;
           this.createChart();
@@ -144,7 +144,7 @@ export class MantenimientoPage {
 
     this.userService.CitaServicios()
       .subscribe(
-      (data) => { // Success
+      (data:any) => { // Success
         if (data && data != null && data.length > 0) {
           this.servicios = data;
         } else {

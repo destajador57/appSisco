@@ -9,7 +9,7 @@ export class UserServiceProvider {
   constructor(public http: HttpClient) {
 
      this.server =  this.http.get('manifest.json').subscribe(
-      (data) => { // Success
+      (data:any) => { // Success
           this.server = data.server;
       },
       (error) =>{

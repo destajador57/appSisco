@@ -23,7 +23,7 @@ export class RegistroPage {
   public registrar(){
 	this.userService.Registra(this.usuario.email,this.usuario.password, this.usuario.vin, this.usuario.placas)
     .subscribe(
-    (data) => { // Success
+    (data:any) => { // Success
       if(data){
         if(data.idUsuario != null && data.idUsuario !='' && data.idUsuario != '0'){
           this.navCtrl.setRoot(HomePage,{ cita: { idUsuario: data.idUsuario, idContratoOperacion: data.idContratoOperacion}});

@@ -26,7 +26,7 @@ export class LoginPage {
 	
 	this.userService.Loguea(this.usuario.email,this.usuario.password)
     .subscribe(
-    (data) => { // Success
+    (data:any) => { // Success
       if(data){
         console.log(data);
         if(data.idUsuario != null && data.idUsuario !='' && data.idUsuario != '0'){

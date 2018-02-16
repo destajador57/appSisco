@@ -103,9 +103,9 @@
       "cordova-plugin-x-toast": {}
     },
     "platforms": [
-      "android",
       "windows",
-      "browser"
+      "browser",
+      "android"
     ]
   }
 }

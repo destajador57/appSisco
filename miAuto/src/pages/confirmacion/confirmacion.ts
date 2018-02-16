@@ -39,7 +39,7 @@ export class ConfirmacionPage {
   this.cita.idServicio,
   fecha)
     .subscribe(
-    (data) => { // Success
+    (data:any) => { // Success
         console.log(data);
         if(data && data != null && data.length > 0 && data[0].numeroOrden != null){
           this.navCtrl.setRoot(HomePage,{ cita: { idUsuario: this.cita.idUsuario, idContratoOperacion: this.cita.idContratoOperacion}});
