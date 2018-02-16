@@ -14,13 +14,7 @@ import {
   ModalController
 } from 'ionic-angular';
 import {
-  GoogleMaps,
-  GoogleMap,
-  GoogleMapsEvent,
-  GoogleMapOptions,
-  CameraPosition,
-  MarkerOptions,
-  Marker
+  GoogleMap
 } from '@ionic-native/google-maps';
 
 declare var google: any;
@@ -203,10 +197,7 @@ export class BuscarTallerPage implements OnInit {
 
         for (var i = 0; i < place.address_components.length; i++) {
           let addressType = place.address_components[i].types[0];
-          let values = {
-            short_name: place.address_components[i]['short_name'],
-            long_name: place.address_components[i]['long_name']
-          }
+
           if (self.placedetails.components[addressType]) {
             self.placedetails.components[addressType].set = true;
             self.placedetails.components[addressType].short = place.address_components[i]['short_name'];

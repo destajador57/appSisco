@@ -4,8 +4,6 @@ import { DocumentoPage } from '../documento/documento';
 import { LoginPage } from '../login/login';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 
-declare var cordova: any;
-
 @IonicPage()
 @Component({
   selector: 'page-control-documental',

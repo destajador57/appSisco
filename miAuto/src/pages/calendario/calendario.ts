@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, Platform } from 'ionic-angular';
 import { ConfirmacionPage } from '../confirmacion/confirmacion';
-import { DatePicker } from '@ionic-native/date-picker';
 import { Toast } from '@ionic-native/toast';
 
 @IonicPage()
@@ -19,9 +18,11 @@ export class CalendarioPage {
   fechaMaxima: any;
 
   constructor(public navCtrl: NavController, 
-    public navParams: NavParams, private datePicker: DatePicker, 
-    private alertCtrl: AlertController, private toast: Toast,
+    public navParams: NavParams,
+    private alertCtrl: AlertController, 
+    private toast: Toast,
     private platform: Platform) {
+
     this.cita = navParams.get('cita');
     this.fecha = {};
 

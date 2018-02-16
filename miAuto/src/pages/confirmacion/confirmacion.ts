@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
-import { DatePicker } from '@ionic-native/date-picker';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { HomePage } from '../home/home';
 import { LoginPage } from '../login/login';
@@ -11,9 +10,15 @@ import { LoginPage } from '../login/login';
   templateUrl: 'confirmacion.html',
 })
 export class ConfirmacionPage {
+  
   cita:any;
   fecha:any;
-  constructor(public navCtrl: NavController, public navParams: NavParams,private datePicker: DatePicker, public userService: UserServiceProvider, private alertCtrl: AlertController) {
+
+  constructor(public navCtrl: NavController, 
+    public navParams: NavParams,
+    public userService: UserServiceProvider, 
+    private alertCtrl: AlertController) {
+
     this.cita = navParams.get('cita');
   }
 
