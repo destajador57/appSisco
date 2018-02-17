@@ -65,8 +65,6 @@ export class MantenimientoPage {
   }
 
   private createChart() {
-    // console.log(this.cita);
-    // var kilometraje = 15;
     let etiqueta = '';
     let kilometroGrafica = 0;
     if(this.takometro.kilometros > -1){

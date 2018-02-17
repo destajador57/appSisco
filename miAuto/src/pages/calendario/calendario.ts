@@ -12,7 +12,6 @@ export class CalendarioPage {
 
   fecha: any;
   cita: any;
-  // calendar: { currentDate: any, locale: any };
   fechaActual: any;
   fechaMin: any;
   fechaMaxima: any;
@@ -26,54 +25,10 @@ export class CalendarioPage {
     this.cita = navParams.get('cita');
     this.fecha = {};
 
-    //tiempo de zona horaria de mexico
-    //var tzoffset = (new Date()).getTimezoneOffset() * 60000;
-
     let hoy = this.estableceFechaInicial();
-
-    //Prueba de los dias
-    //hoy.setDate(hoy.getDate() + 8);
-
-    // var diaSemana = hoy.getDay();
-
-    // switch (diaSemana) {
-    //   case 3:
-    //     hoy.setDate(hoy.getDate() + 5);
-    //     break;
-    //   case 4:
-    //     hoy.setDate(hoy.getDate() + 5);
-    //     break;
-    //   case 5:
-    //     hoy.setDate(hoy.getDate() + 5);
-    //     break;
-    //   case 6:
-    //     hoy.setDate(hoy.getDate() + 4);
-    //     break;
-    //   default:
-    //     hoy.setDate(hoy.getDate() + 3);
-    //     break;
-    // }
-
     this.fechaActual = hoy.toISOString().slice(0, -1);
     this.fechaMin = hoy.toISOString().slice(0, -1)
     this.fechaMaxima = hoy.getFullYear() + 1;
-    // this.calendar = {
-    //   locale: 'es-MX',
-    //   currentDate: new Date(Date.UTC(2014, 4, 8))
-    // };
-
-    // console.log(this.fechaActual);
-    // console.log(this.fechaMin);
-    // console.log(this.fechaMaxima);
-
-    // this.datePicker.show({
-    //   date: new Date(),
-    //   mode: 'date',
-    //   androidTheme: this.datePicker.ANDROID_THEMES.THEME_HOLO_DARK
-    // }).then(
-    //   date => console.log('Got date: ', date),
-    //   err => console.log('Error occurred while getting date: ', err)
-    //   );
   }
 
   onEventSelected(evento) {
@@ -129,9 +84,6 @@ let alert = this.alertCtrl.create({
 
     let hoy = new Date(Date.now() - tzoffset);
 
-    //Prueba de los dias
-    //hoy.setDate(hoy.getDate() + 8);
-
     let diaSemana = hoy.getDay();
 
     switch (diaSemana) {
@@ -155,51 +107,11 @@ let alert = this.alertCtrl.create({
     return hoy;
   }
 
-  // public event(data: Date): void {
-  //   console.log('el evento');
-  //   this.fechaActual = data;
-  // }
-  // public setDate(date: Date) {
-  //   console.log(date.getDay());
-  //   console.log('establece');
-  //   console.log(date);
-  //   //this.initDate = date;
-  // }
-
   ionViewDidLoad() {
     console.log('ionViewDidLoad CalendarioPage');
   }
 
-  // validaFechas() {
-  //   var respuesta = false;
-  //   var tzoffset = (new Date()).getTimezoneOffset() * 60000;
-  //   var ahora = (new Date(Date.now() - tzoffset)).toISOString().slice(0, -1);
-
-  //   var fecha = this.fechaActual.substring(0, 4) +
-  //     this.fechaActual.substring(5, 7) +
-  //     this.fechaActual.substring(8, 10) + ' ' +
-  //     this.fechaActual.substring(11, 19);
-
-  //   if (this.fechaActual.substring(0, 10) == ahora.substring(0, 10)) {
-
-  //     if ((Number(ahora.substring(11, 13)) + 3) > Number(this.fechaActual.substring(11, 13))) {
-  //       respuesta = false;
-  //     } else {
-  //       respuesta = true;
-  //     }
-  //   } else {
-  //     respuesta = true;
-  //   }
-  //   return respuesta;
-  // }
-
   confirmarServicio() {
-    
-    // var fecha = this.fechaActual.substring(0, 4) +
-    //   this.fechaActual.substring(5, 7) +
-    //   this.fechaActual.substring(8, 10) + ' ' +
-    //   this.fechaActual.substring(11, 19);
-
     this.navCtrl.push(ConfirmacionPage, {
       cita: {
         idServicio: this.cita.idServicio,
