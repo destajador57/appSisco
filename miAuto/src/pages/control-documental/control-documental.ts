@@ -4,8 +4,6 @@ import { DocumentoPage } from '../documento/documento';
 import { LoginPage } from '../login/login';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 
-declare var cordova: any;
-
 @IonicPage()
 @Component({
   selector: 'page-control-documental',
@@ -57,7 +55,7 @@ export class ControlDocumentalPage {
     console.log(this.cita);
     this.userService.GetDocsXUni(this.cita.idUnidad)
     .subscribe(
-    (data) => { // Success
+    (data:any) => { // Success
         if(data && data != null && data.length > 0){
           var doc = data[0];
           this.documento ={

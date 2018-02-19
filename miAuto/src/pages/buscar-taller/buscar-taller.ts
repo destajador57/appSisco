@@ -14,13 +14,7 @@ import {
   ModalController
 } from 'ionic-angular';
 import {
-  GoogleMaps,
-  GoogleMap,
-  GoogleMapsEvent,
-  GoogleMapOptions,
-  CameraPosition,
-  MarkerOptions,
-  Marker
+  GoogleMap
 } from '@ionic-native/google-maps';
 
 declare var google: any;
@@ -31,7 +25,7 @@ declare var google: any;
   templateUrl: 'buscar-taller.html',
 })
 export class BuscarTallerPage implements OnInit {
- 
+
   address: any = {
     place: '',
     set: false,
@@ -94,7 +88,7 @@ export class BuscarTallerPage implements OnInit {
       console.log('va a invocar el servicio');
       this.userService.GetTalleres(this.cita.idUnidad, this.ubicacion.lat, this.ubicacion.lng)
         .subscribe(
-        (data) => { // Success
+        (data:any) => { // Success
           console.log('despues de la ejecucion para obtener los talleres');
           console.log(data);
           if (data && data != null && data.length > 0) {
@@ -203,10 +197,7 @@ export class BuscarTallerPage implements OnInit {
 
         for (var i = 0; i < place.address_components.length; i++) {
           let addressType = place.address_components[i].types[0];
-          let values = {
-            short_name: place.address_components[i]['short_name'],
-            long_name: place.address_components[i]['long_name']
-          }
+
           if (self.placedetails.components[addressType]) {
             self.placedetails.components[addressType].set = true;
             self.placedetails.components[addressType].short = place.address_components[i]['short_name'];
@@ -225,7 +216,7 @@ export class BuscarTallerPage implements OnInit {
         self.userService.GetTalleres(self.cita.idUnidad, self.ubicacion.lat, self.ubicacion.lng)
  
           .subscribe(
-          (data) => { // Success
+          (data:any) => { // Success
             if (data && data != null && data.length > 0) {
               console.log('--carga inicial de los talleres');
               console.log(data);
@@ -251,11 +242,11 @@ export class BuscarTallerPage implements OnInit {
 
   private createMapMarker(place: any): void {
 
-    var placeLoc = place.geometry.location;
+    let placeLoc = place.geometry.location;
 
     if (this.markers && this.markers.length > 0) {
       this.markers[0].setMap(null);
-      var marker = new google.maps.Marker({
+      let marker = new google.maps.Marker({
         map: this.mapa,
         position: placeLoc
       });
@@ -264,7 +255,7 @@ export class BuscarTallerPage implements OnInit {
         this.markers.splice(idx, 1);
       });
     } else {
-      var marker = new google.maps.Marker({
+      let marker = new google.maps.Marker({
         map: this.mapa,
         position: placeLoc
       });
