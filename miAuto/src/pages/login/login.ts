@@ -5,6 +5,7 @@ import { HomePage } from '../home/home';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { RegistroPage } from '../registro/registro';
 import { CambioContrasenaPage } from '../cambio-contrasena/cambio-contrasena';
+import { RecuperaPage } from '../recupera/recupera'
 
 @Component({
   selector: 'page-login',
@@ -19,6 +20,7 @@ export class LoginPage {
   }
 
   public recuperarContrasena(){
+    this.navCtrl.setRoot(RecuperaPage);
   }
   
   public login(){
@@ -71,7 +73,7 @@ export class LoginPage {
   public registrarse(){
     this.navCtrl.setRoot(RegistroPage);
     }
-    cambioContrasena(){
+  public cambioContrasena(){
       this.navCtrl.setRoot(CambioContrasenaPage);
       }
 }

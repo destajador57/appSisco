@@ -9,6 +9,7 @@ import { ListPage } from '../pages/list/list';
 import { LoginPage } from '../pages/login/login';
 import { OptionPage} from '../pages/option/option';
 
+
 @Component({
   templateUrl: 'app.html'
 })

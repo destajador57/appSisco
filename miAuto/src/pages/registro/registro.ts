@@ -51,4 +51,6 @@ export class RegistroPage {
   salir(){
     this.navCtrl.setRoot(LoginPage);
   };
+
+  
 }

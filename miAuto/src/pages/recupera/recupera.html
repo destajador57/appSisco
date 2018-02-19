@@ -1,0 +1,38 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Recupera Contraseña</ion-title>
+    <ion-buttons end>
+        <button ion-button icon-only (click)="salir()">
+            <ion-icon name="close-circle" ></ion-icon>
+        </button>
+      </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+    <form (ngSubmit)="recupera()" #recuperaForm="ngForm">
+        <ion-row>
+          <ion-col>
+            <ion-list inset>
+              <ion-item>
+                <ion-input type="text" placeholder="Usuario" name="email" [(ngModel)]="usuario.email" required></ion-input>
+              </ion-item>
+              <ion-item>
+                    <ion-input type="text" placeholder="Placas" name="placas" [(ngModel)]="usuario.placas" required></ion-input>
+              </ion-item>
+            </ion-list>
+          </ion-col>
+        </ion-row>
+        
+        <ion-row>
+          <ion-col class="signup-col">
+            <button ion-button class="submit-btn" full type="submit" [disabled]="!recuperaForm.form.valid">Recupera</button>
+          </ion-col>
+        </ion-row>
+        
+      </form>
+</ion-content>

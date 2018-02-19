@@ -2,6 +2,7 @@
 var express = require('express');
 var sql = require('mssql');
 var distance = require('google-distance-matrix');
+var mailCtrl = require('./mailCtrl')
 
 
 // configura bd 
@@ -383,7 +384,7 @@ app.get('/GetPromocion', function(req, res){
 			res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
    
 			res.send("Error: "+ err.message);
-		 });
+		 });	
 	 }).catch(function (err) {
 		 dbConn.close();
 		 res.contentType('application/json');
@@ -481,8 +482,47 @@ app.get('/CalificaTaller', function(req, res){
     });
 });
 
+// APP_CITAS_RECUPERA_PSW
 
+app.get('/RecuperaPsw', function(req, res){
+    var dbConn = new sql.Connection(config); 
+	   dbConn.connect().then(function () {
+        var request = new sql.Request(dbConn);
+		request
+		.input ('idUsuario',req.query.idUsuario)
+		.input ('placas',req.query.placas)
+		.execute("APP_CITAS_RECUPERA_PSW").then(function (recordSet) { 
+			var email = recordSet[0][0].email;
+			var psw = recordSet[0][0].psw;
+			var SendObj = {"status":"no","msg": "Ocurrio un error en el envió, intentar más tarde."};
+			if(email == 'NO' || email ==''){
+				SendObj = {"status":"no","msg": "Los datos no concuerdan verificar."};
+			}else  if(email ==''){
+				SendObj = {"status":"no","msg": "No hay email registrado."};
+			}else {
+				var mail = {
+					"body":"Usted ha intentado recuperar su contraseña en la App. Esta es: "+ psw,
+					"email":email,
+				},resp;
 
+				mailCtrl.sendEmail(mail,resp);
+				SendObj = {"status":"ok","msg": "La contraseña se envió a: "+email};
+			}
+			var msj = JSON.stringify(SendObj);
+			dbConn.close();
+			res.contentType('application/json');
+			res.header("Access-Control-Allow-Origin", "*");
+			res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  		res.send(msj);
+        }).catch(function (err) {
+           dbConn.close();
+		   regreso('0','Err1:'+err.message,res);
+        });
+    }).catch(function (err) {
+		dbConn.close();
+		regreso('0','Err2:'+err.message,res);
+    });
+});
 
 // escuchar
 app.listen(4800);

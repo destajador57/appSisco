@@ -7,7 +7,7 @@ import { LoginPage } from '../login/login';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { CalendarioPage } from '../calendario/calendario';
 import {
-  IonicPage,
+  IonicPage, 
   NavController,
   NavParams,
   AlertController,

@@ -59,18 +59,24 @@ export class UserServiceProvider {
 
   CitaServicios(){
     return this.http.get(this.server +'CitaServicios');
-    }
+  }
   
-    CalificaTaller(idOrden,calificacion){
-      return this.http.get(this.server +'CalificaTaller?idOrden=' + idOrden + 
+  CalificaTaller(idOrden,calificacion){
+    return this.http.get(this.server +'CalificaTaller?idOrden=' + idOrden + 
                   '&calificacion1=' + calificacion.primera +
                   '&calificacion2=' + calificacion.segunda +
                   '&calificacion3=' + calificacion.tercera +
                   '&calificacion4=' + calificacion.cuarta +
                   '&calificacion5=' + calificacion.quinta 
                 );
-      }
-      GetKilometros(vin){
+  }
+
+  GetKilometros(vin){
         return this.http.get(this.server +'GetKilometros?vin='+vin);
-        }
+  }
+
+  RecuperaPsw(idUsuario, placas){
+    return this.http.get(this.server + 'RecuperaPsw?idUsuario=' + idUsuario + '&placas=' + placas);
+  } 
+  
 }
