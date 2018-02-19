@@ -10,5 +10,5 @@
   }],
   "background_color": "#4e8ef7",
   "theme_color": "#4e8ef7",
-  "server":"http://127.0.0.1:4800/"
+  "server":"http://189.204.141.193:4800/"
 }

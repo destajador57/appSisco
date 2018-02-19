@@ -27,7 +27,7 @@ export class RecuperaPage {
 	
 	this.userService.RecuperaPsw(this.usuario.email ,this.usuario.placas)
     .subscribe(
-        (data) => { // Success
+        (data:any) => { // Success
           if(data){
               if (data.status =='no'){
                 this.mostrarError(data.msg);
