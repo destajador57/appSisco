@@ -97,18 +97,39 @@ function ValidaLog(req,res){
 app.get('/GetUnidades', function(req, res){
     var dbConn = new sql.Connection(config); 
     dbConn.connect().then(function () {
-        var request = new sql.Request(dbConn);
+		var request = new sql.Request(dbConn);
 		
+		//-- INICIO Agregar mensajes de las fechas vencidas de la documentacion
+
+		var respuesta = {
+			mensajes:[{
+			titulo: 'A la ver 1',
+			mensaje: 'El documento ya tiene 9 dias vencido'
+		  },
+		{
+		  titulo: 'A la ver 2',
+			mensaje: 'El documento ya tiene 3 dias vencido'
+		}
+		,
+		{
+		  titulo: 'A la ver 3',
+			mensaje: 'El documento ya tiene 0 dias vencido'
+		}
+	  ]};
+		//-- FIN Agregar mensajes de las fechas vencidas de la documentacion
+
 		request
 		.input ('idUsuario',req.query.idUser)
 		.execute("APP_CITAS_GET_UNIDADES").then(function (recordSet) { 
-			var msj = JSON.stringify(recordSet[0]);
+			respuesta.unidades = recordSet[0];
 			dbConn.close();
 			res.contentType('application/json');
 			res.header("Access-Control-Allow-Origin", "*");
 			res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  
-			res.send(msj);
+
+			
+
+			res.send(respuesta);
         }).catch(function (err) {
            dbConn.close();
 		   regreso('0',err.message,res);

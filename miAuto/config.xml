@@ -106,4 +106,5 @@
         <variable name="ANDROID_PATH_PREFIX" value="/" />
     </plugin>
     <plugin name="cordova-plugin-x-toast" spec="^2.6.0" />
+    <plugin name="cordova-plugin-local-notification" spec="^0.9.0-beta.2" />
 </widget>

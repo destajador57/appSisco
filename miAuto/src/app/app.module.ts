@@ -39,6 +39,7 @@ import { AmChartsModule } from "@amcharts/amcharts3-angular";
 import { UserServiceProvider } from '../providers/user-service/user-service';
 import { Camera } from '@ionic-native/camera';
 import { Toast } from '@ionic-native/toast';
+import { LocalNotifications } from '@ionic-native/local-notifications';
 
 @NgModule({
   declarations: [
@@ -103,6 +104,7 @@ import { Toast } from '@ionic-native/toast';
     FileTransfer,
     DatePicker,
     Camera,
+    LocalNotifications,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
