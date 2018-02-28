@@ -3,6 +3,7 @@
   "description": "Servidor web de prueba",
   "version": "1.0.0",
   "dependencies": {
+    "body-parser": "^1.18.2",
     "express": "^3.21.2",
     "module": "^1.2.5",
     "mssql": "^3.3.0",
