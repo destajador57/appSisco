@@ -246,8 +246,7 @@ app.get('/instrucciones', function (req, res) {
             respuesta.valor = [
                 '1. Iniciar video con el celular ',
                 '2. Encender la unidad',
-                '3. Caminar hacia atrás realizando toma del número económico de la unidad y la placa trasera',
-                '4. Posteriormente realizar toma del escape para verificar si echa o no humo'
+                '3. Caminar hacia atrás realizando toma del número económico de la unidad, placa trasera y escape verificando si emite o no humo la unidad, todo sin cortar vídeo hasta finalizar.',
             ];
             break;
         default:
@@ -255,7 +254,7 @@ app.get('/instrucciones', function (req, res) {
             respuesta.valor = [
                 '1. Iniciar video con el celular',
                 '2. Encender la unidad',
-                '3. Realizar los cambios pertinentes en la caja de transmisión para verificar su buen funcionamiento'
+                '3. Realizar los cambios pertinentes en la caja de transmisión para verificar su buen funcionamiento, todo sin cortar vídeo hasta finalizar.'
             ];
             break;
     }
@@ -269,5 +268,3 @@ app.get('/instrucciones', function (req, res) {
 // escuchar
 app.listen(4850);
 console.log("Servidor MiAutoDHL 0.0.1 en el puerto 4850");
-
-
