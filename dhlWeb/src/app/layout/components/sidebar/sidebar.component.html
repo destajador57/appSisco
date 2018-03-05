@@ -1,0 +1,78 @@
+<nav class="sidebar" [ngClass]="{sidebarPushRight: isActive}">
+    <ul class="list-group">
+        <a *ngIf="userName == 3" [routerLink]="['/usuarios']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-users" aria-hidden="true"></i>&nbsp;{{ 'Usuarios' | translate }}
+        </a>
+        <!-- <div class="nested-menu">
+            <a class="list-group-item" (click)="addExpandClassEmp('pages')">
+                <span *ngIf="changeIconEmp == 0"><i class="fa fa-chevron-down" aria-hidden="true"></i>&nbsp; {{ 'Empresas' | translate }}</span>
+                <span *ngIf="changeIconEmp == 1"><i class="fa fa-chevron-up" aria-hidden="true"></i>&nbsp; {{ 'Empresas' | translate }}</span>
+            </a>
+            <li class="nested" [class.expand]="showMenu === 'pages'">
+                <ul class="submenu">
+                    <li>
+                        <a [routerLink]="['/control/empresa']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                            <i class="fa fa-building-o" aria-hidden="true"></i>&nbsp;{{ 'Empresa' | translate }}
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/control/sucursales']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                            <i class="fa fa-briefcase" aria-hidden="true"></i>&nbsp;{{ 'Sucursales' | translate }}
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/control/marcas']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                            <i class="fa fa-car" aria-hidden="true"></i>&nbsp;{{ 'Marcas' | translate }}
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </div> -->
+      
+    <a [routerLink]="['/promociones']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+        <i class="fa fa-tags" aria-hidden="true"></i>&nbsp;{{ 'Promociones' | translate }}
+    </a>
+   
+      <!-- <a [routerLink]="['/']" [routerLinkActive]="" class="list-group-item">
+            <i class="fa fa-file-o"></i>&nbsp;{{ 'Dictamen' | translate }}
+      </a> -->
+      <!-- <a [routerLink]="['/']" [routerLinkActive]="" class="list-group-item">
+            <i class="fa fa-file-o"></i>&nbsp;{{ 'Inventarios' | translate }}
+      </a> -->
+      <!-- <a [routerLink]="['/']" [routerLinkActive]="" class="list-group-item">
+            <i class="fa fa-file-o"></i>&nbsp;{{ 'Reprocesar' | translate }}
+      </a> -->
+      <!-- <a [routerLink]="['/']" [routerLinkActive]="" class="list-group-item">
+            <i class="fa fa-file-o"></i>&nbsp;{{ 'ER Planta' | translate }}
+      </a> -->
+      <!-- <a [routerLink]="['/']" [routerLinkActive]="" class="list-group-item">
+            <i class="fa fa-cog"></i>&nbsp;{{ 'Ajustes' | translate }}
+      </a> -->
+        <!-- <a routerLink="/dashboard" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-fw fa-dashboard"></i>&nbsp;{{ 'Dashboard' | translate }}
+        </a>
+        <a [routerLink]="['/charts']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-fw fa-bar-chart-o"></i>&nbsp;{{ 'Charts' | translate }}
+        </a>
+        <a [routerLink]="['/tables']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-fw fa-table"></i>&nbsp;{{ 'Tables' | translate }}
+        </a>
+        <a [routerLink]="['/forms']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-fw fa-edit"></i>&nbsp;{{ 'Forms' | translate }}
+        </a>
+        <a [routerLink]="['/bs-element']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-fw fa-desktop"></i>&nbsp;{{ 'Boostrap Element' | translate }}
+        </a>
+        <a [routerLink]="['/grid']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-fw fa-wrench"></i>&nbsp;{{ 'Boostrap Grid' | translate }}
+        </a>
+        <a [routerLink]="['/components']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-th-list"></i>&nbsp;{{ 'Component' | translate }}
+        </a>
+        
+        <a [routerLink]="['/blank-page']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-file-o"></i>&nbsp;{{ 'Blank Page' | translate }}
+        </a> -->
+
+    </ul>
+</nav>
