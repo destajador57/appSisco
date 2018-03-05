@@ -269,6 +269,67 @@ app.get('/instrucciones', function (req, res) {
     res.send(respuesta);
 });
 
+
+//ruteo
+
+//WEB_DHL_VALIDA_LOGIN
+app.get('/LogInWeb', function(req, res){
+	Weblog(req,res);
+});
+
+function Weblog(req,res){
+	var dbConn = new sql.Connection(config);
+	dbConn.connect().then(function(){
+		var request = new sql.Request(dbConn);
+
+		request
+		.input ('App','2')
+		.input ('Usuario', req.query.Usuario)
+		.input ('Password',req.query.Password)
+		.execute("WEB_DHL_VALIDA_LOGIN").then(function(recordSet){
+			var msj = JSON.stringify(recordSet[0][0]);
+			dbConn.close();
+			res.contentType('aplication/json');
+			res.header("Acces-Control-Allow-Origin","*");
+			res.header("Acces-Control-Allow-Headers", "Origin, X-Request-With, Content-Type, Accept");
+
+			res.send(msj);
+        }).catch(function (err) {
+           dbConn.close();
+			regreso('false',err.message,res);
+        });
+    }).catch(function (err) {
+		dbConn.close();
+		regreso('false',err.message,res);
+    });
+}
+
+//WEB_DHL_GET_VIN
+app.get('/BuscarUni', function(req,res){
+	var dbConn = new sql.Connection(config); 
+    dbConn.connect().then(function () {
+        var request = new sql.Request(dbConn);
+		request
+		.input ('Vin',req.query.Vin)
+		.execute("WEB_DHL_GET_VIN").then(function (recordSet) {
+			var msj = JSON.stringify(recordSet[0][0]);
+			
+			dbConn.close();
+			res.contentType('application/json');
+			res.header("Access-Control-Allow-Origin", "*");
+			res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  
+			res.send(msj);
+        }).catch(function (err) {
+           dbConn.close();
+		   regreso('false',err.message,res);
+        });
+    }).catch(function (err) {
+		dbConn.close();
+		regreso('false',err.message,res);
+    });
+});
+
 // escuchar
 app.listen(4850);
 console.log("Servidor MiAutoDHL 0.0.1 en el puerto 4850");
