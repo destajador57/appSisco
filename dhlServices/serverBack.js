@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 
 // configura bd 
 var config = {
-    server: '192.168.20.18',
+    server: '192.168.20.71',
     database: 'MIAUTODHL',
     user: 'sa',
     password: 'S0p0rt3',
@@ -162,7 +162,6 @@ app.post('/Guarda',function(req, res){
 });
 
 let UPLOAD_PATH = './uploads/';
-var nombreFisico = '';
  
 // Multer Settings for file upload
 var storage = multer.diskStorage({
@@ -172,9 +171,8 @@ var storage = multer.diskStorage({
     },
     filename: function (req, file, cb) {
         console.log('carga de archivo');
-		var datetimestamp = Date.now();
-		nombreFisico = file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length -1];
-        cb(null, nombreFisico);
+        var datetimestamp = Date.now();
+        cb(null, file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length -1]);
     }
 })
 let upload = multer({ storage: storage })
@@ -187,7 +185,6 @@ app.post('/cargaimagen', upload.single('image'), (req, res, next) => {
 		.input ('Vin',req.query.Vin)
 		.input ('DoctoId',req.query.DoctoId)
 		.input('Extencion',req.query.Extencion)
-		.input('nombreFisico',nombreFisico)
 		.execute("APP_DHL_GUARDADOCTO_APPDHL").then(function (recordSet) {
 			//var msj = JSON.stringify();
 			

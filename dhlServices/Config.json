@@ -1,0 +1,12 @@
+{
+    "Documentos":"D:\\flotilla\\Documentos\\AppDHL",
+    "Datos" :  
+        {
+            "server": "192.168.20.71",
+            "database": "MIAUTODHL",
+            "user": "sa",
+            "password": "S0p0rt3",
+            "port":1433
+        },
+    "Mascara":"\\Vin\\TipoDoctoId_DoctoId_Version.extencion"
+}
