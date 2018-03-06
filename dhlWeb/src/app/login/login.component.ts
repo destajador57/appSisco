@@ -57,17 +57,15 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     console.log('dentro del metodo enviar');
     console.log(this.user);
-    //const usuario = {Usuario: 'userweb', Password: 123};
     this.dhlService.login(this.user).subscribe((res: any) => {
       console.log(res);
       if (res && res.ok > 0) {
         localStorage.setItem('isLoggedin', 'true');
         this.router.navigate(['/dash']);
-        //this.router.navigateByUrl('dash');
-        console.log("aqui")
+        console.log('loguado');
       } else {
         this.error = true;
-        console.log("error")
+        console.log('error en el login');
       }
     });
     // if (this.signupForm.valid) {

@@ -32,13 +32,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="text-center" *ngFor="let ColumDash of resultadoDash; let i = index;">
-                        <td>{{ ColumDash.id }}</td>
-                        <td>{{ ColumDash.fecha | date:'MM/dd/yyyy' }}</td>
-                        <td>{{ ColumDash.marca }}</td>
-                        <td>{{ ColumDash.submarca }}</td>
-                        <td>{{ ColumDash.modelo }}</td>
-                        <td>{{ ColumDash.vin }}</td>
+                    <tr class="text-center" *ngFor="let unidad of unidades; let i = index;">
+                        <td>{{ unidad.id }}</td>
+                        <td>{{ unidad.fecha | date:'MM/dd/yyyy' }}</td>
+                        <td>{{ unidad.marca }}</td>
+                        <td>{{ unidad.submarca }}</td>
+                        <td>{{ unidad.modelo }}</td>
+                        <td>{{ unidad.vin }}</td>
                         <td style="text-align: center">
                             <button type="button" class="btn btn-success btn-circle " title="Evidencias">
                                 <i class="fa fa-folder-open" aria-hidden="true"></i>
@@ -46,7 +46,7 @@
                         </td>
                         <td>
                             <div style="text-align: center">
-                                <button type="button" class="btn btn-info btn-circle" (click)="open(content, ColumDash.id,ColumDash.vin)">
+                                <button type="button" class="btn btn-info btn-circle" (click)="open(content, unidad.id,unidad.vin)">
                                     <i class="fa fa-plus" aria-hidden="true"></i>
                                 </button>
                             </div>
@@ -135,7 +135,7 @@
                 <div class="row div-space">
                     <div class="col">
                         <h6 class="text-muted">Chat </h6>
-                        <table datatable class="table row-border hover table-responsive " *ngIf="this.temp_var" style="width:100%;font-size:11px">
+                        <table class="table row-border hover table-responsive " style="width:100%;font-size:11px">
                             <thead>
                                 <tr>
                                     <th>#</th>
@@ -145,23 +145,22 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="text-center" *ngFor="let ColumComent of resultadoComentariosById; let i = index;">
-                                    <td>{{ ColumDash.UnidadId }}</td>
-                                    <td>{{ ColumDash.UnidadId }}</td>
-                                    <td>{{ ColumDash.fecha | date:'MM/dd/yyyy h:mm a' }}</td>
-                                    <td>{{ ColumDash.Comentario }}</td>
+                                <tr class="text-center" *ngFor="let comentario of comentarios; let i = index;">
+                                    <td>{{ comentario.idUnidad }}</td>
+                                    <td>{{ comentario.nombreCompleto }}</td>
+                                    <td>{{ comentario.fecha | date:'MM/dd/yyyy h:mm a' }}</td>
+                                    <td>{{ comentario.comentario }}</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
                 <div class="row div-space">
-                    <div class="col">mh
+                    <div class="col">
                         <h6 class="text-muted">Agregar Comentario</h6>
-                        <textarea class="col form-control form-control-sm" rows="4" cols="50" name="idUnidad" [(ngModel)]="idUnidad">
-                                                                        </textarea>
-                        <!-- <textarea class="col form-control form-control-sm" rows="4" cols="50" name="descripcion" [(ngModel)]="idDash">
-                                                                                        </textarea> -->
+                        <textarea class="col form-control form-control-sm" rows="4" cols="50" 
+                        name="comentario" [(ngModel)]="comentario">
+                    </textarea>
                     </div>
                 </div>
                 <div class="modal-footer" style="margin: 20px">

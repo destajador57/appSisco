@@ -80,14 +80,20 @@ export class DashComponent implements OnInit {
   // public data: object;
   idUnidad: number = 0;
   vin: number = 0;
+
+  unidades: Array<any>;
+  comentarios: Array<any>;
+
   public temp_var: Object = false;
+  temp_comentario = false;
 
 
   constructor(private _Dashservice: DashService,
     private modalService: NgbModal,
     public fb: FormBuilder,
-    private dhlService: DhlServiceService, 
+    private dhlService: DhlServiceService,
     private _http: HttpClient) {
+      console.log('constructor');
     this.form = fb.group({
       // "SelectTipoPromocion": this.SelectTipoPromocion,
       // "SelectEmpresa": this.SelectEmpresa,
@@ -107,8 +113,11 @@ export class DashComponent implements OnInit {
       // "promoIdUp": this.promoIdUp,
       // "typeImgUp": this.typeImgUp,
     });
+    console.log('fin constructor');
 
 
+    this.unidades = [];
+    this.comentarios = [];
   }
 
   resultadoDash: IAutoTb[] = [];
@@ -130,33 +139,38 @@ export class DashComponent implements OnInit {
     console.log('dentro del metodo Consulta Unidades');
   
     //const usuario = {Usuario: 'userweb', Password: 123};
-    this.dhlService.GetUnidades()
-      .subscribe((resultadosUnidades: any) => {
-      console.log("",localStorage.getItem("isLoggedin"));
-      // if (res && res.ok > 0) {
-      //   localStorage.setItem('isLoggedin', 'true');
-      //   this.router.navigate(['/dash']);
-      //   //this.router.navigateByUrl('dash');
-      //   console.log("aqui")
-      // } else {
-        // this.error = true;
-         console.log("error")
-      // }
+    this.dhlService.GetUnidades().subscribe((res: Array<any>) => {
+      console.log(res);
+      this.unidades = res;
+      this.temp_var = true;
     });
+    // this.dhlService.GetUnidades()
+    //   .subscribe((resultadosUnidades: any) => {
+    //   console.log("",localStorage.getItem("isLoggedin"));
+    //   // if (res && res.ok > 0) {
+    //   //   localStorage.setItem('isLoggedin', 'true');
+    //   //   this.router.navigate(['/dash']);
+    //   //   //this.router.navigateByUrl('dash');
+    //   //   console.log("aqui")
+    //   // } else {
+    //     // this.error = true;
+    //      console.log("error")
+    //   // }
+    // });
 
-    this._Dashservice.getDashColumn()
-      .subscribe(resultadoDash => {
-        // var pathServer = this.serverPath;
-        this.temp_var = true;
-        this.resultadoDash = resultadoDash;
-        // console.log("pathserver", pathServer);
-        // this.resultadoPromociones.forEach(function (item, key) {
-        //   item.pathImagen = pathServer + item.po_RutaImagen;
-        //item.pathImagen = 'file/promociones/' + item.po_RutaImagen;
-        // });
-        console.log("Resultado", this.resultadoDash);
-      },
-        error => this.errorMessage = <any>error);
+    // this._Dashservice.getDashColumn()
+    //   .subscribe(resultadoDash => {
+    //     // var pathServer = this.serverPath;
+    //     this.temp_var = true;
+    //     this.resultadoDash = resultadoDash;
+    //     // console.log("pathserver", pathServer);
+    //     // this.resultadoPromociones.forEach(function (item, key) {
+    //     //   item.pathImagen = pathServer + item.po_RutaImagen;
+    //     //item.pathImagen = 'file/promociones/' + item.po_RutaImagen;
+    //     // });
+    //     console.log("Resultado", this.resultadoDash);
+    //   },
+    //     error => this.errorMessage = <any>error);
   }
 
   saveDash() {
@@ -199,30 +213,39 @@ export class DashComponent implements OnInit {
   //========= MODAL INSERT ========//
   open(content, idUnidad, vin) {
     this.modalService.open(content, { size: "lg" });
+
+    this.dhlService.GetComentariosByUnidad(idUnidad).subscribe((res: Array<any>) => {
+      this.comentarios = res;
+      this.temp_comentario = true;
+      console.log(idUnidad);
+      console.log(this.comentarios);
+    });
+
+
     // this.getTablaPromociones();
 
     //// Llena Grid de Comentarios By ID
-    this._Dashservice.GetPromocion_ById({ idUnidad: idUnidad })
+  //   this._Dashservice.GetPromocion_ById({ idUnidad: idUnidad })
 
-      .subscribe(resultadoComentariosById => {
-        this.resultadoComentariosById = resultadoComentariosById;
-        this.idUnidad = idUnidad;
-        this.vin = vin;
-        // this.onChangeEmpresa( this.resultadoPromocionesById[0].po_idEmpresa );
-        // this.selectedTPromocion     = this.resultadoPromocionesById[0].po_IdTipoPromocion;
-        // this.selectedEmpresa        = this.resultadoPromocionesById[0].po_idEmpresa;
-        // this.selectedMarca          = this.resultadoPromocionesById[0].po_IdMarca;
-        // this.selectedSucursal       = this.resultadoPromocionesById[0].po_IdSucursal;
-        // this.descripcion            = this.resultadoPromocionesById[0].po_Descripcion;
-        // this.ModalImg               = img;
-        // this.idPromocion            = this.resultadoPromocionesById[0].po_IdPromocion;
-        // console.log(this.idUnidad);
-        // console.log(this.vin);
-        console.log("idUnidad",idUnidad);
-        console.log("Vin",vin);
-        this.temp_var = true;
-      },
-        error => this.errorMessage = <any>error);
-  }
+  //     .subscribe(resultadoComentariosById => {
+  //       this.resultadoComentariosById = resultadoComentariosById;
+  //       this.idUnidad = idUnidad;
+  //       this.vin = vin;
+  //       // this.onChangeEmpresa( this.resultadoPromocionesById[0].po_idEmpresa );
+  //       // this.selectedTPromocion     = this.resultadoPromocionesById[0].po_IdTipoPromocion;
+  //       // this.selectedEmpresa        = this.resultadoPromocionesById[0].po_idEmpresa;
+  //       // this.selectedMarca          = this.resultadoPromocionesById[0].po_IdMarca;
+  //       // this.selectedSucursal       = this.resultadoPromocionesById[0].po_IdSucursal;
+  //       // this.descripcion            = this.resultadoPromocionesById[0].po_Descripcion;
+  //       // this.ModalImg               = img;
+  //       // this.idPromocion            = this.resultadoPromocionesById[0].po_IdPromocion;
+  //       // console.log(this.idUnidad);
+  //       // console.log(this.vin);
+  //       console.log("idUnidad",idUnidad);
+  //       console.log("Vin",vin);
+  //       this.temp_var = true;
+  //     },
+  //       error => this.errorMessage = <any>error);
+  // }
 
 }

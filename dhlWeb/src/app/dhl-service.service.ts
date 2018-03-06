@@ -18,14 +18,15 @@ export class DhlServiceService {
     return this.http.get(url);
   }
 
-  GetUnidades()
-  {
-    // console.log(user);
-    // console.log('invoca el login');
-    // const url = this.urlService + 'LogInWeb?Usuario=' + user.usuario + '&Password=' + user.contrasena ;
-    const url = ""
+  GetUnidades() {
+    const url = this.urlService + 'Get_All';
     console.log(url);
     return this.http.get(url);
+  }
 
+  GetComentariosByUnidad(idUnidad) {
+    const url = this.urlService + 'BuscaComen?idUnidad=' + idUnidad;
+    console.log(url);
+    return this.http.get(url);
   }
 }
