@@ -20,6 +20,7 @@ export class UserServiceProvider {
   //
   Loguea(user,psw){
     this.stringconn = this.server +'Logea?user='+user+'&password='+psw
+    console.log(this.stringconn);
 	  return this.http.get(this.stringconn);
   }
   //
@@ -28,6 +29,7 @@ export class UserServiceProvider {
   }
   //
   GetUnidades(idUser){
+    console.log(this.server +'GetUnidades?idUser='+idUser);
 	return this.http.get(this.server +'GetUnidades?idUser='+idUser);
   }
   //
