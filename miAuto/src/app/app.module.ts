@@ -40,6 +40,7 @@ import { UserServiceProvider } from '../providers/user-service/user-service';
 import { Camera } from '@ionic-native/camera';
 import { Toast } from '@ionic-native/toast';
 import { LocalNotifications } from '@ionic-native/local-notifications';
+import { AlertaPage } from '../pages/alerta/alerta';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { LocalNotifications } from '@ionic-native/local-notifications';
     ConfirmacionPage,
     CalificaPage,
     PromocionPage,
-    RecuperaPage
+    RecuperaPage,
+    AlertaPage
   ],
   imports: [
     BrowserModule,
@@ -89,7 +91,8 @@ import { LocalNotifications } from '@ionic-native/local-notifications';
     ConfirmacionPage,
     CalificaPage,
     PromocionPage,
-    RecuperaPage
+    RecuperaPage,
+    AlertaPage
   ],
   providers: [
     Toast,

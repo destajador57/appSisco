@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { CallNumber } from '@ionic-native/call-number';
-import { NavController, NavParams, Platform } from 'ionic-angular';
+import { NavController, NavParams, Platform, ModalController } from 'ionic-angular';
 import { OptionPage } from '../option/option';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { LoginPage } from '../login/login';
 import { CalificaPage } from '../califica/califica';
+import { AlertaPage } from '../alerta/alerta';
 import { LocalNotifications } from '@ionic-native/local-notifications';
 
 @Component({
@@ -30,6 +31,7 @@ export class HomePage {
 			  public navParams: NavParams, 
 			  private callNumber:CallNumber,
         public userService: UserServiceProvider,
+        public modalCtrl: ModalController,
         private localNotifications: LocalNotifications,
         public plt: Platform) {
 
@@ -66,17 +68,26 @@ export class HomePage {
 
     let notificaciones = [];
 
-    mensajes.forEach((mensaje,idx) => {
-      notificaciones.push({
-        id: idx,
-        title: mensaje.titulo,
-        text: mensaje.mensaje,
-        //at: new Date(new Date().getTime() + 3600),
-        sound: this.plt.is('android') ? 'file://sound.mp3': 'file://beep.caf',
-      })
-    });
+    if(mensajes && mensajes.length > 0){
 
-    this.localNotifications.schedule(notificaciones);
+      mensajes.forEach((mensaje,idx) => {
+        notificaciones.push({
+          id: idx,
+          title: mensaje.titulo,
+          text: mensaje.mensaje,
+          sound: this.plt.is('android') ? 'file://sound.mp3': 'file://beep.caf',
+        })
+      });
+
+      this.localNotifications.schedule(notificaciones);
+
+      let modal = this.modalCtrl.create(AlertaPage,{mensajes:mensajes});
+      modal.onDidDismiss(data=>{
+        console.log(data);
+      });
+  
+      modal.present();
+    }
   }
  
   public showOptions(unidad){
