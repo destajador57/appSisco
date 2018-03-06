@@ -1,0 +1,208 @@
+<div>
+    <div>
+        <div class="row card-header">
+            <div class="col-6">
+                <h1 class="text-muted">Consulta de Unidades</h1>
+            </div>
+
+        </div>
+        <div class="card">
+            <table datatable class="table row-border hover table-responsive " *ngIf="this.temp_var" style="width:100%;font-size:11px">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Fecha</th>
+                        <th>Marca</th>
+                        <th>SubMarca</th>
+                        <th>Modelo</th>
+                        <th>Vin</th>
+                        <th>Evidencias</th>
+                        <!-- Evidencias -->
+                        <th>Comentarios</th>
+                        <!-- Comentarios -->
+                        <th>Accion</th>
+                        <!-- Accion -->
+                        <th width="350px">Cotizacion</th>
+                        <!-- Cotizacion -->
+                        <th>Traslado</th>
+                        <!-- Traslado -->
+                        <th>Oferta</th>
+                        <!-- Oferta -->
+                        <th>Estatus</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="text-center" *ngFor="let unidad of unidades; let i = index;">
+                        <td>{{ unidad.id }}</td>
+                        <td>{{ unidad.fecha | date:'MM/dd/yyyy' }}</td>
+                        <td>{{ unidad.marca }}</td>
+                        <td>{{ unidad.submarca }}</td>
+                        <td>{{ unidad.modelo }}</td>
+                        <td>{{ unidad.vin }}</td>
+                        <td style="text-align: center">
+                            <button type="button" class="btn btn-success btn-circle " (click)="openEvidencias(evidencia, unidad.id)" title="Evidencias">
+                                <i class="fa fa-folder-open" aria-hidden="true"></i>
+                            </button>
+                        </td>
+                        <td>
+                            <div style="text-align: center">
+                                <button type="button" class="btn btn-info btn-circle" (click)="open(content, unidad.id,unidad.vin)">
+                                    <i class="fa fa-plus" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                            <!-- <div style="width:200px">
+                                <textarea title="Comentarios" class="form-control form-control-sm"></textarea>
+                            </div> -->
+                        </td>
+                        <td>
+                            <div style="width:160px">
+                                <select title="Accion" class="form-control form-control-sm">
+                                    <option value="0">Seleccione Accion</option>
+                                    <option value="1">Enviar Al Taller</option>
+                                    <option value="2">Oferta de Compra</option>
+                                </select>
+                            </div>
+                        </td>
+                        <td>
+                            <div style="width:120px;">
+                                <button type="button" title="Editar Cotizacion" class="btn btn-info btn-circle" (click)="deletePromocion(Dpromo.po_IdPromocion);">
+                                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                                </button>
+
+                                <button type="button" title="Aprobar Cotizacion" class="btn btn-success btn-circle" (click)="deletePromocion(Dpromo.po_IdPromocion);">
+                                    <i class="fa fa-check" aria-hidden="true"></i>
+                                </button>
+
+                                <button type="button" title="Anular Cotizacion" class="btn btn-danger btn-circle" (click)="deletePromocion(Dpromo.po_IdPromocion);">
+                                    <i class="fa fa-ban" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                        </td>
+                        <td>
+                            <div style="width:100px;">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="exampleRadios" id="Chk_DHL" value="DHL" checked>
+                                    <label class="form-check-label" for="exampleRadios1">
+                                        DHL
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="exampleRadios" id="Chk_TParts" value="TotalParts">
+                                    <label class="form-check-label" for="exampleRadios2">
+                                        Total Parts
+                                    </label>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div style="width:200px; padding: 2px" class="row col-xs-12">
+                                <input type="text" style="width:100px;" width="40px" id="txt_Oferta" name="oferta" title="oferta" class="form-control form-control-sm col-xs-6">
+
+                                <button type="button" title="Aprobar Oferta" class="btn btn-success btn-circle col-xs-6" (click)="deletePromocion(Dpromo.po_IdPromocion);">
+                                    <i class="fa fa-check" aria-hidden="true"></i>
+                                </button>
+
+                                <button type="button" title="Anular Oferta" class="btn btn-danger btn-circle col-xs-6" (click)="deletePromocion(Dpromo.po_IdPromocion);">
+                                    <i class="fa fa-ban" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                        </td>
+                        <td>
+                            <div style="width:180px">
+                                <select title="Estatus" class="form-control form-control-sm">
+                                    <option value="0">Sin Evidencia</option>
+                                    <option value="1">Evidencia Capturada</option>
+                                    <option value="2">En Reparación</option>
+                                    <option value="3">Ofertada</option>
+                                    <option value="4">Comprada</option>
+                                    <option value="5">Entregada BANORTE</option>
+                                </select>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- M O D A L E S -->
+    <!-- Inicia el modal  Insert -->
+    <ng-template #content let-c="close" let-d="dismiss">
+        <div class="modal-header">
+            <h4 class="modal-title text-muted">Comentarios</h4>
+        </div>
+        <div class="modal-body">
+            <!-- <form [formGroup]="form" (ngSubmit)="saveDash()"> -->
+                <div class="row div-space">
+                    <div class="col">
+                        <table class="table row-border hover table-responsive " style="width:100%;font-size:11px">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Usuario</th>
+                                    <th>Fecha</th>
+                                    <th>Comentario</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="text-center" *ngFor="let comentario of comentarios; let i = index;">
+                                    <td>{{ comentario.idUnidad }}</td>
+                                    <td>{{ comentario.nombreCompleto }}</td>
+                                    <td>{{ comentario.fecha | date:'MM/dd/yyyy h:mm a' }}</td>
+                                    <td>{{ comentario.comentario }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row div-space">
+                    <div class="col">
+                        <h6 class="text-muted">Agregar Comentario</h6>
+                        <textarea class="col form-control form-control-sm" rows="4" cols="50" 
+                        name="comentario" [(ngModel)]="comentario">
+                    </textarea>
+                    </div>
+                </div>
+                <div class="modal-footer" style="margin: 20px">
+                    <button class="btn btn-outline-success" type="submit" [disabled]="!form.valid">Agregar</button>
+                    <p></p>
+                    <button type="button" class="btn btn-outline-danger" (click)="c('Close click');">Cerrar</button>
+                </div>
+            <!-- </form> -->
+        </div>
+    </ng-template>
+    <!-- Inicia el modal  Insert -->
+    <ng-template #evidencia let-c="close" let-d="dismiss">
+        <div class="modal-header">
+            <h4 class="modal-title text-muted">Evidencias</h4>
+        </div>
+        <div class="modal-body">
+            <div class="container">
+                    <div class="row">
+                                <table style="width: 100%;" class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Evidencia</th>
+                                            <th>Imagen</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="text-center" *ngFor="let evidencia of evidencias; let i = index;">
+                                            <td>{{ evidencia.id }}</td>
+                                            <td>{{ evidencia.titulo }}</td>
+                                            <td>
+                                                <a target="_blank" [href]="domSanitizer.bypassSecurityTrustUrl(evidencia.imagen)">
+                                                        <img *ngIf="evidencia.extencion != 'mp4'" [src]="evidencia.imagen" style="max-height: 30px; max-width: 30px" [alt]="evidencia.titulo">
+                                                        <i *ngIf="evidencia.extencion == 'mp4'" class="fa fa-video-camera" aria-hidden="true"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                        </div>
+                        <div class="modal-footer" style="margin: 20px">
+                            <button type="button" class="btn btn-outline-danger" (click)="c('Close click');">Cerrar</button>
+                        </div>
+            </div>
+        </div>
+    </ng-template>

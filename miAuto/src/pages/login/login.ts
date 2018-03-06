@@ -32,9 +32,13 @@ export class LoginPage {
       if(data){
         console.log(data);
         if(data.idUsuario != null && data.idUsuario !='' && data.idUsuario != '0'){
-          this.navCtrl.setRoot(HomePage,{ cita: { idUsuario: data.idUsuario, idContratoOperacion: data.idContratoOperacion}});
+          this.navCtrl.setRoot(HomePage,{ cita: 
+            { idUsuario: data.idUsuario, 
+              idContratoOperacion: data.idContratoOperacion,
+              mensajes: data.mensajes
+            }});
         }else{
-          this.mostrarError(data.Msj);
+          this.mostrarError('No se pudo obtener el usuario');
         }
       }
 		},
