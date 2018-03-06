@@ -4,6 +4,7 @@ import { routerTransition } from '../../router.animations';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { trigger, style, transition, animate, keyframes, query, stagger, group, state, animateChild } from '@angular/animations';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { DhlServiceService } from '../../dhl-service.service';
 import {
   ReactiveFormsModule,
   FormsModule,
@@ -85,6 +86,7 @@ export class DashComponent implements OnInit {
   constructor(private _Dashservice: DashService,
     private modalService: NgbModal,
     public fb: FormBuilder,
+    private dhlService: DhlServiceService, 
     private _http: HttpClient) {
     this.form = fb.group({
       // "SelectTipoPromocion": this.SelectTipoPromocion,
@@ -124,6 +126,24 @@ export class DashComponent implements OnInit {
   }
 
   getTablaDash(): void {
+
+    console.log('dentro del metodo Consulta Unidades');
+  
+    //const usuario = {Usuario: 'userweb', Password: 123};
+    this.dhlService.GetUnidades()
+      .subscribe((resultadosUnidades: any) => {
+      console.log("",localStorage.getItem("isLoggedin"));
+      // if (res && res.ok > 0) {
+      //   localStorage.setItem('isLoggedin', 'true');
+      //   this.router.navigate(['/dash']);
+      //   //this.router.navigateByUrl('dash');
+      //   console.log("aqui")
+      // } else {
+        // this.error = true;
+         console.log("error")
+      // }
+    });
+
     this._Dashservice.getDashColumn()
       .subscribe(resultadoDash => {
         // var pathServer = this.serverPath;

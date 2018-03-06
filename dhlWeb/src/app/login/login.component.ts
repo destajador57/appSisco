@@ -27,10 +27,10 @@ export class LoginComponent implements OnInit {
   signupForm: FormGroup;
   usuario: FormControl;
   password: FormControl;
-  user: {usuario: string, contrasena: string};
+  user: { usuario: string, contrasena: string };
   error: boolean;
 
-  constructor(private _service: LoginService, public router: Router, private dhlService: DhlServiceService) { 
+  constructor(private _service: LoginService, public router: Router, private dhlService: DhlServiceService) {
     this.user = {
       usuario: '',
       contrasena: ''
@@ -61,9 +61,13 @@ export class LoginComponent implements OnInit {
     this.dhlService.login(this.user).subscribe((res: any) => {
       console.log(res);
       if (res && res.ok > 0) {
+        localStorage.setItem('isLoggedin', 'true');
         this.router.navigate(['/dash']);
-      }else {
-this.error = true;
+        //this.router.navigateByUrl('dash');
+        console.log("aqui")
+      } else {
+        this.error = true;
+        console.log("error")
       }
     });
     // if (this.signupForm.valid) {
@@ -87,7 +91,7 @@ this.error = true;
   // }
 
   // getAuth(): void {
-   
+
   //   this._service.getAuth({
   //     usuario: this.usuario.value,
   //     password: this.password.value })
