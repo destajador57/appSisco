@@ -40,7 +40,7 @@
                         <td>{{ unidad.modelo }}</td>
                         <td>{{ unidad.vin }}</td>
                         <td style="text-align: center">
-                            <button type="button" class="btn btn-success btn-circle " title="Evidencias">
+                            <button type="button" class="btn btn-success btn-circle " (click)="openEvidencias(evidencia, unidad.id)" title="Evidencias">
                                 <i class="fa fa-folder-open" aria-hidden="true"></i>
                             </button>
                         </td>
@@ -168,5 +168,41 @@
                     <button type="button" class="btn btn-outline-danger" (click)="c('Close click');">Cerrar</button>
                 </div>
             <!-- </form> -->
+        </div>
+    </ng-template>
+    <!-- Inicia el modal  Insert -->
+    <ng-template #evidencia let-c="close" let-d="dismiss">
+        <div class="modal-header">
+            <h4 class="modal-title text-muted">Evidencias</h4>
+        </div>
+        <div class="modal-body">
+            <div class="container">
+                    <div class="row">
+                                <table style="width: 100%;" class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Evidencia</th>
+                                            <th>Imagen</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="text-center" *ngFor="let evidencia of evidencias; let i = index;">
+                                            <td>{{ evidencia.id }}</td>
+                                            <td>{{ evidencia.titulo }}</td>
+                                            <td>
+                                                <a target="_blank" [href]="domSanitizer.bypassSecurityTrustUrl(evidencia.imagen)">
+                                                        <img *ngIf="evidencia.extencion != 'mp4'" [src]="evidencia.imagen" style="max-height: 30px; max-width: 30px" [alt]="evidencia.titulo">
+                                                        <i *ngIf="evidencia.extencion == 'mp4'" class="fa fa-video-camera" aria-hidden="true"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                        </div>
+                        <div class="modal-footer" style="margin: 20px">
+                            <button type="button" class="btn btn-outline-danger" (click)="c('Close click');">Cerrar</button>
+                        </div>
+            </div>
         </div>
     </ng-template>

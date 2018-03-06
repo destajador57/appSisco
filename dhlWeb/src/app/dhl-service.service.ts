@@ -29,4 +29,10 @@ export class DhlServiceService {
     console.log(url);
     return this.http.get(url);
   }
+
+  GetEvidenciasByUnidad(idUnidad) {
+    const url = this.urlService + 'Get_Evidencia?idUnidad=' + idUnidad;
+    console.log(url);
+    return this.http.get(url);
+  }
 }
