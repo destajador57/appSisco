@@ -192,8 +192,8 @@
                                             <td>{{ evidencia.titulo }}</td>
                                             <td>
                                                 <a target="_blank" [href]="domSanitizer.bypassSecurityTrustUrl(evidencia.imagen)">
-                                                        <img *ngIf="evidencia.extencion != 'mp4'" [src]="evidencia.imagen" style="max-height: 30px; max-width: 30px" [alt]="evidencia.titulo">
-                                                        <i *ngIf="evidencia.extencion == 'mp4'" class="fa fa-video-camera" aria-hidden="true"></i>
+                                                        <img *ngIf="evidencia.ext == 'image/jpeg'" [src]="evidencia.imagen" style="max-height: 30px; max-width: 30px" [alt]="evidencia.titulo">
+                                                        <i *ngIf="evidencia.ext != 'image/jpeg'" class="fa fa-video-camera" aria-hidden="true"></i>
                                                 </a>
                                             </td>
                                         </tr>
