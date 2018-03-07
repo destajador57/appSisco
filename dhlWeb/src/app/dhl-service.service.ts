@@ -33,8 +33,9 @@ export class DhlServiceService {
 
   InsertComentario(idUnidad, comentario, UsuarioID) {
     const url = this.urlService + 'BuscaComen?idUnidad=' + idUnidad;
+    return this.http.get(url);
   }
-  
+
   GetEvidenciasByUnidad(idUnidad) {
     const url = this.urlService + 'Get_Evidencia?idUnidad=' + idUnidad;
 
