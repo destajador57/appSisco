@@ -281,11 +281,7 @@ export class DashComponent implements OnInit {
     });
   }
 
-<<<<<<< HEAD
-  }
 
-  // this.getTablaPromociones();
-=======
   openEvidencias(evidencia, idUnidad) {
     this.modalService.open(evidencia, { size: 'lg' });
 
@@ -296,7 +292,7 @@ export class DashComponent implements OnInit {
     });
   }
     // this.getTablaPromociones();
->>>>>>> 831e3214b8cb9f8ab2360c1289f6e5e5dcf85151
+
 
   //// Llena Grid de Comentarios By ID
   //   this._Dashservice.GetPromocion_ById({ idUnidad: idUnidad })
