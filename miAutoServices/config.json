@@ -1,0 +1,18 @@
+{
+    "Datos" :  
+    {
+        "server": "192.168.20.71",
+        "database": "MIAUTO",
+        "user": "sa",
+        "password": "S0p0rt3",
+        "port":1433
+    },
+    "Notificaciones" :
+    {
+        "host": "192.168.20.71",
+        "port": 4860,
+        "path": "",
+        "method": "GET",
+        "encoding": null
+    }
+}
