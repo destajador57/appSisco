@@ -5,6 +5,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { trigger, style, transition, animate, keyframes, query, stagger, group, state, animateChild } from '@angular/animations';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { DhlServiceService } from '../../dhl-service.service';
+import { DomSanitizer } from '@angular/platform-browser';
 import {
   ReactiveFormsModule,
   FormsModule,
@@ -86,6 +87,7 @@ export class DashComponent implements OnInit {
 
   unidades: Array<any>;
   comentarios: Array<any>;
+  evidencias: Array<any>;
 
   public temp_var: Object = false;
   temp_comentario = false;
@@ -95,6 +97,7 @@ export class DashComponent implements OnInit {
     private modalService: NgbModal,
     public fb: FormBuilder,
     private dhlService: DhlServiceService,
+    private domSanitizer: DomSanitizer,
     private _http: HttpClient) {
     console.log('constructor');
     this.form = fb.group({
@@ -122,6 +125,7 @@ export class DashComponent implements OnInit {
 
     this.unidades = [];
     this.comentarios = [];
+    this.evidencias = [];
   }
 
   resultadoDash: IAutoTb[] = [];
@@ -275,10 +279,24 @@ export class DashComponent implements OnInit {
       console.log("IDUnidad Modal", idUnidad);
       console.log(this.comentarios);
     });
+  }
 
+<<<<<<< HEAD
   }
 
   // this.getTablaPromociones();
+=======
+  openEvidencias(evidencia, idUnidad) {
+    this.modalService.open(evidencia, { size: 'lg' });
+
+    this.dhlService.GetEvidenciasByUnidad(idUnidad).subscribe((res: Array<any>) => {
+      this.evidencias = res;
+      console.log(idUnidad);
+      console.log(this.evidencias);
+    });
+  }
+    // this.getTablaPromociones();
+>>>>>>> 831e3214b8cb9f8ab2360c1289f6e5e5dcf85151
 
   //// Llena Grid de Comentarios By ID
   //   this._Dashservice.GetPromocion_ById({ idUnidad: idUnidad })

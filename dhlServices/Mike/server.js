@@ -3,11 +3,16 @@ var express = require('express');
 var sql = require('mssql');
 var multer = require('multer');
 var bodyParser = require('body-parser');
-var conf = require('./config')
 
 
 // configura bd 
-var config = conf.Datos;
+var config = {
+    server: '192.168.20.18',
+    database: 'MIAUTODHL',
+    user: 'sa',
+    password: 'S0p0rt3',
+    port:1433
+};
  
 // instanciar
 var app = express();
@@ -264,9 +269,6 @@ app.get('/instrucciones', function (req, res) {
     res.send(respuesta);
 });
 
-
-//ruteo
-
 //WEB_DHL_VALIDA_LOGIN
 app.get('/LogInWeb', function(req, res){
 	Weblog(req,res);
@@ -284,12 +286,11 @@ function Weblog(req,res){
 		.execute("WEB_DHL_VALIDA_LOGIN").then(function(recordSet){
 			var msj = JSON.stringify(recordSet[0][0]);
 			dbConn.close();
-			res.contentType('application/json');
-			res.header("Access-Control-Allow-Origin", "*");
-			res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-			
+			res.contentType('aplication/json');
+			res.header("Acces-Control-Allow-Origin","*");
+			res.header("Acces-Control-Allow-Headers", "Origin, X-Request-With, Content-Type, Accept");
+
 			res.send(msj);
-			//res.send(msj);
         }).catch(function (err) {
            dbConn.close();
 			regreso('false',err.message,res);
@@ -300,76 +301,6 @@ function Weblog(req,res){
     });
 }
 
-app.get('/BuscaComen', function(req, res){
-	var dbConn = new sql.Connection(config);
-	dbConn.connect().then(function () {
-		var request = new sql.Request(dbConn);
-		 request
-		 .input ('idUnidad',req.query.idUnidad)
-		 .execute("WEB_DHL_GET_COMUNIDAD").then(function (recordSet) {
-			 var msj = JSON.stringify(recordSet[0]);
-			 
-			 dbConn.close();
-			 res.contentType('application/json');
-			 res.header("Access-Control-Allow-Origin", "*");
-			 res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  
-			 res.send(msj);
-		}).catch(function (err) {
-		   dbConn.close();
-			regreso('false',err.message,res);
-		});
-	}).catch(function (err) {
-		 dbConn.close();
-		 regreso('false',err.message,res);
-	});
- });
-
-
- function _Evidencia()
- {
-	this.ArchivoId;
-	this.id;
-	this.titulo;
-	this.imagen;
-	this.ext;
- }
-
- app.get('/Get_Evidencia', function(req, res){
-	var dbConn = new sql.Connection(config);
-	var Evidencias = []
-	dbConn.connect().then(function () {
-		var request = new sql.Request(dbConn);
-		 request
-		 .input ('idUnidad',req.query.idUnidad)
-		 .execute("WEB_DHL_GET_EVIDENCIAS").then(function (recordSet) {
-			
-			 for(var i=0; recordSet[0].length>i ; i++){
-				var Evidencia = new _Evidencia();
-				Evidencia.ArchivoId = recordSet[0][i].Cat_ArchivoId;
-				Evidencia.id = i+1;
-				Evidencia.titulo = recordSet[0][i].Docto;
-				Evidencia.imagen = conf.UrlDoctos+recordSet[0][i].Ruta.split('/')[recordSet[0][i].Ruta.split('/').length -1];
-				Evidencia.ext = recordSet[0][i].Extencion;
-				Evidencias.push(Evidencia);
-			 }
-
-
-			 dbConn.close();
-			 res.contentType('application/json');
-			 res.header("Access-Control-Allow-Origin", "*");
-			 res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  
-			 res.send(JSON.stringify(Evidencias));
-		}).catch(function (err) {
-		   dbConn.close();
-			regreso('false',err.message,res);
-		});
-	}).catch(function (err) {
-		 dbConn.close();
-		 regreso('false',err.message,res);
-	});
- });
 //WEB_DHL_GET_VIN
 app.get('/BuscarUni', function(req,res){
 	var dbConn = new sql.Connection(config); 
@@ -396,59 +327,6 @@ app.get('/BuscarUni', function(req,res){
     });
 });
 
-//WEB_DHL_GET_UNIDADES
-app.get('/Get_All', function(req,res){
-    var dbConn = new sql.Connection(config); 
-    dbConn.connect().then(function () {
-        var request = new sql.Request(dbConn);
-        request
-        .execute("WEB_DHL_GET_UNIDADES").then(function (recordSet) {
-            var msj = JSON.stringify(recordSet[0]);
-            
-            dbConn.close();
-            res.contentType('application/json');
-            res.header("Access-Control-Allow-Origin", "*");
-            res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  
-            res.send(msj);
-        }).catch(function (err) {
-           dbConn.close();
-           regreso('false',err.message,res);
-        });
-    }).catch(function (err) {
-        dbConn.close();
-        regreso('false',err.message,res);
-    });
-});
-
-
-app.post('/InsertaCom',function(req, res){
-    var dbConn = new sql.Connection(config); 
-    dbConn.connect().then(function () {
-        var request = new sql.Request(dbConn);
-        request
-        .input ('Comentario',req.query.Comentario)
-        .input ('UsuarioId',req.query.UsuarioId)
-        .input('UnidadID',req.query.UnidadID)
-        .execute("[WEB_DHL_INS_COM]").then(function (recordSet) {
-            //var msj = JSON.stringify();
-            
-            dbConn.close();
-            res.contentType('application/json');
-            res.header("Access-Control-Allow-Origin", "*");
-            res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-            console.log(recordSet[0][0].ArchivoId);
-            res.send(recordSet[0][0].ArchivoId);
-        }).catch(function (err) {
-           dbConn.close();
-           regreso('false',err.message,res);
-        });
-    }).catch(function (err) {
-        dbConn.close();
-        regreso('false',err.message,res);
-    });
-    
-});
 
 // escuchar
 app.listen(4850);

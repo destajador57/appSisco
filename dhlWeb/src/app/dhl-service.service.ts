@@ -30,8 +30,14 @@ export class DhlServiceService {
     return this.http.get(url);
   }
 
+
   InsertComentario(idUnidad, comentario, UsuarioID) {
     const url = this.urlService + 'BuscaComen?idUnidad=' + idUnidad;
+  }
+  
+  GetEvidenciasByUnidad(idUnidad) {
+    const url = this.urlService + 'Get_Evidencia?idUnidad=' + idUnidad;
+
     console.log(url);
     return this.http.get(url);
   }

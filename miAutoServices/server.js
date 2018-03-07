@@ -3,16 +3,11 @@ var express = require('express');
 var sql = require('mssql');
 var distance = require('google-distance-matrix');
 var mailCtrl = require('./mailCtrl')
-
+var http = require('http');
+var conf = require('./config')
 
 // configura bd 
-var config = {
-    server: '192.168.20.71',
-    database: 'MIAUTO',
-    user: 'sa',
-    password: 'S0p0rt3',
-    port:1433
-};
+var config = conf.Datos;
  
 // instanciar
 var app = express();
@@ -69,6 +64,9 @@ function regreso(id,mensaje,res){
 	res.send(stringData);
 }
 
+
+
+
 function ValidaLog(req,res){
 	var dbConn = new sql.Connection(config); 
 	dbConn.connect().then(function () {
@@ -76,13 +74,27 @@ function ValidaLog(req,res){
 		request.input ('nombreUsuario',req.query.user)
 		.input ('contrasenia',req.query.password)
         .execute("APP_CITAS_VALIDA_LOGIN").then(function (recordSet) { 
-			var msj = JSON.stringify(recordSet[0][0]);
+			var msj =recordSet[0][0];
 			dbConn.close();
 			res.contentType('application/json');
 			res.header("Access-Control-Allow-Origin", "*");
 			res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 			
-			res.send(msj);
+			var parametros = {
+				"App":1,
+				"VinPlaca":"1"
+			}
+			conf.Notificaciones.path = "/GetNotificationMobile";
+			
+			// Se invoca el servicio RESTful con las opciones configuradas previamente y sin objeto JSON.
+			invocarServicio(conf.Notificaciones, null, function (data, err) {
+				//console.log(data);
+				if (err) { regreso('0',err.message,res); } 
+				else { 
+					msj.mensajes = data; 
+					res.send(JSON.stringify(msj));
+				}
+			});
         }).catch(function (err) {
            dbConn.close();
 			regreso('0',err.message,res);
@@ -93,43 +105,74 @@ function ValidaLog(req,res){
     });
 }
 
+/**
+ * Función encargada de invocar los servicios RESTful y devolver
+ * el objeto JSON correspondiente. Et
+ */
+function invocarServicio(options, jsonObject, next) {
+    var req = http.request(options, function(res) {
+        var contentType = res.headers['content-type'];
+		/**
+         * Variable para guardar los datos del servicio RESTfull.
+         */
+        var data = '';
+ 
+        res.on('data', function (chunk) {
+            // Cada vez que se recojan datos se agregan a la variable
+			data += chunk;
+			//console.log(chunk);
+        }).on('end', function () {
+            // Al terminar de recibir datos los procesamos
+            var response = null;
+ 
+            // Nos aseguramos de que sea tipo JSON antes de convertirlo.
+            if (contentType.indexOf('application/json') != -1 && data) {
+                response = JSON.parse(data);
+            }
+ 
+            // Invocamos el next con los datos de respuesta
+            next(response, null);
+        })
+        .on('error', function(err) {
+            // Si hay errores los sacamos por consola
+            console.error('Error al procesar el mensaje: ' + err)
+        })
+        .on('uncaughtException', function (err) {
+            // Si hay alguna excepción no capturada la sacamos por consola
+            console.error(err);
+        });
+    }).on('error', function (err) {
+        // Si hay errores los sacamos por consola y le pasamos los errores a next.
+        console.error('HTTP request failed: ' + err);
+        next(null, err);
+    });
+ 
+    // Si la petición tiene datos estos se envían con la request
+    if (jsonObject) {
+        req.write(jsonObject);
+    }
+ 
+    req.end();
+};
+
+
+
 //APP_CITAS_GET_UNIDADES
 app.get('/GetUnidades', function(req, res){
     var dbConn = new sql.Connection(config); 
     dbConn.connect().then(function () {
-		var request = new sql.Request(dbConn);
+        var request = new sql.Request(dbConn);
 		
-		//-- INICIO Agregar mensajes de las fechas vencidas de la documentacion
-
-		var respuesta = {
-			mensajes:[{
-			titulo: 'A la ver 1',
-			mensaje: 'El documento ya tiene 9 dias vencido'
-		  },
-		{
-		  titulo: 'A la ver 2',
-			mensaje: 'El documento ya tiene 3 dias vencido'
-		}
-		,
-		{
-		  titulo: 'A la ver 3',
-			mensaje: 'El documento ya tiene 0 dias vencido'
-		}
-	  ]};
-		//-- FIN Agregar mensajes de las fechas vencidas de la documentacion
-
 		request
 		.input ('idUsuario',req.query.idUser)
 		.execute("APP_CITAS_GET_UNIDADES").then(function (recordSet) { 
-			respuesta.unidades = recordSet[0];
+			var msj = JSON.stringify(recordSet[0]);
 			dbConn.close();
 			res.contentType('application/json');
 			res.header("Access-Control-Allow-Origin", "*");
 			res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-
-			
-
-			res.send(respuesta);
+  
+			res.send(msj);
         }).catch(function (err) {
            dbConn.close();
 		   regreso('0',err.message,res);
@@ -139,7 +182,6 @@ app.get('/GetUnidades', function(req, res){
 		regreso('0',err.message,res);
     });
 });
-
 
 function _Taller(){
 	this.idProveedor = "";
