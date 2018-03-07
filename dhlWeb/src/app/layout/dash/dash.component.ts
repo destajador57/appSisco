@@ -438,7 +438,8 @@ export class DashComponent implements OnInit {
       isNew: unidad.montoOferta == null || unidad.montoOferta == 0
     };
   }
-    // this.getTablaPromociones();
+
+  // this.getTablaPromociones();
 
   //// Llena Grid de Comentarios By ID
   //   this._Dashservice.GetPromocion_ById({ idUnidad: idUnidad })

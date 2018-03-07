@@ -222,13 +222,8 @@
                 </div>
             </div>
             <div class="modal-footer" style="margin: 20px">
-                <button *ngIf="!oferta.isNew" type="button" title="Aprobar Oferta" class="btn btn-outline-success" (click)="approveOferta(oferta);">
-                    Aprobar
-                </button>
-
-                <button *ngIf="!oferta.isNew" type="button" title="Anular Oferta" class="btn btn-outline-danger" (click)="denyOferta(oferta);">
-                    Rechazar
-                </button>
+                <button *ngIf="!oferta.isNew" type="button" title="Aprobar Oferta" class="btn btn-outline-success" (click)="approveOferta(oferta);">Aprobar</button>
+                <button *ngIf="!oferta.isNew" type="button" title="Anular Oferta" class="btn btn-outline-danger" (click)="denyOferta(oferta);">Rechazar</button>
                 <button *ngIf="oferta.isNew" class="btn btn-outline-success" type="submit" (click)="addOferta(oferta)">Guardar</button>
                 <button type="button" class="btn btn-outline-danger" (click)="c('Close click');">Cerrar</button>
             </div>
@@ -258,7 +253,7 @@
                                 <td>{{ evidencia.titulo }}</td>
                                 <td>
                                     <a target="_blank" [href]="domSanitizer.bypassSecurityTrustUrl(evidencia.imagen)">
-                                        <img *ngIf="evidencia.ext == 'image/jpeg'" [src]="evidencia.imagen" style="max-height: 30px; max-width: 30px" [alt]="evidencia.titulo">
+                                            <img *ngIf="evidencia.ext == 'image/jpeg'" [src]="evidencia.imagen" style="height: 35px; width: 35px" [alt]="evidencia.titulo">
                                         <i *ngIf="evidencia.ext != 'image/jpeg'" class="fa fa-video-camera" aria-hidden="true"></i>
                                     </a>
                                 </td>

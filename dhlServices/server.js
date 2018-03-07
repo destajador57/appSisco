@@ -450,6 +450,32 @@ app.post('/InsertaCom',function(req, res){
     
 });
 
+////GET COTIZACIONXUNIDAD
+app.get('/BuscarCoti', function(req,res){
+	var dbConn = new sql.Connection(config); 
+    dbConn.connect().then(function () {
+        var request = new sql.Request(dbConn);
+		request
+		.input ('idUnidad',req.query.idUnidad)
+		.execute("[WEB_DHL_GET_COTIZACION]").then(function (recordSet) {
+			var msj = JSON.stringify(recordSet[0][0]);
+			
+			dbConn.close();
+			res.contentType('application/json');
+			res.header("Access-Control-Allow-Origin", "*");
+			res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  
+			res.send(msj);
+        }).catch(function (err) {
+           dbConn.close();
+		   regreso('false',err.message,res);
+        });
+    }).catch(function (err) {
+		dbConn.close();
+		regreso('false',err.message,res);
+    });
+});
+
 // escuchar
 app.listen(4850);
 console.log("Servidor MiAutoDHL 0.0.1 en el puerto 4850");
