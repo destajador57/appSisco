@@ -29,4 +29,10 @@ export class DhlServiceService {
     console.log(url);
     return this.http.get(url);
   }
+
+  InsertComentario(idUnidad, comentario, UsuarioID) {
+    const url = this.urlService + 'BuscaComen?idUnidad=' + idUnidad;
+    console.log(url);
+    return this.http.get(url);
+  }
 }

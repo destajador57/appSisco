@@ -61,8 +61,9 @@ export class LoginComponent implements OnInit {
       console.log(res);
       if (res && res.ok > 0) {
         localStorage.setItem('isLoggedin', 'true');
+        localStorage.setItem('user', this.user.usuario);
         this.router.navigate(['/dash']);
-        console.log('loguado');
+        console.log('loguado', this.user.usuario);
       } else {
         this.error = true;
         console.log('error en el login');

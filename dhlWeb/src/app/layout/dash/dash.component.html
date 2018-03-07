@@ -58,7 +58,8 @@
                             <div style="width:160px">
                                 <select title="Accion" class="form-control form-control-sm">
                                     <option value="0">Seleccione Accion</option>
-                                    <option value="1">Enviar Al Taller</option>
+                                    <option value="1">Enviar a Taller</option>
+                                    <option value="1">Trasladar BANORTE</option>
                                     <option value="2">Oferta de Compra</option>
                                 </select>
                             </div>
@@ -87,7 +88,8 @@
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="exampleRadios" id="Chk_TParts" value="TotalParts">
+                                    <input class="form-check-input" type="radio" (change)="open(contentI, unidad.id,unidad.vin)" name="exampleRadios" id="Chk_TParts"
+                                        value="TotalParts">
                                     <label class="form-check-label" for="exampleRadios2">
                                         Total Parts
                                     </label>
@@ -125,48 +127,69 @@
         </div>
     </div>
     <!-- M O D A L E S -->
-    <!-- Inicia el modal  Insert -->
+    <!-- Inicia el modal  Comentarios -->
     <ng-template #content let-c="close" let-d="dismiss">
         <div class="modal-header">
             <h4 class="modal-title text-muted">Comentarios</h4>
         </div>
         <div class="modal-body">
             <!-- <form [formGroup]="form" (ngSubmit)="saveDash()"> -->
-                <div class="row div-space">
-                    <div class="col">
-                        <table class="table row-border hover table-responsive " style="width:100%;font-size:11px">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Usuario</th>
-                                    <th>Fecha</th>
-                                    <th>Comentario</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr class="text-center" *ngFor="let comentario of comentarios; let i = index;">
-                                    <td>{{ comentario.idUnidad }}</td>
-                                    <td>{{ comentario.nombreCompleto }}</td>
-                                    <td>{{ comentario.fecha | date:'MM/dd/yyyy h:mm a' }}</td>
-                                    <td>{{ comentario.comentario }}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div class="row div-space">
-                    <div class="col">
-                        <h6 class="text-muted">Agregar Comentario</h6>
-                        <textarea class="col form-control form-control-sm" rows="4" cols="50" 
-                        name="comentario" [(ngModel)]="comentario">
+            <div class="row div-space">
+                <div class="col">
+                    <h6 class="text-muted">Agregar Comentario</h6>
+                    <textarea class="col form-control form-control-sm" rows="2" cols="20" name="comentario" [(ngModel)]="comentar">
                     </textarea>
-                    </div>
                 </div>
-                <div class="modal-footer" style="margin: 20px">
-                    <button class="btn btn-outline-success" type="submit" [disabled]="!form.valid">Agregar</button>
-                    <p></p>
-                    <button type="button" class="btn btn-outline-danger" (click)="c('Close click');">Cerrar</button>
+            </div>
+            <div class="modal-footer" style="margin: 20px">
+                <button class="btn btn-outline-success" type="submit" (click)="insertComentario(UnidadID, comentar)">Agregar</button>
+            </div>
+            <div class="row div-space">
+                <div class="col">
+                    <table style="width:100%;font-size:11px">
+                        <thead class="blue-grey lighten-4">
+                            <tr>
+                                <th>#</th>
+                                <th>Usuario</th>
+                                <th>Fecha</th>
+                                <th>Comentario</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="text-center" *ngFor="let comentario of comentarios; let i = index;">
+                                <td>{{ comentario.idUnidad }}</td>
+                                <td>{{ comentario.nombreCompleto }}</td>
+                                <td>{{ comentario.fecha | date:'MM/dd/yyyy h:mm a' }}</td>
+                                <td>{{ comentario.comentario }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
+            </div>
+
+            <div class="modal-footer" style="margin: 20px">
+                <button type="button" class="btn btn-outline-danger" (click)="c('Close click');">Cerrar</button>
+            </div>
             <!-- </form> -->
+        </div>
+    </ng-template>
+
+    <!-- Inicia el modal Traslado Importe -->
+    <ng-template #contentI let-c="close" let-d="dismiss">
+        <div class="modal-header">
+            <h4 class="modal-title text-muted">Traslado/Importe</h4>
+        </div>
+        <div class="modal-body">
+            <div class="row div-space">
+                <div class="col">
+                    <h6 class="text-muted">Agregar Monto Importe:</h6>
+                    <textarea class="col form-control form-control-sm" rows="1" cols="20" name="importe" [(ngModel)]="importe">
+                        </textarea>
+                </div>
+            </div>
+            <div class="modal-footer" style="margin: 20px">
+                <button class="btn btn-outline-success" type="submit" (click)="insertComentario(UnidadID, comentar)">Guardar</button>
+                <button type="button" class="btn btn-outline-danger" (click)="c('Close click');">Cerrar</button>
+            </div>
         </div>
     </ng-template>
