@@ -85,7 +85,7 @@ export class DashComponent implements OnInit {
   UnidadID: number = 0;
   UsuarioID = localStorage.getItem("user");
   comentar : string ="";
-  partida : string ="Hola";
+  partida : string ="";
   precio : string ="";
   cantidad : string ="";
 

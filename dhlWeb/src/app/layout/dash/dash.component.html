@@ -243,10 +243,19 @@
             <div class="row div-space">
                 <div class="col">
                     <h6 class="text-muted">Agregar Partida</h6>
-                    <input class="col form-control form-control-sm" name="partida" [(ngModel)]="partida">
-                    <input class="col form-control form-control-sm" name="cantidad" [(ngModel)]="cantidad">
-                    <input class="col form-control form-control-sm" name="precio" [(ngModel)]="precio">
-                    
+                    <table style="width: 100%;" border="0">
+                        <tr>
+                            <td><h6 class="text-muted">Partida</h6></td>
+                    <td colspan="3"><input class="col form-control form-control-sm" name="partida" [(ngModel)]="partida"></td>
+                </tr>
+                <tr><td></td></tr>
+                <tr>
+                        <td><h6 class="text-muted">Cantidad</h6></td>
+                        <td><input class="col form-control form-control-sm" name="cantidad" [(ngModel)]="cantidad"></td>
+                    <td><h6 class="text-muted">Precio</h6></td>
+                    <td><input class="col form-control form-control-sm" name="precio" [(ngModel)]="precio"></td>
+                </tr>
+                </table>
                 </div>
             </div>
             <div class="modal-footer" style="margin: 20px">
@@ -261,6 +270,7 @@
                                 <th>Partida</th>
                                 <th>Cantidad</th>
                                 <th>Precio</th>
+                                <th>Accion</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -269,6 +279,11 @@
                                 <td>{{ cotizacion.partida }}</td>
                                 <td>{{ cotizacion.cantidad }}</td>
                                 <td>{{ cotizacion.precio }}</td>
+                                <td> <button class="btn btn-circle btn-danger" style="color: white;" type="submit" (click)="deleteCotizacion()">X</button> </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" class="text-align">Total: </td>
+                                <td>Valor </td>
                             </tr>
                         </tbody>
                     </table>
