@@ -98,14 +98,13 @@
                         </td>
                         <td>
                             <div style="width:200px; padding: 2px" class="row col-xs-12">
-                                <input type="text" style="width:100px;" width="40px" id="txt_Oferta" name="oferta" title="oferta" class="form-control form-control-sm col-xs-6">
-
-                                <button type="button" title="Aprobar Oferta" class="btn btn-success btn-circle col-xs-6" (click)="deletePromocion(Dpromo.po_IdPromocion);">
-                                    <i class="fa fa-check" aria-hidden="true"></i>
-                                </button>
-
-                                <button type="button" title="Anular Oferta" class="btn btn-danger btn-circle col-xs-6" (click)="deletePromocion(Dpromo.po_IdPromocion);">
-                                    <i class="fa fa-ban" aria-hidden="true"></i>
+                                <div *ngIf="unidad.monto != null && unidad.monto > 0">
+                                    {{unidad.monto | currency}}
+                                    <i *ngIf="unidad.estatusOferta == 'Aceptada'" class="fa fa-check text-success" aria-hidden="true"></i>
+                                    <i *ngIf="unidad.estatusOferta == 'Rechazada'" class="fa fa-ban text-danger" aria-hidden="true"></i>
+                                </div>
+                                <button *ngIf="unidad.estatusOferta == null || unidad.estatusOferta == ''" style="margin-left: 10px" type="button" title="Agregar o modificar Oferta" class="btn btn-info btn-circle col-xs-6" (click)="openOfertas(ofertasM, unidad);">
+                                    <i class="fa fa-pencil" aria-hidden="true"></i>
                                 </button>
                             </div>
                         </td>
@@ -194,6 +193,34 @@
         </div>
     </ng-template>
 
+    <!--Iniia el modal de Ofertas -->
+    <ng-template #ofertasM let-c="close" let-d="dismiss">
+        <div class="modal-header">
+            <h4 class="modal-title text-muted">Ofertas</h4>
+        </div>
+        <div class="modal-body">
+            <div class="row div-space">
+                <div class="col">
+                    <h6 class="text-muted">Agregar/Modificar Monto a ofertar:</h6>
+                    <input type="Text" class="col form-control form-control-sm" name="ofertar" [(ngModel)]="oferta.monto">
+                </div>
+            </div>
+            <div class="row div-space">
+                <div class="col">
+                    <div *ngIf="oferta.estatus == null">
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" style="margin: 20px">
+                <button *ngIf="!oferta.isNew" type="button" title="Aprobar Oferta" class="btn btn-outline-info" (click)="approveOferta(oferta);">Aprobar</button>
+                <button *ngIf="!oferta.isNew" type="button" title="Anular Oferta" class="btn btn-outline-warning" (click)="denyOferta(oferta);">Rechazar</button>
+                <button class="btn btn-outline-success" type="submit" (click)="addOferta(oferta)">Guardar</button>
+                <button type="button" class="btn btn-outline-danger" (click)="c('Close click');">Cerrar</button>
+            </div>
+        </div>
+    </ng-template>
+
 
     <!-- Inicia el modal  Insert -->
     <ng-template #evidencia let-c="close" let-d="dismiss">
@@ -217,7 +244,7 @@
                                 <td>{{ evidencia.titulo }}</td>
                                 <td>
                                     <a target="_blank" [href]="domSanitizer.bypassSecurityTrustUrl(evidencia.imagen)">
-                                        <img *ngIf="evidencia.ext == 'image/jpeg'" [src]="evidencia.imagen" style="height: 35px; width: 35px" [alt]="evidencia.titulo">
+                                            <img *ngIf="evidencia.ext == 'image/jpeg'" [src]="evidencia.imagen" style="height: 35px; width: 35px" [alt]="evidencia.titulo">
                                         <i *ngIf="evidencia.ext != 'image/jpeg'" class="fa fa-video-camera" aria-hidden="true"></i>
                                     </a>
                                 </td>

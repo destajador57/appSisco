@@ -84,11 +84,12 @@ export class DashComponent implements OnInit {
   UnidadID: number = 0;
   UsuarioID = localStorage.getItem("user");
   comentar : string ="";
-
+  ofertar : number = 0;
   unidades: Array<any>;
   comentarios: Array<any>;
   evidencias: Array<any>;
-
+  oferta: any;
+  modalReference: any;
   public temp_var: Object = false;
   temp_comentario = false;
 
@@ -145,7 +146,7 @@ export class DashComponent implements OnInit {
   getTablaDash(): void {
 
     console.log('dentro del metodo Consulta Unidades');
-
+    this.unidades = [];
     //const usuario = {Usuario: 'userweb', Password: 123};
     this.dhlService.GetUnidades().subscribe((res: Array<any>) => {
       console.log(res);
@@ -181,6 +182,146 @@ export class DashComponent implements OnInit {
     //     error => this.errorMessage = <any>error);
   }
 
+  addOferta(oferta){
+    oferta.estatus = null;
+    swal({
+      title: '¿Desea guardar la oferta?',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Guardar',
+      cancelButtonText: 'Cancelar',
+      confirmButtonClass: 'btn btn-success',
+      cancelButtonClass: 'btn btn-danger',
+      buttonsStyling: false,
+    }).then((result) => {
+      if (result.value) {
+
+        this.dhlService.AddOferta(oferta).subscribe((res: any) => {
+          console.log(res);
+          if (res && res.length > 0 && res[0].UnidadId > 0) {
+            this.oferta = {};
+            console.log("Agrego oferta");
+            this.modalReference.close();
+            oferta.unidad.monto = res[0].Monto;
+            oferta.unidad.estatusOferta = res[0].Estatus;
+
+            swal(
+              'Guardado',
+              'Oferta Guardada con Exito.',
+              'success'
+            );
+          } else {
+
+            console.log('error en el guardado de la oferta');
+            this.oferta = {};
+          }
+        });
+
+      } else if (result.dismiss === 'cancel') {
+        swal(
+          'Cancelado',
+          'No se Ingreso la oferta.',
+          'error'
+        )
+      }
+    });
+  }
+
+  approveOferta(oferta){
+    oferta.estatus = "Aceptada";
+    swal({
+      title: '¿Desea aprobar la oferta?',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Aprobar',
+      cancelButtonText: 'Cancelar',
+      confirmButtonClass: 'btn btn-success',
+      cancelButtonClass: 'btn btn-danger',
+      buttonsStyling: false,
+    }).then((result) => {
+      if (result.value) {
+
+        this.dhlService.AddOferta(oferta).subscribe((res: any) => {
+          console.log(res);
+          if (res && res.length > 0 && res[0].UnidadId > 0) {
+            this.oferta = {};
+            console.log("Agrego oferta");
+            this.modalReference.close();
+            oferta.unidad.monto = res[0].Monto;
+            oferta.unidad.estatusOferta = res[0].Estatus;
+            
+            swal(
+              'Aprobada',
+              'Oferta Aprobada con Exito.',
+              'success'
+            );
+          } else {
+
+            console.log('error en el guardado de la oferta');
+            this.oferta = {};
+          }
+        });
+
+      } else if (result.dismiss === 'cancel') {
+        swal(
+          'Cancelado',
+          'No se aprobó la oferta.',
+          'error'
+        )
+      }
+    });
+  }
+
+  denyOferta(oferta){
+    oferta.estatus = "Rechazada";
+    swal({
+      title: '¿Desea rechazar la oferta?',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Rechazar',
+      cancelButtonText: 'Cancelar',
+      confirmButtonClass: 'btn btn-success',
+      cancelButtonClass: 'btn btn-danger',
+      buttonsStyling: false,
+    }).then((result) => {
+      if (result.value) {
+
+        this.dhlService.AddOferta(oferta).subscribe((res: any) => {
+          console.log(res);
+          if (res && res.length > 0 && res[0].UnidadId > 0) {
+            this.oferta = {};
+            console.log("Agrego oferta");
+            oferta.unidad.monto = res[0].Monto;
+            oferta.unidad.estatusOferta = res[0].Estatus;
+            this.modalReference.close();
+            swal(
+              'Rechazada',
+              'Oferta Rechazada con Exito.',
+              'success'
+            );
+          } else {
+
+            console.log('error en el guardado de la oferta');
+            this.oferta = {};
+          }
+        });
+
+      } else if (result.dismiss === 'cancel') {
+        swal(
+          'Cancelado',
+          'No se Rechazó la oferta.',
+          'error'
+        )
+      }
+    });
+  }
+
   insertComentario(idUnidad, comentario) {
     swal({
       title: '¿Desea Ingresar el Comentario?' + idUnidad + " " + comentario + " " + this.UsuarioID,
@@ -212,6 +353,7 @@ export class DashComponent implements OnInit {
               'Comentario Guardado con Exito.',
               'success'
             );
+
           } else {
 
             console.log('error en el login');
@@ -291,8 +433,20 @@ export class DashComponent implements OnInit {
       console.log(this.evidencias);
     });
   }
-    // this.getTablaPromociones();
 
+  openOfertas(content, unidad) {
+    this.modalReference = this.modalService.open(content, { size: 'lg' });
+    this.oferta = {
+      idUnidad: unidad.id,
+      idUsuario: this.UsuarioID,
+      monto: unidad.monto,
+      estatus: unidad.estatusOferta,
+      isNew: unidad.monto == null || unidad.monto == 0,
+      unidad: unidad
+    };
+  }
+
+  // this.getTablaPromociones();
 
   //// Llena Grid de Comentarios By ID
   //   this._Dashservice.GetPromocion_ById({ idUnidad: idUnidad })

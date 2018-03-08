@@ -36,6 +36,11 @@ export class DhlServiceService {
     return this.http.get(url);
   }
 
+  AddOferta(oferta){
+    const url = this.urlService + `GuardaOferta?idUsuario=${oferta.idUsuario}&idUnidad=${oferta.idUnidad}&monto=${oferta.monto}&estatus=${oferta.estatus}`;
+    return this.http.get(url);
+  }
+
   GetEvidenciasByUnidad(idUnidad) {
     const url = this.urlService + 'Get_Evidencia?idUnidad=' + idUnidad;
 
