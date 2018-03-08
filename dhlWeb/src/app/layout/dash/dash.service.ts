@@ -12,6 +12,7 @@ import { IServerResponse } from "./ServerResponse";
 // import { IMarca } from "./marca";
 // import { ISucursal } from "./sucursal";
  import { IComentarioById } from "./comentarioByid";
+ import { ICotizacionById } from "./cotizacionById";
 // import { Iimage } from "./Img";
 
 
@@ -27,6 +28,10 @@ export class DashService {
   //  private _urlSucursal        = "api/promociones/sucursal";
   private _urlInsertComent        = "api/dash/insertComentario";
   private _urlGetComentarioById   = "api/dash/getcomentariobyid";
+
+  private _urlInsertCoti       = "api/dash/insertCotizacion";
+  private _urlGetCotizacionById   = "api/dash/getcotizacionbyid";
+
   //  private _urlUpdatePromo     = "api/promociones/updatepromocion";
   //  private _urlUpdateImage     = "api/promociones/updateimage";
 
@@ -51,6 +56,13 @@ export class DashService {
     var headers = new HttpHeaders();
     headers.append('Content-Type', 'application/form-data');
     return this._http.post<IServerResponse[]>(this._urlInsertComent, cuerpo.value, { headers: headers });
+  }
+
+  saveCotizaciones(cuerpo): Observable<IServerResponse[]> {
+    console.log('cuerpo', cuerpo);
+    var headers = new HttpHeaders();
+    headers.append('Content-Type', 'application/form-data');
+    return this._http.post<IServerResponse[]>(this._urlInsertCoti, cuerpo.value, { headers: headers });
   }
 
   GetPromocion_ById(parameters): Observable<IComentarioById[]>{

@@ -26,6 +26,7 @@ import { IServerResponse } from "./ServerResponse";
 import { stringify } from 'querystring';
 import { IPromise } from 'protractor/node_modules/@types/q';
 import { IComentarioById } from "./comentarioByid";
+import { ICotizacionById } from "./cotizacionByid";
 // import { Iimage } from "./Img";
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/throw';
@@ -85,13 +86,20 @@ export class DashComponent implements OnInit {
   UsuarioID = localStorage.getItem("user");
   comentar : string ="";
   ofertar : number = 0;
+  partida : string ="Hola";
+  precio : string ="";
+  cantidad : string ="";
+
   unidades: Array<any>;
   comentarios: Array<any>;
+  cotizaciones: Array<any>;
   evidencias: Array<any>;
   oferta: any;
   modalReference: any;
+
   public temp_var: Object = false;
   temp_comentario = false;
+  temp_cotizacion = false;
 
 
   constructor(private _Dashservice: DashService,
@@ -126,11 +134,13 @@ export class DashComponent implements OnInit {
  
     this.unidades = [];
     this.comentarios = [];
+    this.cotizaciones = [];
     this.evidencias = [];
   }
 
   resultadoDash: IAutoTb[] = [];
   resultadoComentariosById: IComentarioById[] = [];
+  resultadoCotizacionesById: ICotizacionById[] = [];
   // serverResponse:             IServerResponse[] = [];
   // resultadoEmpresas:          IEmpresas[] = [];
   // resultadoTPromocion:        ITipoPromocion[] = [];
@@ -146,7 +156,7 @@ export class DashComponent implements OnInit {
   getTablaDash(): void {
 
     console.log('dentro del metodo Consulta Unidades');
-    this.unidades = [];
+
     //const usuario = {Usuario: 'userweb', Password: 123};
     this.dhlService.GetUnidades().subscribe((res: Array<any>) => {
       console.log(res);
@@ -353,7 +363,6 @@ export class DashComponent implements OnInit {
               'Comentario Guardado con Exito.',
               'success'
             );
-
           } else {
 
             console.log('error en el login');
@@ -365,6 +374,59 @@ export class DashComponent implements OnInit {
         swal(
           'Cancelado',
           'No se Ingreso Comentario.',
+          'error'
+        )
+      }
+    });
+  }
+
+  insertCotizacion(idUnidad, partida,cantidad,precio) {
+    swal({
+      title: '¿Desea Ingresar la Partida?' + idUnidad + " " + partida + " " + this.UsuarioID,
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Actualizar',
+      cancelButtonText: 'Cancelar',
+      confirmButtonClass: 'btn btn-success',
+      cancelButtonClass: 'btn btn-danger',
+      buttonsStyling: false,
+    }).then((result) => {
+      if (result.value) {
+
+        this.dhlService.InsertCotizacion(idUnidad, partida,cantidad,precio, this.UsuarioID).subscribe((res: any) => {
+          console.log(res);
+          if (res && res.ok > 0) {
+            
+            //Llena Tabla Partidas 
+            this.dhlService.GetCotizacionByUnidad(idUnidad).subscribe((res: Array<any>) => {
+              
+              this.cotizaciones = res;
+            });
+            this.partida = "";
+            this.precio = "";
+            this.cantidad = "";
+            console.log("Agrego Partida");
+            
+            swal(
+              'Guardado',
+              'Partida Guardada con Exito.',
+              'success'
+            );
+          } else {
+
+            console.log('error en el login');
+            this.partida = "";
+            this.precio = "";
+            this.cantidad = "";
+          }
+        });
+
+      } else if (result.dismiss === 'cancel') {
+        swal(
+          'Cancelado',
+          'No se Ingreso La Partida.',
           'error'
         )
       }
@@ -413,6 +475,7 @@ export class DashComponent implements OnInit {
     this.modalService.open(content, { size: "lg" });
 
     this.dhlService.GetComentariosByUnidad(idUnidad).subscribe((res: Array<any>) => {
+      
       this.comentarios = res;
       this.temp_comentario = true;
       this.UnidadID = idUnidad;
@@ -446,7 +509,19 @@ export class DashComponent implements OnInit {
     };
   }
 
-  // this.getTablaPromociones();
+  openCot(cotizacion, idUnidad) {
+    this.modalService.open(cotizacion, { size: 'lg' });
+
+    this.dhlService.GetCotizacionByUnidad(idUnidad).subscribe((res: Array<any>) => {
+      this.cotizaciones = res;
+      this.UnidadID = idUnidad;
+      console.log(idUnidad);
+      console.log(this.cotizaciones);
+    });
+  }
+
+    // this.getTablaPromociones();
+
 
   //// Llena Grid de Comentarios By ID
   //   this._Dashservice.GetPromocion_ById({ idUnidad: idUnidad })

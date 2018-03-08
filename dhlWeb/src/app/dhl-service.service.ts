@@ -40,6 +40,19 @@ export class DhlServiceService {
     const url = this.urlService + `GuardaOferta?idUsuario=${oferta.idUsuario}&idUnidad=${oferta.idUnidad}&monto=${oferta.monto}&estatus=${oferta.estatus}`;
     return this.http.get(url);
   }
+  
+GetCotizacionByUnidad(idUnidad) {
+    const url = this.urlService + 'BuscarCoti?idUnidad=' + idUnidad;
+    console.log(url);
+    return this.http.get(url);
+  }
+
+
+  InsertCotizacion(idUnidad, partida,cantidad,precio, UsuarioID) {
+    const url = this.urlService + 'InsertCoti?idUnidad=' + idUnidad +'&Partida=' + partida +'&Precio=' + precio +'&Cantidad=' + cantidad +'&UsuarioId=' + UsuarioID ;
+    console.log(url);
+    return this.http.get(url);
+  }
 
   GetEvidenciasByUnidad(idUnidad) {
     const url = this.urlService + 'Get_Evidencia?idUnidad=' + idUnidad;

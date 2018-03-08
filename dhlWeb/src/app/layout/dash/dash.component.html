@@ -66,7 +66,7 @@
                         </td>
                         <td>
                             <div style="width:120px;">
-                                <button type="button" title="Editar Cotizacion" class="btn btn-info btn-circle" (click)="deletePromocion(Dpromo.po_IdPromocion);">
+                                <button type="button" title="Editar Cotizacion" class="btn btn-info btn-circle" (click)="openCot(cotizacion,unidad.id);">
                                     <i class="fa fa-pencil" aria-hidden="true"></i>
                                 </button>
 
@@ -244,7 +244,7 @@
                                 <td>{{ evidencia.titulo }}</td>
                                 <td>
                                     <a target="_blank" [href]="domSanitizer.bypassSecurityTrustUrl(evidencia.imagen)">
-                                            <img *ngIf="evidencia.ext == 'image/jpeg'" [src]="evidencia.imagen" style="height: 35px; width: 35px" [alt]="evidencia.titulo">
+                                        <img *ngIf="evidencia.ext == 'image/jpeg'" [src]="evidencia.imagen" style="height: 35px; width: 35px" [alt]="evidencia.titulo">
                                         <i *ngIf="evidencia.ext != 'image/jpeg'" class="fa fa-video-camera" aria-hidden="true"></i>
                                     </a>
                                 </td>
@@ -258,4 +258,53 @@
                
             </div>
         </div>
-    </ng-template> 
+    </ng-template>
+
+    <!-- Inicia el modal  Cotizaciones -->
+    <ng-template #cotizacion let-c="close" let-d="dismiss">
+        <div class="modal-header">
+            <h4 class="modal-title text-muted">Cotizaciones</h4>
+        </div>
+        <div class="modal-body">
+            <!-- <form [formGroup]="form" (ngSubmit)="saveDash()"> -->
+            <div class="row div-space">
+                <div class="col">
+                    <h6 class="text-muted">Agregar Partida</h6>
+                    <input class="col form-control form-control-sm" name="partida" [(ngModel)]="partida">
+                    <input class="col form-control form-control-sm" name="cantidad" [(ngModel)]="cantidad">
+                    <input class="col form-control form-control-sm" name="precio" [(ngModel)]="precio">
+                    
+                </div>
+            </div>
+            <div class="modal-footer" style="margin: 20px">
+                <button class="btn btn-outline-success" type="submit" (click)="insertCotizacion(UnidadID, partida,cantidad,precio)">Agregar</button>
+            </div>
+            <div class="row div-space">
+                <div class="col">
+                    <table style="width:100%;font-size:11px">
+                        <thead class="blue-grey lighten-4">
+                            <tr>
+                                <th>#</th>
+                                <th>Partida</th>
+                                <th>Cantidad</th>
+                                <th>Precio</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="text-center" *ngFor="let cotizacion of cotizaciones; let i = index;">
+                                <td>{{ cotizacion.idUnidad }}</td>
+                                <td>{{ cotizacion.partida }}</td>
+                                <td>{{ cotizacion.cantidad }}</td>
+                                <td>{{ cotizacion.precio }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="modal-footer" style="margin: 20px">
+                <button type="button" class="btn btn-outline-danger" (click)="c('Close click');">Cerrar</button>
+            </div>
+            <!-- </form> -->
+        </div>
+    </ng-template>
