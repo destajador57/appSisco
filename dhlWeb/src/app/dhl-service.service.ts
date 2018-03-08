@@ -46,5 +46,5 @@ export class DhlServiceService {
 
     console.log(url);
     return this.http.get(url);
-  }
+  } 
 }

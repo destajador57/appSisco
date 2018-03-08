@@ -123,7 +123,7 @@ export class DashComponent implements OnInit {
     });
     console.log('fin constructor');
 
-
+ 
     this.unidades = [];
     this.comentarios = [];
     this.evidencias = [];
