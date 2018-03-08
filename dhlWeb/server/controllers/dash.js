@@ -61,4 +61,26 @@ dash.prototype.get_getcomentariobyid = function (req, res, next) {
     });
 };
 
+// "api/dash/getcotizacionbyid"
+dash.prototype.get_getcotizacionbyid = function (req, res, next) {
+    var self = this;
+    var idUnidad = req.query.idUnidad;
+    //console.log('QueryString = ' + req.query);
+
+    var params = [
+        { name: 'idUnidad', value: idUnidad, type: self.model.types.INT }
+    ];
+
+    this.model.query('WEB_DHL_GET_COTIZACION', params, function (error, result) {
+        //console.log('Parametros: ' + params);
+        if (result.length > 0) {
+            // console.log("resultaaaaaaa " + result[0]);
+        }
+        self.view.expositor(res, {
+            error: error,
+            result: result,
+        });
+    });
+};
+
 module.exports = dash;

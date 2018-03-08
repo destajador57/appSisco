@@ -17,7 +17,7 @@ var app = express();
 //APP_CITAS_VALIDA_LOGIN
 app.get('/Logea', function(req, res){
   // console.log(req);
-   ValidaLog(req,res,false);
+   ValidaLog(req,res);
 });
 
 //APP_CITAS_REGISTRAR_USUARIO
@@ -38,7 +38,7 @@ app.get('/Registra', function(req, res){
 			// console.log(recordSet);
 			dbConn.close();
 			if(msj === 'Usuario Registrado')
-				 ValidaLog(req,res,false);
+				 ValidaLog(req,res);
 			else
 				regreso('0','sql:'+msj,res);
         }).catch(function (err) {
@@ -67,18 +67,13 @@ function regreso(id,mensaje,res){
 
 
 
-function ValidaLog(req,res,bTaller){
-
-	var sp ="APP_CITAS_VALIDA_LOGIN";
-	if(bTaller) sp = "APP_CITAS_VALIDA_LOGIN_T";
-	
+function ValidaLog(req,res){
 	var dbConn = new sql.Connection(config); 
 	dbConn.connect().then(function () {
 		var request = new sql.Request(dbConn);
 		request.input ('nombreUsuario',req.query.user)
 		.input ('contrasenia',req.query.password)
-        .execute(sp).then(function (recordSet) { 
-			//console.log();
+        .execute("APP_CITAS_VALIDA_LOGIN").then(function (recordSet) { 
 			var msj =recordSet[0][0];
 			dbConn.close();
 			res.contentType('application/json');
@@ -94,24 +89,19 @@ function ValidaLog(req,res,bTaller){
 			// Se invoca el servicio RESTful con las opciones configuradas previamente y sin objeto JSON.
 			invocarServicio(conf.Notificaciones, null, function (data, err) {
 				//console.log(data);
-				if (err) { regreso('0','Error al conectar a las alertas: '+err.message,res); } 
+				if (err) { regreso('0',err.message,res); } 
 				else { 
-					if(msj){ 
-						msj.mensajes = data;
-						res.send(JSON.stringify(msj));
-					} else
-					{
-						regreso('0','No coinciden el usuario o la contraseña',res);
-					}
+					msj.mensajes = data; 
+					res.send(JSON.stringify(msj));
 				}
 			});
         }).catch(function (err) {
            dbConn.close();
-			regreso('0','SQL: ' + err.message,res);
+			regreso('0',err.message,res);
         });
     }).catch(function (err) {
 		dbConn.close();
-		regreso('0','Error: '+err.message,res);
+		regreso('0',err.message,res);
     });
 }
 
@@ -587,95 +577,6 @@ app.get('/RecuperaPsw', function(req, res){
 			res.header("Access-Control-Allow-Origin", "*");
 			res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   		res.send(msj);
-        }).catch(function (err) {
-           dbConn.close();
-		   regreso('0','Err1:'+err.message,res);
-        });
-    }).catch(function (err) {
-		dbConn.close();
-		regreso('0','Err2:'+err.message,res);
-    });
-});
-
-
-//  =========      Funciones para Mi Taller   =========  
-
-app.get('/LogeaTaller', function(req, res){
-	// console.log(req);
-	 ValidaLog(req,res,true);
-  });
-
-//APP_CITAS_GET_ORDENES_SIN_CONF
-app.get('/GetCitasPendientes', function(req, res){
-    var dbConn = new sql.Connection(config); 
-	   dbConn.connect().then(function () {
-        var request = new sql.Request(dbConn);
-		
-		request
-		.execute("APP_CITAS_GET_ORDENES_SIN_CONF").then(function (recordSet) { 
-			var msj = JSON.stringify(recordSet[0]);
-			dbConn.close();
-			res.contentType('application/json');
-			res.header("Access-Control-Allow-Origin", "*");
-			res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  
-			res.send(msj);
-        }).catch(function (err) {
-           dbConn.close();
-		   regreso('0','Err1:'+err.message,res);
-        });
-    }).catch(function (err) {
-		dbConn.close();
-		regreso('0','Err2:'+err.message,res);
-    });
-});
-
-// APP_CITAS_SET_CONFIRMACION
-app.get('/UpdateFecha', function(req, res){
-    var dbConn = new sql.Connection(config); 
-	   dbConn.connect().then(function () {
-        var request = new sql.Request(dbConn);
-		
-		request
-		.input ('UsuarioTaller',req.query.UsuarioTaller) // 0 = Taller , 1 = usuario
-		.input ('idOrden',req.query.idOrden)
-		.input ('Observacion',req.query.Observacion)
-		.input ('FechaConfir',req.query.FechaConfir)
-
-		.execute("APP_CITAS_SET_CONFIRMACION").then(function (recordSet) { 
-			var msj = recordSet[0][0];
-			dbConn.close();
-			
-			/*
-			if(msj){
-				var parametros = {
-					"App":3, // Mi taller
-					"VinPlaca":"1"
-				}
-				conf.Notificaciones.path = "/SetNotificacion";
-			
-				// Se invoca el servicio RESTful con las opciones configuradas previamente y sin objeto JSON.
-				invocarServicio(conf.Notificaciones, null, function (data, err) {
-					//console.log(data);
-					if (err) { regreso('0','Error al conectar a las alertas: '+err.message,res); } 
-					else { 
-						if(msj){ 
-							msj.mensajes = data;
-							res.send(JSON.stringify(msj));
-						} else
-						{
-							regreso('0','No coinciden el usuario o la contraseña',res);
-						}
-					}
-				});
-			}
-			*/
-
-			res.contentType('application/json');
-			res.header("Access-Control-Allow-Origin", "*");
-			res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  
-			res.send(JSON.stringify(msj));
         }).catch(function (err) {
            dbConn.close();
 		   regreso('0','Err1:'+err.message,res);
