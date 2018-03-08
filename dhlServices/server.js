@@ -458,7 +458,7 @@ app.get('/BuscarCoti', function(req,res){
 		request
 		.input ('idUnidad',req.query.idUnidad)
 		.execute("[WEB_DHL_GET_COTIZACION]").then(function (recordSet) {
-			var msj = JSON.stringify(recordSet[0][0]);
+			var msj = JSON.stringify(recordSet[0]);
 			
 			dbConn.close();
 			res.contentType('application/json');
@@ -476,7 +476,7 @@ app.get('/BuscarCoti', function(req,res){
     });
 });
 
-app.get('/InsertaCot',function(req, res){
+app.get('/InsertCoti',function(req, res){
     var dbConn = new sql.Connection(config); 
     dbConn.connect().then(function () {
         var request = new sql.Request(dbConn);
@@ -486,13 +486,13 @@ app.get('/InsertaCot',function(req, res){
 		.input('Precio',req.query.Precio)
 		.input('UsuarioId',req.query.UsuarioId)
 		.input('idUnidad',req.query.idUnidad)
-        .execute("[WEB_DHL_INS_COT]").then(function (recordSet) {
-			var msj = JSON.stringify(recordSet[0]);
+        .execute("WEB_DHL_INS_COT").then(function (recordSet) {
+			var msj = JSON.stringify(recordSet[0][0]);
 			dbConn.close();
 			res.contentType('application/json');
 			res.header("Access-Control-Allow-Origin", "*");
 			res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  		res.send(msj);
+  			res.send(msj);
         }).catch(function (err) {
            dbConn.close();
 		   regreso('0','Err1:'+err.message,res);
@@ -503,7 +503,7 @@ app.get('/InsertaCot',function(req, res){
     });
 });
 
-app.post('/GuardaOferta',function(req, res){
+app.get('/GuardaOferta',function(req, res){
     var dbConn = new sql.Connection(config); 
     dbConn.connect().then(function () {
         var request = new sql.Request(dbConn);
@@ -512,9 +512,12 @@ app.post('/GuardaOferta',function(req, res){
         .input ('idUnidad',req.query.idUnidad)
 		.input('monto',req.query.monto)
 		.input('estatus',req.query.estatus)
-        .execute("[WEB_DHL_GUARDA_OFERTA]").then(function (recordSet) {
+        .execute("WEB_DHL_GUARDA_OFERTA").then(function (recordSet) {
 			var msj = JSON.stringify(recordSet[0]);
 			dbConn.close();
+			res.contentType('application/json');
+			res.header("Access-Control-Allow-Origin", "*");
+			res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 			res.contentType('application/json');
 			res.header("Access-Control-Allow-Origin", "*");
 			res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
