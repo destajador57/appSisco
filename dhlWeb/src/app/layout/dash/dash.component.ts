@@ -81,6 +81,9 @@ export class DashComponent implements OnInit {
   // public data: object;
   idUnidad: number = 0;
   vin: number = 0;
+  UnidadID: number = 0;
+  UsuarioID = localStorage.getItem("user");
+  comentar : string ="";
 
   unidades: Array<any>;
   comentarios: Array<any>;
@@ -96,7 +99,7 @@ export class DashComponent implements OnInit {
     private dhlService: DhlServiceService,
     private domSanitizer: DomSanitizer,
     private _http: HttpClient) {
-      console.log('constructor');
+    console.log('constructor');
     this.form = fb.group({
       // "SelectTipoPromocion": this.SelectTipoPromocion,
       // "SelectEmpresa": this.SelectEmpresa,
@@ -108,6 +111,7 @@ export class DashComponent implements OnInit {
       // "RealImg": this.RealImg,
       // "typeImg": this.typeImg,
       "txt_idUnidad": this.txt_idUnidad,
+
     });
 
     this.formUpdate = fb.group({
@@ -141,7 +145,7 @@ export class DashComponent implements OnInit {
   getTablaDash(): void {
 
     console.log('dentro del metodo Consulta Unidades');
-  
+
     //const usuario = {Usuario: 'userweb', Password: 123};
     this.dhlService.GetUnidades().subscribe((res: Array<any>) => {
       console.log(res);
@@ -177,40 +181,88 @@ export class DashComponent implements OnInit {
     //     error => this.errorMessage = <any>error);
   }
 
-  saveDash() {
+  insertComentario(idUnidad, comentario) {
     swal({
-      title: '¿Guardar El Comentario?',
+      title: '¿Desea Ingresar el Comentario?' + idUnidad + " " + comentario + " " + this.UsuarioID,
       type: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Guardar',
+      confirmButtonText: 'Actualizar',
       cancelButtonText: 'Cancelar',
       confirmButtonClass: 'btn btn-success',
       cancelButtonClass: 'btn btn-danger',
       buttonsStyling: false,
     }).then((result) => {
       if (result.value) {
-        this._Dashservice.saveComentarios(this.form)
-          .subscribe(serverResponse => {
+
+        this.dhlService.InsertComentario(idUnidad, comentario, this.UsuarioID).subscribe((res: any) => {
+          console.log(res);
+          if (res && res.ok > 0) {
+            
+            //Llena Tabla Comentario 
+            this.dhlService.GetComentariosByUnidad(idUnidad).subscribe((res: Array<any>) => {
+              this.comentarios = res;
+            });
+            this.comentar = "";
+            console.log("Agrego Comentario");
+            
             swal(
               'Guardado',
-              'Se guardo la promción con éxito.',
+              'Comentario Guardado con Exito.',
               'success'
             );
-            // this.serverResponse = serverResponse;
-            // this.getTablaPromociones();
-          },
-            error => this.errorMessage = <any>error);
+          } else {
+
+            console.log('error en el login');
+            this.comentar = "";
+          }
+        });
+
       } else if (result.dismiss === 'cancel') {
         swal(
-          'Canelado',
-          'No se guardo la promoción',
+          'Cancelado',
+          'No se Ingreso Comentario.',
           'error'
-        );
+        )
       }
     });
   }
+
+  // saveDash() {
+  //   swal({
+  //     title: '¿Guardar El Comentario?',
+  //     type: 'warning',
+  //     showCancelButton: true,
+  //     confirmButtonColor: '#3085d6',
+  //     cancelButtonColor: '#d33',
+  //     confirmButtonText: 'Guardar',
+  //     cancelButtonText: 'Cancelar',
+  //     confirmButtonClass: 'btn btn-success',
+  //     cancelButtonClass: 'btn btn-danger',
+  //     buttonsStyling: false,
+  //   }).then((result) => {
+  //     if (result.value) {
+  //       this._Dashservice.saveComentarios(this.form)
+  //         .subscribe(serverResponse => {
+  //           swal(
+  //             'Guardado',
+  //             'Se guardo la promción con éxito.',
+  //             'success'
+  //           );
+  //           // this.serverResponse = serverResponse;
+  //           // this.getTablaPromociones();
+  //         },
+  //           error => this.errorMessage = <any>error);
+  //     } else if (result.dismiss === 'cancel') {
+  //       swal(
+  //         'Canelado',
+  //         'No se guardo la promoción',
+  //         'error'
+  //       );
+  //     }
+  //   });
+  // }
 
   //================================================================= M O D A L E S =================================================//
 
@@ -221,10 +273,14 @@ export class DashComponent implements OnInit {
     this.dhlService.GetComentariosByUnidad(idUnidad).subscribe((res: Array<any>) => {
       this.comentarios = res;
       this.temp_comentario = true;
-      console.log(idUnidad);
+      this.UnidadID = idUnidad;
+      // localStorage.getItem("user");
+
+      console.log("IDUnidad Modal", idUnidad);
       console.log(this.comentarios);
     });
   }
+
 
   openEvidencias(evidencia, idUnidad) {
     this.modalService.open(evidencia, { size: 'lg' });
@@ -237,7 +293,8 @@ export class DashComponent implements OnInit {
   }
     // this.getTablaPromociones();
 
-    //// Llena Grid de Comentarios By ID
+
+  //// Llena Grid de Comentarios By ID
   //   this._Dashservice.GetPromocion_ById({ idUnidad: idUnidad })
 
   //     .subscribe(resultadoComentariosById => {
