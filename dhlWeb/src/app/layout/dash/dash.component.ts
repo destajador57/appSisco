@@ -89,7 +89,7 @@ export class DashComponent implements OnInit {
   comentarios: Array<any>;
   evidencias: Array<any>;
   oferta: any;
-
+  modalReference: any;
   public temp_var: Object = false;
   temp_comentario = false;
 
@@ -202,9 +202,10 @@ export class DashComponent implements OnInit {
           console.log(res);
           if (res && res.ok > 0) {
             this.oferta = {};
-            this.dhlService.GetUnidades();
+            this.getTablaDash();
             console.log("Agrego oferta");
-            
+            this.modalReference.close();
+
             swal(
               'Guardado',
               'Oferta Guardada con Exito.',
@@ -247,8 +248,9 @@ export class DashComponent implements OnInit {
           console.log(res);
           if (res && res.ok > 0) {
             this.oferta = {};
-            this.dhlService.GetUnidades();
+            this.getTablaDash();
             console.log("Agrego oferta");
+            this.modalReference.close();
             
             swal(
               'Aprobada',
@@ -292,9 +294,10 @@ export class DashComponent implements OnInit {
           console.log(res);
           if (res && res.ok > 0) {
             this.oferta = {};
-            this.dhlService.GetUnidades();
+            this.getTablaDash();
             console.log("Agrego oferta");
-            
+            this.modalReference.close();
+
             swal(
               'Rechazada',
               'Oferta Rechazada con Exito.',
@@ -348,6 +351,7 @@ export class DashComponent implements OnInit {
               'Comentario Guardado con Exito.',
               'success'
             );
+
           } else {
 
             console.log('error en el login');
@@ -429,13 +433,13 @@ export class DashComponent implements OnInit {
   }
 
   openOfertas(content, unidad) {
-    this.modalService.open(content, { size: 'lg' });
+    this.modalReference = this.modalService.open(content, { size: 'lg' });
     this.oferta = {
       idUnidad: unidad.id,
       idUsuario: this.UsuarioID,
-      monto: unidad.montoOferta,
+      monto: unidad.monto,
       estatus: unidad.estatusOferta,
-      isNew: unidad.montoOferta == null || unidad.montoOferta == 0
+      isNew: unidad.monto == null || unidad.monto == 0
     };
   }
 

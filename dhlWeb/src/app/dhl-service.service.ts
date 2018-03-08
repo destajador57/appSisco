@@ -37,7 +37,7 @@ export class DhlServiceService {
   }
 
   AddOferta(oferta){
-    const url = this.urlService + 'SaveOferta';
+    const url = this.urlService + 'GuardaOferta';
     return this.http.post(url, oferta);
   }
 
