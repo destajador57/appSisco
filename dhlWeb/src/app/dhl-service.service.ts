@@ -37,8 +37,8 @@ export class DhlServiceService {
   }
 
   AddOferta(oferta){
-    const url = this.urlService + 'GuardaOferta';
-    return this.http.post(url, oferta);
+    const url = this.urlService + `GuardaOferta?idUsuario=${oferta.idUsuario}&idUnidad=${oferta.idUnidad}&monto=${oferta.monto}&estatus=${oferta.estatus}`;
+    return this.http.get(url);
   }
 
   GetEvidenciasByUnidad(idUnidad) {

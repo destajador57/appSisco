@@ -146,7 +146,7 @@ export class DashComponent implements OnInit {
   getTablaDash(): void {
 
     console.log('dentro del metodo Consulta Unidades');
-
+    this.unidades = [];
     //const usuario = {Usuario: 'userweb', Password: 123};
     this.dhlService.GetUnidades().subscribe((res: Array<any>) => {
       console.log(res);
@@ -200,11 +200,12 @@ export class DashComponent implements OnInit {
 
         this.dhlService.AddOferta(oferta).subscribe((res: any) => {
           console.log(res);
-          if (res && res.ok > 0) {
+          if (res && res.length > 0 && res[0].UnidadId > 0) {
             this.oferta = {};
-            this.getTablaDash();
             console.log("Agrego oferta");
             this.modalReference.close();
+            oferta.unidad.monto = res[0].Monto;
+            oferta.unidad.estatusOferta = res[0].Estatus;
 
             swal(
               'Guardado',
@@ -246,11 +247,12 @@ export class DashComponent implements OnInit {
 
         this.dhlService.AddOferta(oferta).subscribe((res: any) => {
           console.log(res);
-          if (res && res.ok > 0) {
+          if (res && res.length > 0 && res[0].UnidadId > 0) {
             this.oferta = {};
-            this.getTablaDash();
             console.log("Agrego oferta");
             this.modalReference.close();
+            oferta.unidad.monto = res[0].Monto;
+            oferta.unidad.estatusOferta = res[0].Estatus;
             
             swal(
               'Aprobada',
@@ -292,12 +294,12 @@ export class DashComponent implements OnInit {
 
         this.dhlService.AddOferta(oferta).subscribe((res: any) => {
           console.log(res);
-          if (res && res.ok > 0) {
+          if (res && res.length > 0 && res[0].UnidadId > 0) {
             this.oferta = {};
-            this.getTablaDash();
             console.log("Agrego oferta");
+            oferta.unidad.monto = res[0].Monto;
+            oferta.unidad.estatusOferta = res[0].Estatus;
             this.modalReference.close();
-
             swal(
               'Rechazada',
               'Oferta Rechazada con Exito.',
@@ -439,7 +441,8 @@ export class DashComponent implements OnInit {
       idUsuario: this.UsuarioID,
       monto: unidad.monto,
       estatus: unidad.estatusOferta,
-      isNew: unidad.monto == null || unidad.monto == 0
+      isNew: unidad.monto == null || unidad.monto == 0,
+      unidad: unidad
     };
   }
 
