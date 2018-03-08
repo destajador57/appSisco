@@ -1,7 +1,7 @@
 {
     "Datos" :  
     {
-        "server": "192.168.20.71",
+        "server": "192.168.20.18",
         "database": "MIAUTO",
         "user": "sa",
         "password": "S0p0rt3",
