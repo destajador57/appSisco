@@ -9,7 +9,7 @@
     },
     "Notificaciones" :
     {
-        "host": "192.168.20.71",
+        "host": "localhost",
         "port": 4860,
         "path": "",
         "method": "GET",

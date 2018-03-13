@@ -76,20 +76,21 @@ function ValidaLog(req,res,bTaller){
 			//console.log();
  			var msj =recordSet[0][0];
  			dbConn.close();
-			 res.contentType('application/json');
+			res.contentType('application/json');
+			res.header("Access-Control-Allow-Origin", "*");
+			res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 			 
-			 var parametros = {
-				"App":3, // Mi taller
-				"VinPlaca":"1"
+			var parametros = {
+				App:"1", // Mi taller
+				VinPlaca:"1"
 			}
 			conf.Notificaciones.path = "/GetNotificationMobile";
-
+			/*
 			// Se invoca el servicio RESTful con las opciones configuradas previamente y sin objeto JSON.
- 			invocarServicio(conf.Notificaciones, null, function (data, err) {
- 				//console.log(data);
+ 			invocarServicio(conf.Notificaciones,JSON.stringify(parametros), function (data, err) {
+ 				console.log(err);
 				if (err) { regreso('0','Error al conectar a las alertas: '+err.message,res); } 
  				else { 
-				msj.mensajes = data; 
 					if(msj){ 
 						msj.mensajes = data;
 						res.send(JSON.stringify(msj));
@@ -98,7 +99,10 @@ function ValidaLog(req,res,bTaller){
 						regreso('0','No coinciden el usuario o la contraseña',res);
 					}
  				}
- 			});
+			 });
+			 */
+				msj.mensajes = [];
+				res.send(JSON.stringify(msj));
          }).catch(function (err) {
             dbConn.close();
 			regreso('0','SQL: ' + err.message,res);
@@ -154,9 +158,10 @@ function invocarServicio(options, jsonObject, next) {
  
     // Si la petición tiene datos estos se envían con la request
     if (jsonObject) {
+		console.log(jsonObject);
         req.write(jsonObject);
     }
- 
+	
     req.end();
 };
 
@@ -500,8 +505,9 @@ app.get('/CitaServicios', function(req, res){
     var dbConn = new sql.Connection(config); 
 	   dbConn.connect().then(function () {
         var request = new sql.Request(dbConn);
-		
+		//console.log(req.query.idUnidad);
 		request
+		.input ('idUnidad',req.query.idUnidad)
 		.execute("APP_CITAS_GET_SERVICIOS").then(function (recordSet) { 
 			var msj = JSON.stringify(recordSet[0]);
 			dbConn.close();
@@ -608,6 +614,7 @@ app.get('/GetCitasPendientes', function(req, res){
         var request = new sql.Request(dbConn);
 		
 		request
+		.input ('idUsuario',req.query.idUsuario)
 		.execute("APP_CITAS_GET_ORDENES_SIN_CONF").then(function (recordSet) { 
 			var msj = JSON.stringify(recordSet[0]);
 			dbConn.close();
@@ -616,6 +623,31 @@ app.get('/GetCitasPendientes', function(req, res){
 			res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   
 			res.send(msj);
+        }).catch(function (err) {
+           dbConn.close();
+		   regreso('0','Err1:'+err.message,res);
+        });
+    }).catch(function (err) {
+		dbConn.close();
+		regreso('0','Err2:'+err.message,res);
+    });
+});
+
+//APP_CITAS_GET_Mensajes
+app.get('/APP_CITAS_GET_Mensajes', function(req, res){
+    var dbConn = new sql.Connection(config); 
+	   dbConn.connect().then(function () {
+        var request = new sql.Request(dbConn);
+		
+		request
+		.input ('idOrden',req.query.idOrden)
+		.execute("APP_CITAS_GET_Mensajes").then(function (recordSet) { 
+			var msj = JSON.stringify(recordSet[0]);
+			dbConn.close();
+			res.contentType('application/json');
+			res.header("Access-Control-Allow-Origin", "*");
+			res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  			res.send(msj);
         }).catch(function (err) {
            dbConn.close();
 		   regreso('0','Err1:'+err.message,res);
