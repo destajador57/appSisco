@@ -351,6 +351,7 @@ app.get('/GetKilometros', function(req, res){
 				kil.longitud = recordSet[0][0].longitud;
 				kil.latitud = recordSet[0][0].latitud;
 				kil.kilometros = recordSet[0][0].kilometros;
+				kil.fecha = recordSet[0][0].fecha;
 			}
 
 			dbConn.close();
